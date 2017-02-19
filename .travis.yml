@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+before_script:
+  - mkdir -p ~/.m2
+  - cp sandbox/settings.xml ~/.m2/settings.xml
+script:
+  - ./build.sh
+notifications:
+  email: false

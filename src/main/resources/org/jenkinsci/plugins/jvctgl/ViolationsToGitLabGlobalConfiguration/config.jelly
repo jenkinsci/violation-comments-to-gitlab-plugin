@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core"
+         xmlns:d="jelly:define"
+         xmlns:f="/lib/form"
+         xmlns:l="/lib/layout"
+         xmlns:st="jelly:stapler"
+         xmlns:t="/lib/hudson"
+         xmlns:c="/lib/credentials">
+ <f:section title="GitLab Violations Server Defaults">
+
+  <f:entry title="API token Crendential" field="apiTokenCredentialsId">
+    <c:select />
+  </f:entry>
+
+  <f:entry title="API token" field="apiToken">
+    <f:password value="${config.apiToken}" />
+  </f:entry>
+
+  <f:entry title="Private token">
+    <f:checkbox name="apiTokenPrivate" checked="${config.apiTokenPrivate}"/>
+  </f:entry>
+
+  <f:entry title="Authenticate with header">
+    <f:checkbox name="authMethodHeader" checked="${config.authMethodHeader}"/>
+  </f:entry>
+
+  <f:entry title="Base URL" field="gitLabUrl">
+    <f:textbox value="${gitLabUrl}" />
+  </f:entry>
+
+  <f:entry title="Ignore Certificate Errors">
+    <f:checkbox name="ignoreCertificateErrors" checked="${config.ignoreCertificateErrors}"/>
+  </f:entry>
+
+ </f:section>
+</j:jelly>
