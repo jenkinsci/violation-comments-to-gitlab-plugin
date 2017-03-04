@@ -8,7 +8,7 @@ You can have a look at [violations-test](https://gitlab.com/tomas.bjerre85/viola
 
 Available in Jenkins [here](https://wiki.jenkins-ci.org/display/JENKINS/Violation+Comments+to+GitLab+Plugin).
 
-You can get the variables you need from the [GitLab plugin](https://github.com/jenkinsci/gitlab-plugin) or [GitLab Merge Request Builder Plugin](https://github.com/timols/jenkins-gitlab-merge-request-builder-plugin).
+You can get the variables you need from the [Generic Webhook Trigger plugin](https://github.com/tomasbjerre/generic-webhook-trigger-plugin), [GitLab plugin](https://github.com/jenkinsci/gitlab-plugin) or [GitLab Merge Request Builder Plugin](https://github.com/timols/jenkins-gitlab-merge-request-builder-plugin).
 
 It supports:
  * [_AndoidLint_](http://developer.android.com/tools/help/lint.html)
