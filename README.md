@@ -1,6 +1,6 @@
 # Violation Comments to GitLab Plugin
 
-[![Build Status](https://jenkins.ci.cloudbees.com/job/plugins/job/violation-comments-to-gitlab-plugin/badge/icon)](https://jenkins.ci.cloudbees.com/job/plugins/job/violation-comments-to-gitlab-plugin/)
+[![Build Status](https://ci.jenkins.io/job/Plugins/job/violation-comments-to-gitlab-plugin/job/master/badge/icon)](https://ci.jenkins.io/job/Plugins/job/violation-comments-to-gitlab-plugin)
 
 This is a Jenkins plugin for [Violation Comments to GitLab Lib](https://github.com/tomasbjerre/violation-comments-to-gitlab-lib). This plugin will find report files from static code analysis and comment GitLab pull requests with the content.
 
@@ -8,7 +8,23 @@ You can have a look at [violations-test](https://gitlab.com/tomas.bjerre85/viola
 
 Available in Jenkins [here](https://wiki.jenkins-ci.org/display/JENKINS/Violation+Comments+to+GitLab+Plugin).
 
-You can get the variables you need from the [Generic Webhook Trigger plugin](https://github.com/tomasbjerre/generic-webhook-trigger-plugin), [GitLab plugin](https://github.com/jenkinsci/gitlab-plugin) or [GitLab Merge Request Builder Plugin](https://github.com/timols/jenkins-gitlab-merge-request-builder-plugin).
+You can get the variables you need from the [Generic Webhook Trigger plugin](https://github.com/jenkinsci/generic-webhook-trigger-plugin), [GitLab plugin](https://github.com/jenkinsci/gitlab-plugin) or [GitLab Merge Request Builder Plugin](https://github.com/timols/jenkins-gitlab-merge-request-builder-plugin).
+
+You must perform the merge before doing the analysis for the lines to match the lines in the pull request.
+
+```
+Shell script build step
+git clone $TOREPO
+cd *
+git reset --hard $TO
+git status
+git remote add from $FROMREPO
+git fetch from
+git merge $FROM
+git --no-pager log --max-count=10 --graph --abbrev-commit
+
+your build command here!
+```
 
 It supports:
  * [_AndoidLint_](http://developer.android.com/tools/help/lint.html)
