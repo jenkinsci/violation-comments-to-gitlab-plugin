@@ -70,24 +70,150 @@ It supports:
 
 ## Job DSL Plugin
 
-This plugin can be used with the Job DSL Plugin.
+This plugin can be used with the Job DSL Plugin. Here is an example using [Generic Webhook Trigger plugin](https://github.com/jenkinsci/generic-webhook-trigger-plugin), [HTTP Request Plugin](https://wiki.jenkins-ci.org/display/JENKINS/HTTP+Request+Plugin) and [Conditional BuildStep Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin).
 
 ```
-job('example') {
+job('GitLab_MR_Builder') {
+ concurrentBuild()
+ parameters {
+  stringParam('MERGE_REQUEST_TO_URL', '')
+  stringParam('MERGE_REQUEST_FROM_URL', '')
+  stringParam('MERGE_REQUEST_TO_BRANCH', '')
+  stringParam('MERGE_REQUEST_FROM_BRANCH', '')
+ }
+ scm {
+  git {
+   remote {
+    name('origin')
+    url('$MERGE_REQUEST_TO_URL')
+   }
+   remote {
+    name('upstream')
+    url('$MERGE_REQUEST_FROM_URL')
+   }
+   branch('$MERGE_REQUEST_FROM_BRANCH')
+   extensions {
+    mergeOptions {
+     remote('upstream')
+     branch('$MERGE_REQUEST_TO_BRANCH')
+    }
+   }
+  }
+ }
+ triggers {
+  genericTrigger {
+   genericVariables {
+    genericVariable {
+     key("MERGE_REQUEST_TO_URL")
+     value("\$.object_attributes.target.git_http_url")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUEST_FROM_URL")
+     value("\$.object_attributes.source.git_http_url")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUEST_TO_BRANCH")
+     value("\$.object_attributes.target_branch")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUEST_FROM_BRANCH")
+     value("\$.object_attributes.source_branch")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("PROJECT_ID")
+     value("\$.object_attributes.target_project_id")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUST_ID")
+     value("\$.object_attributes.id")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("OBJECT_KIND")
+     value("\$.object_kind")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+   }
+   regexpFilterText("\$OBJECT_KIND")
+   regexpFilterExpression("merge_request")
+  }
+ }
+ steps {
+  httpRequest {
+   url("http://gitlab:880/api/v3/projects/\$PROJECT_ID/merge_requests/\$MERGE_REQUST_ID/notes?private_token=AvAkp6HtUvzpesPypXSk")
+   consoleLogResponseBody(true)
+   httpMode("POST")
+   requestBody('body=Building... %20\$BUILD_URL')
+   }
+
+  shell('./gradlew build')
+
+  conditionalBuilder {
+   runCondition {
+    statusCondition {
+     worstResult('SUCCESS')
+     bestResult('SUCCESS')
+    }
+    runner {
+     runUnstable()
+    }
+    conditionalbuilders {
+     httpRequest {
+      url('http://gitlab:880/api/v3/projects/\$PROJECT_ID/merge_requests/\$MERGE_REQUST_ID/notes?private_token=AvAkp6HtUvzpesPypXSk')
+      consoleLogResponseBody(true)
+      httpMode('POST')
+      requestBody('body=SUCCESS%20\$BUILD_URL')
+     }
+    }
+   }
+  }
+
+  conditionalBuilder {
+   runCondition {
+    statusCondition {
+     worstResult('FAILURE')
+     bestResult('FAILURE')
+    }
+    runner {
+     runUnstable()
+    }
+    conditionalbuilders {
+     httpRequest {
+      url('http://gitlab:880/api/v3/projects/\$PROJECT_ID/merge_requests/\$MERGE_REQUST_ID/notes?private_token=AvAkp6HtUvzpesPypXSk')
+      consoleLogResponseBody(true)
+      httpMode('POST')
+      requestBody('body=FAIL%20\$BUILD_URL')
+     }
+    }
+   }
+  }
+ }
  publishers {
   violationsToGitLabRecorder {
    config {
-    gitLabUrl("https://gitlab.com/")
-    projectId(123)
-    mergeRequestId(456)
+    gitLabUrl("http://gitlab:880/")
+    projectId("\$PROJECT_ID")
+    mergeRequestId("\$MERGE_REQUST_ID")
 
     commentOnlyChangedContent(true)
     createCommentWithAllSingleFileComments(true)
 
     useApiToken(true)
-    apiToken("")
+    apiToken("AvAkp6HtUvzpesPypXSk")
     useApiTokenCredentials(false)
-    apiTokenCredentialsId("id")
+    apiTokenCredentialsId("")
     apiTokenPrivate(true)
     authMethodHeader(true)
     ignoreCertificateErrors(true)
@@ -96,6 +222,10 @@ job('example') {
      violationConfig {
       reporter("FINDBUGS")
       pattern(".*/findbugs/.*\\.xml\$")
+     }
+     violationConfig {
+      reporter("CHECKSTYLE")
+      pattern(".*/checkstyle/.*\\.xml\$")
      }
     }
    }
