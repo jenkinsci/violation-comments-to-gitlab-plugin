@@ -6,7 +6,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 **doc**
 
 
-[58a8f41008414ea](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/58a8f41008414ea7c9c924e8bd3eba1b0e773087) Tomas Bjerre *2017-03-04 19:57:10*
+[7e25d0de1f34d17](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/7e25d0de1f34d170b739908ce33cd5fdbfd93fdd) Tomas Bjerre *2017-03-14 18:31:23*
+
+**Jenkinsfile**
+
+
+[b8e058e54415664](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/b8e058e544156641809e94022fabcb2e0fd66070) Tomas Bjerre *2017-03-10 17:38:13*
 
 
 ## 1.1

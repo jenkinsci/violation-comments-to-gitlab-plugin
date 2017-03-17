@@ -10,6 +10,7 @@ import hudson.Extension;
 import hudson.util.ListBoxModel;
 import jenkins.model.GlobalConfiguration;
 import net.sf.json.JSONObject;
+import se.bjurr.violations.lib.model.SEVERITY;
 
 @Extension
 public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
@@ -34,6 +35,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   private Boolean apiTokenPrivate;
   private Boolean authMethodHeader;
   private String apiTokenCredentialsId;
+  private SEVERITY minSeverity;
 
   public ViolationsToGitLabGlobalConfiguration() {
     load();
@@ -77,6 +79,15 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
+  public void setMinSeverity(SEVERITY minSeverity) {
+    this.minSeverity = minSeverity;
+  }
+
+  public SEVERITY getMinSeverity() {
+    return minSeverity;
+  }
+
+  @DataBoundSetter
   public void setApiTokenCredentialsId(String apiTokenCredentialsId) {
     this.apiTokenCredentialsId = apiTokenCredentialsId;
   }
@@ -109,6 +120,82 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (apiToken == null ? 0 : apiToken.hashCode());
+    result =
+        prime * result + (apiTokenCredentialsId == null ? 0 : apiTokenCredentialsId.hashCode());
+    result = prime * result + (apiTokenPrivate == null ? 0 : apiTokenPrivate.hashCode());
+    result = prime * result + (authMethodHeader == null ? 0 : authMethodHeader.hashCode());
+    result = prime * result + (gitLabUrl == null ? 0 : gitLabUrl.hashCode());
+    result =
+        prime * result + (ignoreCertificateErrors == null ? 0 : ignoreCertificateErrors.hashCode());
+    result = prime * result + (minSeverity == null ? 0 : minSeverity.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    ViolationsToGitLabGlobalConfiguration other = (ViolationsToGitLabGlobalConfiguration) obj;
+    if (apiToken == null) {
+      if (other.apiToken != null) {
+        return false;
+      }
+    } else if (!apiToken.equals(other.apiToken)) {
+      return false;
+    }
+    if (apiTokenCredentialsId == null) {
+      if (other.apiTokenCredentialsId != null) {
+        return false;
+      }
+    } else if (!apiTokenCredentialsId.equals(other.apiTokenCredentialsId)) {
+      return false;
+    }
+    if (apiTokenPrivate == null) {
+      if (other.apiTokenPrivate != null) {
+        return false;
+      }
+    } else if (!apiTokenPrivate.equals(other.apiTokenPrivate)) {
+      return false;
+    }
+    if (authMethodHeader == null) {
+      if (other.authMethodHeader != null) {
+        return false;
+      }
+    } else if (!authMethodHeader.equals(other.authMethodHeader)) {
+      return false;
+    }
+    if (gitLabUrl == null) {
+      if (other.gitLabUrl != null) {
+        return false;
+      }
+    } else if (!gitLabUrl.equals(other.gitLabUrl)) {
+      return false;
+    }
+    if (ignoreCertificateErrors == null) {
+      if (other.ignoreCertificateErrors != null) {
+        return false;
+      }
+    } else if (!ignoreCertificateErrors.equals(other.ignoreCertificateErrors)) {
+      return false;
+    }
+    if (minSeverity != other.minSeverity) {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
   public String toString() {
     return "ViolationsToGitLabGlobalConfiguration [gitLabUrl="
         + gitLabUrl
@@ -122,6 +209,8 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
         + authMethodHeader
         + ", apiTokenCredentialsId="
         + apiTokenCredentialsId
+        + ", minSeverity="
+        + minSeverity
         + "]";
   }
 }

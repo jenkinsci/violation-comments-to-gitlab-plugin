@@ -9,6 +9,8 @@ import java.util.List;
 import org.jenkinsci.plugins.jvctgl.ViolationsToGitLabGlobalConfiguration;
 import org.kohsuke.stapler.DataBoundConstructor;
 
+import se.bjurr.violations.lib.model.SEVERITY;
+
 public class ViolationsToGitLabConfig implements Serializable {
   private static final long serialVersionUID = 4851568645021422528L;
 
@@ -25,6 +27,7 @@ public class ViolationsToGitLabConfig implements Serializable {
   private Boolean ignoreCertificateErrors;
   private Boolean apiTokenPrivate;
   private Boolean authMethodHeader;
+  private SEVERITY minSeverity;
 
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
@@ -40,7 +43,8 @@ public class ViolationsToGitLabConfig implements Serializable {
       boolean ignoreCertificateErrors,
       boolean apiTokenPrivate,
       boolean authMethodHeader,
-      boolean useApiToken) {
+      boolean useApiToken,
+      SEVERITY minSeverity) {
     List<ViolationConfig> allViolationConfigs = includeAllReporters(violationConfigs);
 
     this.commentOnlyChangedContent = commentOnlyChangedContent;
@@ -56,6 +60,7 @@ public class ViolationsToGitLabConfig implements Serializable {
     this.apiTokenPrivate = apiTokenPrivate;
     this.authMethodHeader = authMethodHeader;
     this.useApiToken = useApiToken;
+    this.minSeverity = minSeverity;
   }
 
   public ViolationsToGitLabConfig(ViolationsToGitLabConfig rhs) {
@@ -73,6 +78,7 @@ public class ViolationsToGitLabConfig implements Serializable {
     this.apiTokenPrivate = rhs.apiTokenPrivate;
     this.authMethodHeader = rhs.authMethodHeader;
     this.useApiToken = rhs.useApiToken;
+    this.minSeverity = rhs.minSeverity;
   }
 
   public ViolationsToGitLabConfig() {
@@ -101,6 +107,9 @@ public class ViolationsToGitLabConfig implements Serializable {
     }
     if (authMethodHeader == null) {
       this.authMethodHeader = defaults.isAuthMethodHeader();
+    }
+    if (this.minSeverity == null) {
+      this.minSeverity = defaults.getMinSeverity();
     }
   }
 
@@ -198,6 +207,14 @@ public class ViolationsToGitLabConfig implements Serializable {
     this.createCommentWithAllSingleFileComments = createCommentWithAllSingleFileComments;
   }
 
+  public SEVERITY getMinSeverity() {
+    return minSeverity;
+  }
+
+  public void setMinSeverity(SEVERITY minSeverity) {
+    this.minSeverity = minSeverity;
+  }
+
   public Boolean getUseApiToken() {
     return useApiToken;
   }
@@ -254,6 +271,8 @@ public class ViolationsToGitLabConfig implements Serializable {
         + apiTokenPrivate
         + ", authMethodHeader="
         + authMethodHeader
+        + ", minSeverity="
+        + minSeverity
         + "]";
   }
 
@@ -272,6 +291,7 @@ public class ViolationsToGitLabConfig implements Serializable {
     result =
         prime * result + (ignoreCertificateErrors == null ? 0 : ignoreCertificateErrors.hashCode());
     result = prime * result + (mergeRequestId == null ? 0 : mergeRequestId.hashCode());
+    result = prime * result + (minSeverity == null ? 0 : minSeverity.hashCode());
     result = prime * result + (projectId == null ? 0 : projectId.hashCode());
     result = prime * result + (useApiToken == null ? 0 : useApiToken.hashCode());
     result =
@@ -345,6 +365,9 @@ public class ViolationsToGitLabConfig implements Serializable {
         return false;
       }
     } else if (!mergeRequestId.equals(other.mergeRequestId)) {
+      return false;
+    }
+    if (minSeverity != other.minSeverity) {
       return false;
     }
     if (projectId == null) {

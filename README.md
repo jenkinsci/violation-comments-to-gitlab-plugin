@@ -209,6 +209,7 @@ job('GitLab_MR_Builder') {
 
     commentOnlyChangedContent(true)
     createCommentWithAllSingleFileComments(true)
+    minSeverity('INFO')
 
     useApiToken(true)
     apiToken("AvAkp6HtUvzpesPypXSk")
@@ -262,7 +263,8 @@ node {
    mergeRequestId: 456,
 
    commentOnlyChangedContent: true,
-   createCommentWithAllSingleFileComments: true,
+   createCommentWithAllSingleFileComments: true, 
+   minSeverity: 'INFO',
 
    useApiToken: true,
    apiToken: '',

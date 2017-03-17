@@ -23,6 +23,7 @@ public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_IGNORECERTIFICATEERRORS = "ignoreCertificateErrors";
   public static final String FIELD_APITOKENPRIVATE = "apiTokenPrivate";
   public static final String FIELD_AUTHMETHODHEADER = "authMethodHeader";
+  public static final String FIELD_MINSEVERITY = "minSeverity";
 
   public static ViolationsToGitLabConfig createNewConfig() {
     ViolationsToGitLabConfig config = new ViolationsToGitLabConfig();

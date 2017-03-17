@@ -21,6 +21,7 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKENCREDENTIALS;
@@ -54,7 +55,9 @@ import hudson.FilePath.FileCallable;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.remoting.VirtualChannel;
+import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
+import se.bjurr.violations.lib.util.Filtering;
 
 public class JvctglPerformer {
 
@@ -72,12 +75,17 @@ public class JvctglPerformer {
     final List<Violation> allParsedViolations = newArrayList();
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       if (!isNullOrEmpty(violationConfig.getPattern())) {
-        final List<Violation> parsedViolations =
+        List<Violation> parsedViolations =
             violationsReporterApi() //
                 .findAll(violationConfig.getReporter()) //
                 .inFolder(workspace.getAbsolutePath()) //
                 .withPattern(violationConfig.getPattern()) //
                 .violations();
+        SEVERITY minSeverity = config.getMinSeverity();
+        if (minSeverity != null) {
+          parsedViolations = Filtering.withAtLEastSeverity(parsedViolations, minSeverity);
+        }
+
         allParsedViolations.addAll(parsedViolations);
         listener
             .getLogger()
@@ -148,6 +156,7 @@ public class JvctglPerformer {
     expanded.setCommentOnlyChangedContent(config.getCommentOnlyChangedContent());
     expanded.setCreateCommentWithAllSingleFileComments(
         config.getCreateCommentWithAllSingleFileComments());
+    expanded.setMinSeverity(config.getMinSeverity());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       final ViolationConfig p = new ViolationConfig();
@@ -233,6 +242,8 @@ public class JvctglPerformer {
     listener
         .getLogger()
         .println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
+
+    listener.getLogger().println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       listener

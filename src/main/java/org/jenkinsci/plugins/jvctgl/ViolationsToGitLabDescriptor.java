@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.jvctgl;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
@@ -9,6 +10,7 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PATTERN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
@@ -26,6 +28,7 @@ import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Publisher;
 import hudson.util.ListBoxModel;
 import net.sf.json.JSONObject;
+import se.bjurr.violations.lib.model.SEVERITY;
 
 public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publisher> {
   private ViolationsToGitLabConfig config;
@@ -90,6 +93,13 @@ public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publ
     config.setApiTokenPrivate(formData.getBoolean(FIELD_APITOKENPRIVATE));
     config.setIgnoreCertificateErrors(
         formData.getString(FIELD_IGNORECERTIFICATEERRORS).equalsIgnoreCase("true"));
+
+    String minSeverityString = formData.getString(FIELD_MINSEVERITY);
+    if (!isNullOrEmpty(minSeverityString)) {
+      config.setMinSeverity(SEVERITY.valueOf(minSeverityString));
+    } else {
+      config.setMinSeverity(null);
+    }
 
     int i = 0;
     for (String pattern : (List<String>) formData.get(FIELD_PATTERN)) {
