@@ -3,6 +3,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Allow filtering on severity**
+
+ * And reducing logging in server log. 
+
+[f2438c25e94162b](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/f2438c25e94162bb10875d67bd53737a5a4a544c) Tomas Bjerre *2017-03-17 19:44:18*
+
 **doc**
 
 
