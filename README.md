@@ -75,6 +75,7 @@ This plugin can be used with the Job DSL Plugin. Here is an example using [Gener
 ```
 job('GitLab_MR_Builder') {
  concurrentBuild()
+ quietPeriod(0)
  parameters {
   stringParam('MERGE_REQUEST_TO_URL', '')
   stringParam('MERGE_REQUEST_FROM_URL', '')

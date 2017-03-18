@@ -1,6 +1,15 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 1.3
+### No issue
+
+**Persisting severity filter on global config**
+
+
+[222665cc5b92adb](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/222665cc5b92adb16208d89f61d4f5e9a68e9129) Tomas Bjerre *2017-03-17 20:57:23*
+
+
+## 1.2
 ### No issue
 
 **Allow filtering on severity**
