@@ -1,5 +1,19 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 1.4
+### No issue
+
+**Klocwork parser**
+
+
+[03d28f8442fd2cd](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/03d28f8442fd2cd49cafaaf4898596a4daac9d18) Tomas Bjerre *2017-03-30 17:39:30*
+
+**doc**
+
+
+[2d9ed88aac0ab80](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/2d9ed88aac0ab8056720ef075fc1bf3ac8372c9a) Tomas Bjerre *2017-03-18 19:25:05*
+
+
 ## 1.3
 ### No issue
 
