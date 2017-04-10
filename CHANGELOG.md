@@ -1,5 +1,19 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 1.5
+### No issue
+
+**SbtScalac**
+
+
+[895fe8717e5a255](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/895fe8717e5a255b69e2b9812f329a78d0bcf0dc) Tomas Bjerre *2017-04-10 18:42:20*
+
+**doc**
+
+
+[38c25c7f2d22f4e](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/38c25c7f2d22f4ebcef8a85be4eea3c388e3e2bb) Tomas Bjerre *2017-04-10 17:31:51*
+
+
 ## 1.4
 ### No issue
 
