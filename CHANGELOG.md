@@ -1,5 +1,28 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 1.7
+### No issue
+
+**Allow String as projectId**
+
+
+[318bde3205e8ed6](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/318bde3205e8ed62f4e37844686fd35fd4ccd93e) Tomas Bjerre *2017-04-21 17:00:23*
+
+
+## 1.6
+### No issue
+
+**URL in Klocwork**
+
+
+[8f123582ea0373f](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/8f123582ea0373f9237d782c4e685a64d8280559) Tomas Bjerre *2017-04-11 18:29:45*
+
+**doc**
+
+
+[4e252dd22d077f8](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/4e252dd22d077f8ef7fa079fac916d6b65506ed2) Tomas Bjerre *2017-04-10 20:17:24*
+
+
 ## 1.5
 ### No issue
 

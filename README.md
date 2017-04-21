@@ -242,49 +242,66 @@ job('GitLab_MR_Builder') {
 
 ## Pipeline Plugin
 
-This plugin can be used with the Pipeline Plugin:
+Here is an example pipeline that will merge, run unit tests, run static code analysis and finally report back to GitLab. It requires the [GitLab Plugin](https://github.com/jenkinsci/gitlab-plugin).
 
 ```
+def commentMr(String comment) {
+ // Not allowed to use java.net.URLEncoder.encode
+ def body = comment
+  .replaceAll(" ","%20")
+  .replaceAll("/","%2F")
+ sh "curl http://gitserver/api/v3/projects/project/merge_requests/$gitlabMergeRequestId/notes -H 'PRIVATE-TOKEN: 12398xasdasd987asda' -X POST -d \"body="+body+"\""
+}
+ 
 node {
+ def mvnHome = tool 'Maven 3.3.9'
+ deleteDir()
+ currentBuild.description = "$gitlabMergeRequestTitle $gitlabSourceBranch http://gitserver/grp/proj/merge_requests/$gitlabMergeRequestIid"
+ 
+ commentMr("Verifierar $gitlabSourceBranch... ${BUILD_URL}")
+ 
+ stage('Merge') {
+  sh "git init"
+  sh "git fetch --no-tags --progress git@git:group/reponame.git +refs/heads/*:refs/remotes/origin/* --depth=200"
+  sh "git checkout origin/${env.gitlabTargetBranch}"
+  sh "git merge origin/${env.gitlabSourceBranch}"
+  sh "git log --graph --abbrev-commit --max-count=10"
+ }
+ 
+ stage('Unit test') {
+  sh "${mvnHome}/bin/mvn clean package -Dmaven.test.failure.ignore=false -Dcheckstyle.skip=true -Dfindbugs.skip=true -Dsurefire.skip=true -Dmaven.compile.fork=true -Dmaven.javadoc.skip=true"
+ 
+  commentMr("Tester ok i $gitlabSourceBranch =) ${BUILD_URL}")
+ }
+ 
+ 
+ stage('Static code analysis') {
+  sh "${mvnHome}/bin/mvn package -DskipTests -Dmaven.test.failure.ignore=false -Dsurefire.skip=true -Dmaven.compile.fork=true -Dmaven.javadoc.skip=true"
 
- checkout([
-  $class: 'GitSCM', 
-  branches: [[ name: '*/master' ]], 
-  doGenerateSubmoduleConfigurations: false,
-  extensions: [],
-  submoduleCfg: [],
-  userRemoteConfigs: [[ url: 'https://gitlab.com/tomas.bjerre85/violations-test.git' ]]
- ])
-
- sh '''
- ./gradlew build
- '''
-
- step([
-  $class: 'ViolationsToGitLabRecorder', 
-  config: [
-   gitLabUrl: 'https://gitlab.com/',
-   projectId: 123,
-   mergeRequestId: 456,
-
-   commentOnlyChangedContent: true,
-   createCommentWithAllSingleFileComments: true, 
-   minSeverity: 'INFO',
-
-   useApiToken: true,
-   apiToken: '',
-   useApiTokenCredentials: false,
-   apiTokenCredentialsId: 'id',
-   apiTokenPrivate: true,
-   authMethodHeader: true,
-   ignoreCertificateErrors: true,
-
-   violationConfigs: [
-    [ pattern: '.*/checkstyle/.*\\.xml$', reporter: 'CHECKSTYLE' ], 
-    [ pattern: '.*/findbugs/.*\\.xml$', reporter: 'FINDBUGS' ], 
+  step([
+   $class: 'ViolationsToGitLabRecorder', 
+   config: [
+    gitLabUrl: 'http://gitserver/',
+    projectId: "115",
+    mergeRequestId: env.gitlabMergeRequestId,
+    commentOnlyChangedContent: true,
+    createCommentWithAllSingleFileComments: true, 
+    minSeverity: 'INFO',
+    useApiToken: true,
+    apiToken: '12398xasdasd987asda',
+    useApiTokenCredentials: false,
+    apiTokenCredentialsId: 'id',
+    apiTokenPrivate: true,
+    authMethodHeader: true,
+    ignoreCertificateErrors: true,
+    violationConfigs: [
+     [ pattern: '.*/checkstyle-result\\.xml$', reporter: 'CHECKSTYLE' ], 
+     [ pattern: '.*/findbugsXml\\.xml$', reporter: 'FINDBUGS' ], 
+     [ pattern: '.*/pmd\\.xml$', reporter: 'PMD' ], 
+    ]
    ]
-  ]
- ])
+  ])
+ }
 }
 ```
 
