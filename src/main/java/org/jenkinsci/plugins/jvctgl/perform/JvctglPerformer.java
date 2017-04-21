@@ -107,11 +107,10 @@ public class JvctglPerformer {
     try {
       TokenType tokenType = config.getApiTokenPrivate() ? PRIVATE_TOKEN : ACCESS_TOKEN;
       AuthMethod authMethod = config.getAuthMethodHeader() ? HEADER : URL_PARAMETER;
-      Integer projectIdInteger = Integer.parseInt(projectId);
       Integer mergeRequestIdInteger = Integer.parseInt(mergeRequestId);
       violationCommentsToGitLabApi() //
           .setHostUrl(hostUrl) //
-          .setProjectId(projectIdInteger) //
+          .setProjectId(projectId) //
           .setMergeRequestId(mergeRequestIdInteger) //
           .setApiToken(apiToken) //
           .setTokenType(tokenType) //
