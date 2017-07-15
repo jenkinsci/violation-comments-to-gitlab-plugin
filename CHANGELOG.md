@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 1.9
+### No issue
+
+**Bugfix, were unable to save reporter from GUI**
+
+
+[ad8703d0989ca57](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/ad8703d0989ca57cebf176db9a494269b3ac8a76) Tomas Bjerre *2017-07-15 13:09:22*
+
+
 ## 1.8
 ### No issue
 
