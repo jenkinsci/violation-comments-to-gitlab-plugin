@@ -228,11 +228,13 @@ job('GitLab_MR_Builder') {
 
     violationConfigs {
      violationConfig {
-      reporter("FINDBUGS")
+      parser("FINDBUGS")
+      reporter("Findbugs")
       pattern(".*/findbugs/.*\\.xml\$")
      }
      violationConfig {
-      reporter("CHECKSTYLE")
+      parser("CHECKSTYLE")
+      reporter("Checkstyle")
       pattern(".*/checkstyle/.*\\.xml\$")
      }
     }
@@ -297,9 +299,9 @@ node {
     authMethodHeader: true,
     ignoreCertificateErrors: true,
     violationConfigs: [
-     [ pattern: '.*/checkstyle-result\\.xml$', reporter: 'CHECKSTYLE' ], 
-     [ pattern: '.*/findbugsXml\\.xml$', reporter: 'FINDBUGS' ], 
-     [ pattern: '.*/pmd\\.xml$', reporter: 'PMD' ], 
+     [ pattern: '.*/checkstyle-result\\.xml$', parser: 'CHECKSTYLE', reporter: 'Checkstyle' ], 
+     [ pattern: '.*/findbugsXml\\.xml$', parser: 'FINDBUGS', reporter: 'Findbugs' ], 
+     [ pattern: '.*/pmd\\.xml$', parser: 'PMD', reporter: 'PMD' ], 
     ]
    ]
   ])

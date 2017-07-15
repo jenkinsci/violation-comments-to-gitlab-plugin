@@ -28,10 +28,17 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsReporterApi.violationsReporterApi;
 import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.model.TaskListener;
+import hudson.model.Run;
+import hudson.remoting.VirtualChannel;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
@@ -45,19 +52,13 @@ import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.jenkinsci.remoting.RoleChecker;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.io.CharStreams;
-
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.FilePath.FileCallable;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-import hudson.remoting.VirtualChannel;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.util.Filtering;
+
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.io.CharStreams;
 
 public class JvctglPerformer {
 
@@ -77,7 +78,8 @@ public class JvctglPerformer {
       if (!isNullOrEmpty(violationConfig.getPattern())) {
         List<Violation> parsedViolations =
             violationsReporterApi() //
-                .findAll(violationConfig.getReporter()) //
+                .findAll(violationConfig.getParser()) //
+                .withReporter(violationConfig.getReporter()) //
                 .inFolder(workspace.getAbsolutePath()) //
                 .withPattern(violationConfig.getPattern()) //
                 .violations();
@@ -160,7 +162,8 @@ public class JvctglPerformer {
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       final ViolationConfig p = new ViolationConfig();
       p.setPattern(environment.expand(violationConfig.getPattern()));
-      p.setReporter(violationConfig.getReporter());
+      p.setReporter(environment.expand(violationConfig.getReporter()));
+      p.setParser(violationConfig.getParser());
       expanded.getViolationConfigs().add(p);
     }
     return expanded;
@@ -212,42 +215,31 @@ public class JvctglPerformer {
 
   private static void logConfiguration(
       final ViolationsToGitLabConfig config, final Run<?, ?> build, final TaskListener listener) {
-    listener.getLogger().println(FIELD_GITLABURL + ": " + config.getGitLabUrl());
-    listener.getLogger().println(FIELD_PROJECTID + ": " + config.getProjectId());
-    listener.getLogger().println(FIELD_MERGEREQUESTID + ": " + config.getMergeRequestId());
+    PrintStream logger = listener.getLogger();
+    logger.println(FIELD_GITLABURL + ": " + config.getGitLabUrl());
+    logger.println(FIELD_PROJECTID + ": " + config.getProjectId());
+    logger.println(FIELD_MERGEREQUESTID + ": " + config.getMergeRequestId());
 
-    listener.getLogger().println(FIELD_USEAPITOKEN + ": " + config.getUseApiToken());
-    listener.getLogger().println(FIELD_APITOKEN + ": " + !isNullOrEmpty(config.getApiToken()));
+    logger.println(FIELD_USEAPITOKEN + ": " + config.getUseApiToken());
+    logger.println(FIELD_APITOKEN + ": " + !isNullOrEmpty(config.getApiToken()));
 
-    listener
-        .getLogger()
-        .println(FIELD_USEAPITOKENCREDENTIALS + ": " + config.isUseApiTokenCredentials());
-    listener
-        .getLogger()
-        .println(
-            FIELD_APITOKENCREDENTIALSID + ": " + !isNullOrEmpty(config.getApiTokenCredentialsId()));
-    listener
-        .getLogger()
-        .println(FIELD_IGNORECERTIFICATEERRORS + ": " + config.getIgnoreCertificateErrors());
-    listener.getLogger().println(FIELD_APITOKENPRIVATE + ": " + config.getApiTokenPrivate());
-    listener.getLogger().println(FIELD_AUTHMETHODHEADER + ": " + config.getAuthMethodHeader());
+    logger.println(FIELD_USEAPITOKENCREDENTIALS + ": " + config.isUseApiTokenCredentials());
+    logger.println(
+        FIELD_APITOKENCREDENTIALSID + ": " + !isNullOrEmpty(config.getApiTokenCredentialsId()));
+    logger.println(FIELD_IGNORECERTIFICATEERRORS + ": " + config.getIgnoreCertificateErrors());
+    logger.println(FIELD_APITOKENPRIVATE + ": " + config.getApiTokenPrivate());
+    logger.println(FIELD_AUTHMETHODHEADER + ": " + config.getAuthMethodHeader());
 
-    listener
-        .getLogger()
-        .println(
-            FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS
-                + ": "
-                + config.getCreateCommentWithAllSingleFileComments());
-    listener
-        .getLogger()
-        .println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
+    logger.println(
+        FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS
+            + ": "
+            + config.getCreateCommentWithAllSingleFileComments());
+    logger.println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
 
-    listener.getLogger().println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());
+    logger.println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
-      listener
-          .getLogger()
-          .println(violationConfig.getReporter() + " with pattern " + violationConfig.getPattern());
+      logger.println(violationConfig.getParser() + " with pattern " + violationConfig.getPattern());
     }
   }
 

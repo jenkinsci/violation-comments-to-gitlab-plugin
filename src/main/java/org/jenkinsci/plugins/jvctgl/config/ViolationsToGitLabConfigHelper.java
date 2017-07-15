@@ -4,7 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 
-import se.bjurr.violations.lib.reports.Reporter;
+import se.bjurr.violations.lib.reports.Parser;
 
 public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_COMMENTONLYCHANGEDCONTENT = "commentOnlyChangedContent";
@@ -14,6 +14,7 @@ public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_GITLABURL = "gitLabUrl";
   public static final String FIELD_PATTERN = "pattern";
   public static final String FIELD_REPORTER = "reporter";
+  public static final String FIELD_PARSER = "parser";
   public static final String FIELD_PROJECTID = "projectId";
   public static final String FIELD_MERGEREQUESTID = "mergeRequestId";
   public static final String FIELD_APITOKEN = "apiToken";
@@ -34,9 +35,9 @@ public class ViolationsToGitLabConfigHelper {
 
   public static List<ViolationConfig> getAllViolationConfigs() {
     List<ViolationConfig> violationConfigs = newArrayList();
-    for (Reporter reporter : Reporter.values()) {
+    for (Parser parser : Parser.values()) {
       ViolationConfig violationConfig = new ViolationConfig();
-      violationConfig.setReporter(reporter);
+      violationConfig.setParser(parser);
       violationConfigs.add(violationConfig);
     }
     return violationConfigs;

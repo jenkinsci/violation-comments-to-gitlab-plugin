@@ -1,5 +1,30 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Violations-lib 1.29 with reporter field**
+
+ * This breaks backwards compatibilty a bit. Reporter is renamed to Parser and an optional text-field called reporter is introduced. If something like Detekt is used to produce a checkstyle-report, then reporter can be set to Detekt and the parser set to CHECKSTYLE. 
+
+[6cb24cc3fc196b7](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/6cb24cc3fc196b7fb57c31ef002f536dca710cfe) Tomas Bjerre *2017-07-15 07:53:48*
+
+**Updating doc on Infer**
+
+
+[93bc67d232b2521](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/93bc67d232b25219cb374ddbfb73262b78e911f1) Tomas Bjerre *2017-06-23 12:53:38*
+
+**doc**
+
+
+[1869d23af48a0f1](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/1869d23af48a0f1941e42d4f26bbbf11ae93f90d) Tomas Bjerre *2017-06-13 18:01:27*
+
+**doc**
+
+
+[1f06fa98af3d4b4](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/1f06fa98af3d4b46543a87562cd81d623279f4f4) Tomas Bjerre *2017-04-22 04:32:55*
+
+
 ## 1.7
 ### No issue
 
