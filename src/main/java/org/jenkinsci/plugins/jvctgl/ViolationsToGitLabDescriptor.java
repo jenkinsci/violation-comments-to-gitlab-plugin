@@ -13,21 +13,24 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PATTERN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_REPORTER;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKENCREDENTIALS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.createNewConfig;
-
-import java.util.List;
-
-import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
-import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
-import org.kohsuke.stapler.StaplerRequest;
-
 import hudson.model.AbstractProject;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Publisher;
 import hudson.util.ListBoxModel;
+
+import java.util.List;
+
 import net.sf.json.JSONObject;
+
+import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
+import org.jenkinsci.plugins.jvctgl.config.ViolationConfig;
+import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
+import org.kohsuke.stapler.StaplerRequest;
+
 import se.bjurr.violations.lib.model.SEVERITY;
 
 public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publisher> {
@@ -102,8 +105,14 @@ public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publ
     }
 
     int i = 0;
-    for (String pattern : (List<String>) formData.get(FIELD_PATTERN)) {
-      config.getViolationConfigs().get(i++).setPattern(pattern);
+    List<String> patterns = (List<String>) formData.get(FIELD_PATTERN);
+    List<String> reporters = (List<String>) formData.get(FIELD_REPORTER);
+    for (String pattern : patterns) {
+      ViolationConfig violationConfig = config.getViolationConfigs().get(i);
+      violationConfig.setPattern(pattern);
+      String reporter = reporters.get(i);
+      violationConfig.setReporter(reporter);
+      i++;
     }
     ViolationsToGitLabRecorder publisher = new ViolationsToGitLabRecorder();
     publisher.setConfig(config);
