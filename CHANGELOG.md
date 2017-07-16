@@ -1,5 +1,19 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Cleaning**
+
+
+[85d8084fa858d8a](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/85d8084fa858d8a4313bbb9fc2a547b13f61f4f6) Tomas Bjerre *2017-07-16 05:12:29*
+
+**doc**
+
+
+[cf45a5aa041e3c8](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/cf45a5aa041e3c848aa0660b0671e5cd4a1ed638) Tomas Bjerre *2017-07-15 13:11:30*
+
+
 ## 1.9
 ### No issue
 
