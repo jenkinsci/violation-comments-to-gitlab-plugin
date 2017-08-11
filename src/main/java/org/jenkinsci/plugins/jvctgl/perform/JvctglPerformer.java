@@ -54,6 +54,7 @@ import org.jenkinsci.remoting.RoleChecker;
 
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
+import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -61,6 +62,7 @@ import com.google.common.base.Optional;
 import com.google.common.io.CharStreams;
 
 public class JvctglPerformer {
+	  private static Logger LOG = Logger.getLogger(JvctglPerformer.class.getSimpleName());
 
   @VisibleForTesting
   public static void doPerform(
@@ -83,7 +85,7 @@ public class JvctglPerformer {
                 .inFolder(workspace.getAbsolutePath()) //
                 .withPattern(violationConfig.getPattern()) //
                 .violations();
-        SEVERITY minSeverity = config.getMinSeverity();
+        final SEVERITY minSeverity = config.getMinSeverity();
         if (minSeverity != null) {
           parsedViolations = Filtering.withAtLEastSeverity(parsedViolations, minSeverity);
         }
@@ -96,20 +98,20 @@ public class JvctglPerformer {
       }
     }
 
-    String apiToken =
+    final String apiToken =
         checkNotNull(emptyToNull(config.getApiToken()), "APIToken selected but not set!");
-    String hostUrl = config.getGitLabUrl();
-    String projectId = config.getProjectId();
-    String mergeRequestId = config.getMergeRequestId();
+    final String hostUrl = config.getGitLabUrl();
+    final String projectId = config.getProjectId();
+    final String mergeRequestId = config.getMergeRequestId();
 
     listener
         .getLogger()
         .println("Will comment PR " + hostUrl + " " + projectId + " " + mergeRequestId);
 
     try {
-      TokenType tokenType = config.getApiTokenPrivate() ? PRIVATE_TOKEN : ACCESS_TOKEN;
-      AuthMethod authMethod = config.getAuthMethodHeader() ? HEADER : URL_PARAMETER;
-      Integer mergeRequestIdInteger = Integer.parseInt(mergeRequestId);
+      final TokenType tokenType = config.getApiTokenPrivate() ? PRIVATE_TOKEN : ACCESS_TOKEN;
+      final AuthMethod authMethod = config.getAuthMethodHeader() ? HEADER : URL_PARAMETER;
+      final Integer mergeRequestIdInteger = Integer.parseInt(mergeRequestId);
       violationCommentsToGitLabApi() //
           .setHostUrl(hostUrl) //
           .setProjectId(projectId) //
@@ -160,13 +162,20 @@ public class JvctglPerformer {
     expanded.setMinSeverity(config.getMinSeverity());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
-      final ViolationConfig p = new ViolationConfig();
-      p.setPattern(environment.expand(violationConfig.getPattern()));
-      p.setReporter(environment.expand(violationConfig.getReporter()));
-      p.setParser(violationConfig.getParser());
-      expanded.getViolationConfigs().add(p);
-    }
-    return expanded;
+        final String pattern = environment.expand(violationConfig.getPattern());
+        final String reporter = violationConfig.getReporter();
+        final Parser parser = violationConfig.getParser();
+        if (isNullOrEmpty(pattern) || isNullOrEmpty(reporter) || parser == null) {
+          LOG.fine("Ignoring violationConfig because of null/empty -values: " + violationConfig);
+          continue;
+        }
+        final ViolationConfig p = new ViolationConfig();
+        p.setPattern(pattern);
+        p.setReporter(reporter);
+        p.setParser(parser);
+        expanded.getViolationConfigs().add(p);
+      }
+      return expanded;
   }
 
   public static void jvctsPerform(
@@ -215,7 +224,7 @@ public class JvctglPerformer {
 
   private static void logConfiguration(
       final ViolationsToGitLabConfig config, final Run<?, ?> build, final TaskListener listener) {
-    PrintStream logger = listener.getLogger();
+    final PrintStream logger = listener.getLogger();
     logger.println(FIELD_GITLABURL + ": " + config.getGitLabUrl());
     logger.println(FIELD_PROJECTID + ": " + config.getProjectId());
     logger.println(FIELD_MERGEREQUESTID + ": " + config.getMergeRequestId());
