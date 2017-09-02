@@ -20,9 +20,11 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_KEEP_OLD_COMMENTS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKENCREDENTIALS;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
@@ -112,6 +114,8 @@ public class JvctglPerformer {
       final TokenType tokenType = config.getApiTokenPrivate() ? PRIVATE_TOKEN : ACCESS_TOKEN;
       final AuthMethod authMethod = config.getAuthMethodHeader() ? HEADER : URL_PARAMETER;
       final Integer mergeRequestIdInteger = Integer.parseInt(mergeRequestId);
+      final boolean shouldKeepOldComments = config.getKeepOldComments();
+      final boolean shouldSetWIP = config.getShouldSetWip();
       violationCommentsToGitLabApi() //
           .setHostUrl(hostUrl) //
           .setProjectId(projectId) //
@@ -128,6 +132,8 @@ public class JvctglPerformer {
            */
           .setIgnoreCertificateErrors(config.getIgnoreCertificateErrors()) //
           .setViolations(allParsedViolations) //
+          .setShouldKeepOldComments(shouldKeepOldComments) //
+          .setShouldSetWIP(shouldSetWIP) //
           .toPullRequest();
     } catch (final Exception e) {
       Logger.getLogger(JvctglPerformer.class.getName()).log(SEVERE, "", e);
@@ -160,6 +166,8 @@ public class JvctglPerformer {
     expanded.setCreateCommentWithAllSingleFileComments(
         config.getCreateCommentWithAllSingleFileComments());
     expanded.setMinSeverity(config.getMinSeverity());
+    expanded.setShouldSetWip(config.getShouldSetWip());
+    expanded.setKeepOldComments(config.getKeepOldComments());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       final String pattern = environment.expand(violationConfig.getPattern());
@@ -194,7 +202,7 @@ public class JvctglPerformer {
       setApiTokenCredentials(configExpanded, listener);
 
       listener.getLogger().println("Running Violation Comments To GitLab");
-      listener.getLogger().println("Will comment " + configExpanded.getMergeRequestId());
+      listener.getLogger().println("Merge request: " + configExpanded.getMergeRequestId());
 
       fp.act(
           new FileCallable<Void>() {
@@ -246,6 +254,8 @@ public class JvctglPerformer {
     logger.println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
 
     logger.println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());
+    logger.println(FIELD_KEEP_OLD_COMMENTS + ": " + config.getKeepOldComments());
+    logger.println(FIELD_SHOULD_SET_WIP + ": " + config.getShouldSetWip());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       logger.println(violationConfig.getParser() + " with pattern " + violationConfig.getPattern());

@@ -237,6 +237,8 @@ job('GitLab_MR_Builder') {
     apiTokenPrivate(true)
     authMethodHeader(true)
     ignoreCertificateErrors(true)
+    keepOldComments(false)
+    shouldSetWip(false)
 
     violationConfigs {
      violationConfig {
@@ -310,6 +312,8 @@ node {
     apiTokenPrivate: true,
     authMethodHeader: true,
     ignoreCertificateErrors: true,
+    keepOldComments: false,
+    shouldSetWip: false,
     violationConfigs: [
      [ pattern: '.*/checkstyle-result\\.xml$', parser: 'CHECKSTYLE', reporter: 'Checkstyle' ], 
      [ pattern: '.*/findbugsXml\\.xml$', parser: 'FINDBUGS', reporter: 'Findbugs' ], 

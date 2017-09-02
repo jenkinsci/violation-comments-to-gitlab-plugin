@@ -80,6 +80,14 @@
     </select>
   </f:entry>
 
+  <f:entry title="Keep old comments">
+    <f:checkbox name="keepOldComments" checked="${config.keepOldComments}"/>
+  </f:entry>
+
+  <f:entry title="Set title of MR to WIP if it contains violations">
+    <f:checkbox name="shouldSetWip" checked="${config.shouldSetWip}"/>
+  </f:entry>
+
 <!-- Cannot yet support this because the API does not support it. https://gitlab.com/gitlab-org/gitlab-ce/issues/14850 -->
 <!--
   <f:entry title="Create one comment per violation">

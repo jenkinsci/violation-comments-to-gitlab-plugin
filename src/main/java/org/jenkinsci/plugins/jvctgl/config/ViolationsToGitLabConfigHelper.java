@@ -25,18 +25,20 @@ public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_APITOKENPRIVATE = "apiTokenPrivate";
   public static final String FIELD_AUTHMETHODHEADER = "authMethodHeader";
   public static final String FIELD_MINSEVERITY = "minSeverity";
+  public static final String FIELD_KEEP_OLD_COMMENTS = "keepOldComments";
+  public static final String FIELD_SHOULD_SET_WIP = "shouldSetWip";
 
   public static ViolationsToGitLabConfig createNewConfig() {
-    ViolationsToGitLabConfig config = new ViolationsToGitLabConfig();
-    List<ViolationConfig> violationConfigs = getAllViolationConfigs();
+    final ViolationsToGitLabConfig config = new ViolationsToGitLabConfig();
+    final List<ViolationConfig> violationConfigs = getAllViolationConfigs();
     config.setViolationConfigs(violationConfigs);
     return config;
   }
 
   public static List<ViolationConfig> getAllViolationConfigs() {
-    List<ViolationConfig> violationConfigs = newArrayList();
-    for (Parser parser : Parser.values()) {
-      ViolationConfig violationConfig = new ViolationConfig();
+    final List<ViolationConfig> violationConfigs = newArrayList();
+    for (final Parser parser : Parser.values()) {
+      final ViolationConfig violationConfig = new ViolationConfig();
       violationConfig.setParser(parser);
       violationConfigs.add(violationConfig);
     }

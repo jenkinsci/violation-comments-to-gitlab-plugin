@@ -29,6 +29,10 @@ public class ViolationsToGitLabConfig implements Serializable {
   private Boolean authMethodHeader;
   private SEVERITY minSeverity;
 
+  private Boolean keepOldComments;
+
+  private Boolean shouldSetWip;
+
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
       boolean commentOnlyChangedContent,
@@ -44,8 +48,10 @@ public class ViolationsToGitLabConfig implements Serializable {
       boolean apiTokenPrivate,
       boolean authMethodHeader,
       boolean useApiToken,
-      SEVERITY minSeverity) {
-    List<ViolationConfig> allViolationConfigs = includeAllReporters(violationConfigs);
+      SEVERITY minSeverity,
+      boolean keepOldComments,
+      boolean shouldSetWip) {
+    final List<ViolationConfig> allViolationConfigs = includeAllReporters(violationConfigs);
 
     this.commentOnlyChangedContent = commentOnlyChangedContent;
     this.createCommentWithAllSingleFileComments = createCommentWithAllSingleFileComments;
@@ -61,6 +67,8 @@ public class ViolationsToGitLabConfig implements Serializable {
     this.authMethodHeader = authMethodHeader;
     this.useApiToken = useApiToken;
     this.minSeverity = minSeverity;
+    this.keepOldComments = keepOldComments;
+    this.shouldSetWip = shouldSetWip;
   }
 
   public ViolationsToGitLabConfig(ViolationsToGitLabConfig rhs) {
@@ -79,6 +87,8 @@ public class ViolationsToGitLabConfig implements Serializable {
     this.authMethodHeader = rhs.authMethodHeader;
     this.useApiToken = rhs.useApiToken;
     this.minSeverity = rhs.minSeverity;
+    this.keepOldComments = rhs.keepOldComments;
+    this.shouldSetWip = rhs.shouldSetWip;
   }
 
   public ViolationsToGitLabConfig() {
@@ -158,10 +168,10 @@ public class ViolationsToGitLabConfig implements Serializable {
   }
 
   private List<ViolationConfig> includeAllReporters(List<ViolationConfig> violationConfigs) {
-    List<ViolationConfig> allViolationConfigs =
+    final List<ViolationConfig> allViolationConfigs =
         ViolationsToGitLabConfigHelper.getAllViolationConfigs();
-    for (ViolationConfig candidate : allViolationConfigs) {
-      for (ViolationConfig input : violationConfigs) {
+    for (final ViolationConfig candidate : allViolationConfigs) {
+      for (final ViolationConfig input : violationConfigs) {
         if (candidate.getParser() == input.getParser()) {
           candidate.setPattern(input.getPattern());
           candidate.setReporter(input.getReporter());
@@ -274,6 +284,10 @@ public class ViolationsToGitLabConfig implements Serializable {
         + authMethodHeader
         + ", minSeverity="
         + minSeverity
+        + ", keepOldComments="
+        + keepOldComments
+        + ", shouldSetWip="
+        + shouldSetWip
         + "]";
   }
 
@@ -291,9 +305,11 @@ public class ViolationsToGitLabConfig implements Serializable {
     result = prime * result + (gitLabUrl == null ? 0 : gitLabUrl.hashCode());
     result =
         prime * result + (ignoreCertificateErrors == null ? 0 : ignoreCertificateErrors.hashCode());
+    result = prime * result + (keepOldComments == null ? 0 : keepOldComments.hashCode());
     result = prime * result + (mergeRequestId == null ? 0 : mergeRequestId.hashCode());
     result = prime * result + (minSeverity == null ? 0 : minSeverity.hashCode());
     result = prime * result + (projectId == null ? 0 : projectId.hashCode());
+    result = prime * result + (shouldSetWip == null ? 0 : shouldSetWip.hashCode());
     result = prime * result + (useApiToken == null ? 0 : useApiToken.hashCode());
     result =
         prime * result + (useApiTokenCredentials == null ? 0 : useApiTokenCredentials.hashCode());
@@ -312,7 +328,7 @@ public class ViolationsToGitLabConfig implements Serializable {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    ViolationsToGitLabConfig other = (ViolationsToGitLabConfig) obj;
+    final ViolationsToGitLabConfig other = (ViolationsToGitLabConfig) obj;
     if (apiToken == null) {
       if (other.apiToken != null) {
         return false;
@@ -361,6 +377,13 @@ public class ViolationsToGitLabConfig implements Serializable {
     } else if (!ignoreCertificateErrors.equals(other.ignoreCertificateErrors)) {
       return false;
     }
+    if (keepOldComments == null) {
+      if (other.keepOldComments != null) {
+        return false;
+      }
+    } else if (!keepOldComments.equals(other.keepOldComments)) {
+      return false;
+    }
     if (mergeRequestId == null) {
       if (other.mergeRequestId != null) {
         return false;
@@ -376,6 +399,13 @@ public class ViolationsToGitLabConfig implements Serializable {
         return false;
       }
     } else if (!projectId.equals(other.projectId)) {
+      return false;
+    }
+    if (shouldSetWip == null) {
+      if (other.shouldSetWip != null) {
+        return false;
+      }
+    } else if (!shouldSetWip.equals(other.shouldSetWip)) {
       return false;
     }
     if (useApiToken == null) {
@@ -400,5 +430,21 @@ public class ViolationsToGitLabConfig implements Serializable {
       return false;
     }
     return true;
+  }
+
+  public Boolean getKeepOldComments() {
+    return keepOldComments;
+  }
+
+  public Boolean getShouldSetWip() {
+    return shouldSetWip;
+  }
+
+  public void setShouldSetWip(Boolean shouldSetWip) {
+    this.shouldSetWip = shouldSetWip;
+  }
+
+  public void setKeepOldComments(Boolean keepOldComments) {
+    this.keepOldComments = keepOldComments;
   }
 }

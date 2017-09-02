@@ -9,11 +9,13 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_KEEP_OLD_COMMENTS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PATTERN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_REPORTER;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKENCREDENTIALS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.createNewConfig;
@@ -75,7 +77,7 @@ public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publ
   @Override
   public Publisher newInstance(StaplerRequest req, JSONObject formData)
       throws hudson.model.Descriptor.FormException {
-    ViolationsToGitLabConfig config = createNewConfig();
+    final ViolationsToGitLabConfig config = createNewConfig();
     config.setGitLabUrl(formData.getString(FIELD_GITLABURL));
     config.setProjectId(formData.getString(FIELD_PROJECTID));
     config.setMergeRequestId(formData.getString(FIELD_MERGEREQUESTID));
@@ -97,24 +99,26 @@ public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publ
     config.setIgnoreCertificateErrors(
         formData.getString(FIELD_IGNORECERTIFICATEERRORS).equalsIgnoreCase("true"));
 
-    String minSeverityString = formData.getString(FIELD_MINSEVERITY);
+    final String minSeverityString = formData.getString(FIELD_MINSEVERITY);
     if (!isNullOrEmpty(minSeverityString)) {
       config.setMinSeverity(SEVERITY.valueOf(minSeverityString));
     } else {
       config.setMinSeverity(null);
     }
+    config.setKeepOldComments(formData.getString(FIELD_KEEP_OLD_COMMENTS).equalsIgnoreCase("true"));
+    config.setShouldSetWip(formData.getString(FIELD_SHOULD_SET_WIP).equalsIgnoreCase("true"));
 
     int i = 0;
-    List<String> patterns = (List<String>) formData.get(FIELD_PATTERN);
-    List<String> reporters = (List<String>) formData.get(FIELD_REPORTER);
-    for (String pattern : patterns) {
-      ViolationConfig violationConfig = config.getViolationConfigs().get(i);
+    final List<String> patterns = (List<String>) formData.get(FIELD_PATTERN);
+    final List<String> reporters = (List<String>) formData.get(FIELD_REPORTER);
+    for (final String pattern : patterns) {
+      final ViolationConfig violationConfig = config.getViolationConfigs().get(i);
       violationConfig.setPattern(pattern);
-      String reporter = reporters.get(i);
+      final String reporter = reporters.get(i);
       violationConfig.setReporter(reporter);
       i++;
     }
-    ViolationsToGitLabRecorder publisher = new ViolationsToGitLabRecorder();
+    final ViolationsToGitLabRecorder publisher = new ViolationsToGitLabRecorder();
     publisher.setConfig(config);
     return publisher;
   }
