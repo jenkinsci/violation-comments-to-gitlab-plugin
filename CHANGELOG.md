@@ -1,6 +1,15 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 1.11
+### No issue
+
+**Ignoring violation configs with null config**
+
+
+[5f8c94518aeaf9a](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/5f8c94518aeaf9a3d3207ff4aa3bcbd93baa47d0) Tomas Bjerre *2017-08-11 11:36:58*
+
+
+## 1.10
 ### No issue
 
 **Ignoring violation configs with null config**
