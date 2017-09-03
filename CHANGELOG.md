@@ -3,6 +3,15 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Doc**
+
+
+[df0fa3d58e2b178](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/df0fa3d58e2b1782a334e875d97ca7672567091c) Tomas Bjerre *2017-09-03 08:13:26*
+
+
+## 1.12
+### No issue
+
 **Keeping comments and adjusting checkstyle**
 
  * Checkstyle now allows empty source attribute. 
@@ -10,7 +19,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
  * Will no longer re-create identical comments. 
  * Using API V4 
 
-[907671742c743d6](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/907671742c743d625b390b5535123e21a285d7b8) Tomas Bjerre *2017-09-02 14:46:18*
+[3ec3b9a97663a01](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/3ec3b9a97663a019c7daa15342d98e0d8283cc63) Tomas Bjerre *2017-09-02 14:49:39*
 
 **Keeping comments and adjusting checkstyle**
 

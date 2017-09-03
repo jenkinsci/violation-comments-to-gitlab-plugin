@@ -166,7 +166,7 @@ job('GitLab_MR_Builder') {
     }
    }
    regexpFilterText("\$MR_OBJECT_KIND \$MR_ACTION \$MR_OLD_REV")
-   regexpFilterExpression("^merge_request\\supdate\\s.+")
+   regexpFilterExpression("^merge_request\\s(update\\s.{40}\$|open.*)")
   }
  }
  steps {
@@ -176,9 +176,9 @@ job('GitLab_MR_Builder') {
    httpMode("POST")
    requestBody('body=Building... %20\$BUILD_URL')
    }
-
+ 
   shell('./gradlew build')
-
+ 
   conditionalBuilder {
    runCondition {
     statusCondition {
@@ -198,7 +198,7 @@ job('GitLab_MR_Builder') {
     }
    }
   }
-
+ 
   conditionalBuilder {
    runCondition {
     statusCondition {
@@ -225,11 +225,11 @@ job('GitLab_MR_Builder') {
     gitLabUrl("http://gitlab:880/")
     projectId("\$PROJECT_ID")
     mergeRequestId("\$MERGE_REQUST_ID")
-
+ 
     commentOnlyChangedContent(true)
     createCommentWithAllSingleFileComments(true)
     minSeverity('INFO')
-
+ 
     useApiToken(true)
     apiToken("AvAkp6HtUvzpesPypXSk")
     useApiTokenCredentials(false)
@@ -237,9 +237,7 @@ job('GitLab_MR_Builder') {
     apiTokenPrivate(true)
     authMethodHeader(true)
     ignoreCertificateErrors(true)
-    keepOldComments(false)
-    shouldSetWip(false)
-
+ 
     violationConfigs {
      violationConfig {
       parser("FINDBUGS")
@@ -263,64 +261,161 @@ job('GitLab_MR_Builder') {
 Here is an example pipeline that will merge, run unit tests, run static code analysis and finally report back to GitLab. It requires the [GitLab Plugin](https://github.com/jenkinsci/gitlab-plugin).
 
 ```
-def commentMr(String comment) {
- // Not allowed to use java.net.URLEncoder.encode
- def body = comment
-  .replaceAll(" ","%20")
-  .replaceAll("/","%2F")
- sh "curl http://gitserver/api/v3/projects/project/merge_requests/$gitlabMergeRequestId/notes -H 'PRIVATE-TOKEN: 12398xasdasd987asda' -X POST -d \"body="+body+"\""
+pipelineJob("merge-request-pipeline") {
+ concurrentBuild()
+ quietPeriod(0)
+ authenticationToken("thetoken")
+ triggers {
+  genericTrigger {
+   genericVariables {
+    genericVariable {
+     key("MERGE_REQUEST_TO_URL")
+     value("\$.object_attributes.target.git_http_url")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUEST_FROM_URL")
+     value("\$.object_attributes.source.git_http_url")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUEST_TO_BRANCH")
+     value("\$.object_attributes.target_branch")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUEST_FROM_BRANCH")
+     value("\$.object_attributes.source_branch")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("PROJECT_ID")
+     value("\$.object_attributes.target_project_id")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("PROJECT_PATH")
+     value("\$.object_attributes.target.path_with_namespace")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MERGE_REQUST_IID")
+     value("\$.object_attributes.iid")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MR_OBJECT_KIND")
+     value("\$.object_kind")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MR_OLD_REV")
+     value("\$.object_attributes.oldrev")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MR_ACTION")
+     value("\$.object_attributes.action")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+    genericVariable {
+     key("MR_TITLE")
+     value("\$.object_attributes.title")
+     expressionType("JSONPath")
+     regexpFilter("")
+    }
+   }
+   regexpFilterText("\$MR_OBJECT_KIND \$MR_ACTION \$MR_OLD_REV")
+   regexpFilterExpression("^merge_request\\s(update\\s.{40}\$|open.*)")
+  }
+ }
+ 
+ definition {
+  cps {
+   script(readFileFromWorkspace('merge_request_pipeline.pipeline'))
+   sandbox()
+  }
+ }
 }
- 
-node {
- def mvnHome = tool 'Maven 3.3.9'
- deleteDir()
- currentBuild.description = "$gitlabMergeRequestTitle $gitlabSourceBranch http://gitserver/grp/proj/merge_requests/$gitlabMergeRequestIid"
- 
- commentMr("Verifierar $gitlabSourceBranch... ${BUILD_URL}")
- 
- stage('Merge') {
-  sh "git init"
-  sh "git fetch --no-tags --progress git@git:group/reponame.git +refs/heads/*:refs/remotes/origin/* --depth=200"
-  sh "git checkout origin/${env.gitlabTargetBranch}"
-  sh "git merge origin/${env.gitlabSourceBranch}"
-  sh "git log --graph --abbrev-commit --max-count=10"
- }
- 
- stage('Unit test') {
-  sh "${mvnHome}/bin/mvn clean package -Dmaven.test.failure.ignore=false -Dcheckstyle.skip=true -Dfindbugs.skip=true -Dsurefire.skip=true -Dmaven.compile.fork=true -Dmaven.javadoc.skip=true"
- 
-  commentMr("Tester ok i $gitlabSourceBranch =) ${BUILD_URL}")
- }
- 
- 
- stage('Static code analysis') {
-  sh "${mvnHome}/bin/mvn package -DskipTests -Dmaven.test.failure.ignore=false -Dsurefire.skip=true -Dmaven.compile.fork=true -Dmaven.javadoc.skip=true"
+```
 
-  step([
-   $class: 'ViolationsToGitLabRecorder', 
-   config: [
-    gitLabUrl: 'http://gitserver/',
-    projectId: "115",
-    mergeRequestId: env.gitlabMergeRequestId,
-    commentOnlyChangedContent: true,
-    createCommentWithAllSingleFileComments: true, 
-    minSeverity: 'INFO',
-    useApiToken: true,
-    apiToken: '12398xasdasd987asda',
-    useApiTokenCredentials: false,
-    apiTokenCredentialsId: 'id',
-    apiTokenPrivate: true,
-    authMethodHeader: true,
-    ignoreCertificateErrors: true,
-    keepOldComments: false,
-    shouldSetWip: false,
-    violationConfigs: [
-     [ pattern: '.*/checkstyle-result\\.xml$', parser: 'CHECKSTYLE', reporter: 'Checkstyle' ], 
-     [ pattern: '.*/findbugsXml\\.xml$', parser: 'FINDBUGS', reporter: 'Findbugs' ], 
-     [ pattern: '.*/pmd\\.xml$', parser: 'PMD', reporter: 'PMD' ], 
-    ]
-   ]
-  ])
+And the merge_request_pipeline.pipeline contains
+```
+def commentMr(projectId, mergeRequestId, comment) {def body = comment
+ .replaceAll(" ","%20")
+ .replaceAll("/","%2F")
+ def project = projectId
+ .replaceAll("/","%2F")
+ sh "curl http://gitlab:80/api/v4/projects/$project/merge_requests/$mergeRequestId/notes -H 'PRIVATE-TOKEN: 6xRcmSzPzzEXeS2qqr7R' -X POST -d \"body="+body+"\""
+}
+  
+node {
+ deleteDir()
+ currentBuild.description = "$MR_TITLE from $MERGE_REQUEST_FROM_BRANCH to $MERGE_REQUEST_TO_BRANCH"
+  
+ commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Verifierar $MERGE_REQUEST_FROM_BRANCH... ${env.BUILD_URL}")
+  
+ stage('Merge') {
+ sh "git init"
+ sh "git fetch --no-tags $MERGE_REQUEST_TO_URL +refs/heads/*:refs/remotes/origin/* --depth=200"
+ sh "git checkout origin/${env.MERGE_REQUEST_TO_BRANCH}"
+ sh "git config user.email 'je@nkins.domain'"
+ sh "git config user.name 'jenkins'"
+ sh "git merge origin/${env.MERGE_REQUEST_FROM_BRANCH}"
+ sh "git log --graph --abbrev-commit --max-count=10"
+ }
+  
+ stage('Compile') {
+ sh "./gradlew assemble"
+ }
+  
+ stage('Unit test') {
+ sh "./gradlew test"
+ commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Test ok in $MERGE_REQUEST_FROM_BRANCH =) ${env.BUILD_URL}")
+ }
+  
+ stage('Regression test') {
+ sh "echo regtest"
+ commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Regression test ok in $MERGE_REQUEST_FROM_BRANCH =) ${env.BUILD_URL}")
+ }
+  
+ stage('Static code analysis') {
+ sh "./gradlew check"
+ step([
+ $class: 'ViolationsToGitLabRecorder',
+ config: [
+ gitLabUrl: 'http://gitlab:80/',
+ projectId: env.PROJECT_PATH,
+ mergeRequestId: env.MERGE_REQUST_IID,
+ commentOnlyChangedContent: true,
+ createCommentWithAllSingleFileComments: true,
+ minSeverity: 'INFO',
+ useApiToken: true,
+ apiToken: '6xRcmSzPzzEXeS2qqr7R',
+ useApiTokenCredentials: false,
+ apiTokenCredentialsId: 'id',
+ apiTokenPrivate: true,
+ authMethodHeader: true,
+ ignoreCertificateErrors: true,
+ keepOldComments: false,
+ shouldSetWip: true,
+ violationConfigs: [
+ [ pattern: '.*/checkstyle/.*\\.xml$', parser: 'CHECKSTYLE', reporter: 'Checkstyle' ],
+ [ pattern: '.*/findbugs/.*\\.xml$', parser: 'FINDBUGS', reporter: 'Findbugs' ],
+ [ pattern: '.*/pmd/.*\\.xml$', parser: 'PMD', reporter: 'PMD' ],
+ ]
+ ]
+ ])
  }
 }
 ```
