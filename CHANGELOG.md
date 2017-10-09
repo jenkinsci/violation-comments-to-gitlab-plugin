@@ -3,10 +3,15 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Allowing reporter to be unset**
+
+
+[48ade8a79d4e978](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/48ade8a79d4e97870e8e3dccc14fcde6e2b28d4d) Tomas Bjerre *2017-09-26 19:44:30*
+
 **Doc**
 
 
-[df0fa3d58e2b178](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/df0fa3d58e2b1782a334e875d97ca7672567091c) Tomas Bjerre *2017-09-03 08:13:26*
+[085c5b5751e5b8e](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/085c5b5751e5b8e1724f7d2d577397f8f6831213) Tomas Bjerre *2017-09-03 08:13:59*
 
 
 ## 1.12
