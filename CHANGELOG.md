@@ -3,6 +3,15 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Added handling for empty IssueType Description attributes for Resharper**
+
+
+[854f6f787a0a52a](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/854f6f787a0a52aa210d247bce6694d277fc8a55) Tomas Bjerre *2017-10-09 16:58:00*
+
+
+## 1.13
+### No issue
+
 **Allowing reporter to be unset**
 
 
