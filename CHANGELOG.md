@@ -3,6 +3,15 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Resharper WikiUrl**
+
+
+[1fd3145fcd48d2e](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/1fd3145fcd48d2ea3f3669a4e22cd09b1fa5c136) Tomas Bjerre *2017-10-13 11:35:09*
+
+
+## 1.14
+### No issue
+
 **Added handling for empty IssueType Description attributes for Resharper**
 
 
