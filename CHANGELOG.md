@@ -1,6 +1,15 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
+### GitHub [#8](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/8) Could not get GitLab project
+
+**Better error message if project cannot be found #8**
+
+
+[88c4817400b182a](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/88c4817400b182aa6e7b2fe1cc714be2f8200414) Tomas Bjerre *2017-11-01 18:49:22*
+
+
+## 1.15
 ### No issue
 
 **Resharper WikiUrl**
