@@ -1,6 +1,20 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
+### No issue
+
+**Accepting PMD files without ruleset-tag**
+
+
+[ab716dd2c83d527](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/ab716dd2c83d5270c6576fca8f991a54ac4585df) Tomas Bjerre *2017-12-07 16:13:04*
+
+**Doc**
+
+
+[15b4097739a44c5](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/15b4097739a44c5985aa1f57f8221863eb67e55d) Tomas Bjerre *2017-11-18 13:50:20*
+
+
+## 1.16
 ### GitHub [#8](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/8) Could not get GitLab project
 
 **Better error message if project cannot be found #8**
