@@ -3,6 +3,15 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**DocFX**
+
+
+[04057d3c556f9e9](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/04057d3c556f9e9332c62dfcfcd9a2b244d8bc32) Tomas Bjerre *2017-12-21 15:00:37*
+
+
+## 1.17
+### No issue
+
 **Accepting PMD files without ruleset-tag**
 
 
