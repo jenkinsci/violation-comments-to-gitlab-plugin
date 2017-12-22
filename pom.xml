@@ -198,7 +198,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 		<dependency>
 			<groupId>se.bjurr.violations</groupId>
 			<artifactId>violation-comments-to-gitlab-lib</artifactId>
-			<version>1.21</version>
+			<version>1.22</version>
 		</dependency>
 
 		<dependency>

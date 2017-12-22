@@ -3,6 +3,15 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**DocFX parsing JSON with Gson, not ScriptEngine**
+
+
+[449b39057ee5687](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/449b39057ee568773d022f8268a3d22ba07ead86) Tomas Bjerre *2017-12-22 12:57:39*
+
+
+## 1.18
+### No issue
+
 **DocFX**
 
 
