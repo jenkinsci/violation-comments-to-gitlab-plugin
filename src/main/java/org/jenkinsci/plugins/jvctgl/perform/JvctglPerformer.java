@@ -28,7 +28,7 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKENCREDENTIALS;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
-import static se.bjurr.violations.lib.ViolationsReporterApi.violationsReporterApi;
+import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
 import hudson.EnvVars;
 import hudson.FilePath;
@@ -81,7 +81,7 @@ public class JvctglPerformer {
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       if (!isNullOrEmpty(violationConfig.getPattern())) {
         List<Violation> parsedViolations =
-            violationsReporterApi() //
+            violationsApi() //
                 .findAll(violationConfig.getParser()) //
                 .withReporter(violationConfig.getReporter()) //
                 .inFolder(workspace.getAbsolutePath()) //
