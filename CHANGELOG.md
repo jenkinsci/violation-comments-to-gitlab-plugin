@@ -3,10 +3,19 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Relocating to correct Java identifier**
+
+
+[6becb07178f0ec4](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/6becb07178f0ec43eb33f0a84b69b4feb4cffd00) Tomas Bjerre *2017-12-31 11:58:55*
+
+
+## 1.20
+### No issue
+
 **Fixing encoding issues**
 
 
-[fb43339da5f7bdc](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/fb43339da5f7bdccab44e50452ab91296cb24c51) Tomas Bjerre *2017-12-25 19:59:52*
+[3e2af04b327f268](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/3e2af04b327f26839db8a20a653f8a2a41cf0cdd) Tomas Bjerre *2017-12-25 20:01:30*
 
 **Bumping version to fix faulty release**
 
