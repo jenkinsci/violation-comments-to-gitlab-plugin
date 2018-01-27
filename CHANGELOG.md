@@ -3,6 +3,15 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Google error-prone**
+
+
+[a42ac995850c8c1](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/a42ac995850c8c1ce6be6dea7710599f04eea173) Tomas Bjerre *2018-01-14 12:04:31*
+
+
+## 1.22
+### No issue
+
 **Relocating to correct Java identifier**
 
 
