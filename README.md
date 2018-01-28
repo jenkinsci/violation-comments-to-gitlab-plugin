@@ -59,9 +59,7 @@ There is also:
  * A [Gradle plugin](https://github.com/tomasbjerre/violation-comments-to-gitlab-gradle-plugin).
  * A [Maven plugin](https://github.com/tomasbjerre/violation-comments-to-gitlab-maven-plugin).
 
-## Notify Jenkins from GitHub
-
-You will need to the **pull request id** for the pull request that was built. 
+## Notify Jenkins from GitLab
 
 * You may trigger with a [webhook](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html#merge-request-events) in GitLab. And consume it with [Generic Webhook Trigger plugin](https://github.com/jenkinsci/generic-webhook-trigger-plugin) to get the variables you need.
 
