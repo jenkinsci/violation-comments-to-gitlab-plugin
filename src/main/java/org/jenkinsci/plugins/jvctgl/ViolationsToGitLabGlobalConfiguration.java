@@ -3,6 +3,8 @@ package org.jenkinsci.plugins.jvctgl;
 import java.io.Serializable;
 
 import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -35,17 +37,26 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   private Boolean apiTokenPrivate;
   private Boolean authMethodHeader;
   private String apiTokenCredentialsId;
-  private SEVERITY minSeverity;
+  private SEVERITY minSeverity = SEVERITY.INFO;
 
   public ViolationsToGitLabGlobalConfiguration() {
     load();
   }
 
   @Override
-  public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
+  public boolean configure(final StaplerRequest req, final JSONObject json) throws FormException {
     req.bindJSON(this, json);
     save();
     return true;
+  }
+
+  @Restricted(NoExternalUse.class)
+  public ListBoxModel doFillMinSeverityItems() {
+    final ListBoxModel items = new ListBoxModel();
+    for (final SEVERITY severity : SEVERITY.values()) {
+      items.add(severity.name());
+    }
+    return items;
   }
 
   public ListBoxModel doFillApiTokenCredentialsIdItems() {
@@ -61,7 +72,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
-  public void setIgnoreCertificateErrors(boolean ignoreCertificateErrors) {
+  public void setIgnoreCertificateErrors(final boolean ignoreCertificateErrors) {
     this.ignoreCertificateErrors = ignoreCertificateErrors;
   }
 
@@ -70,7 +81,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
-  public void setApiToken(String apiToken) {
+  public void setApiToken(final String apiToken) {
     this.apiToken = apiToken;
   }
 
@@ -79,7 +90,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
-  public void setMinSeverity(SEVERITY minSeverity) {
+  public void setMinSeverity(final SEVERITY minSeverity) {
     this.minSeverity = minSeverity;
   }
 
@@ -88,7 +99,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
-  public void setApiTokenCredentialsId(String apiTokenCredentialsId) {
+  public void setApiTokenCredentialsId(final String apiTokenCredentialsId) {
     this.apiTokenCredentialsId = apiTokenCredentialsId;
   }
 
@@ -97,7 +108,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
-  public void setGitLabUrl(String gitLabUrl) {
+  public void setGitLabUrl(final String gitLabUrl) {
     this.gitLabUrl = gitLabUrl;
   }
 
@@ -106,7 +117,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
-  public void setApiTokenPrivate(boolean apiTokenPrivate) {
+  public void setApiTokenPrivate(final boolean apiTokenPrivate) {
     this.apiTokenPrivate = apiTokenPrivate;
   }
 
@@ -115,7 +126,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @DataBoundSetter
-  public void setAuthMethodHeader(boolean authMethodHeader) {
+  public void setAuthMethodHeader(final boolean authMethodHeader) {
     this.authMethodHeader = authMethodHeader;
   }
 
@@ -136,7 +147,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -146,7 +157,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     if (getClass() != obj.getClass()) {
       return false;
     }
-    ViolationsToGitLabGlobalConfiguration other = (ViolationsToGitLabGlobalConfiguration) obj;
+    final ViolationsToGitLabGlobalConfiguration other = (ViolationsToGitLabGlobalConfiguration) obj;
     if (apiToken == null) {
       if (other.apiToken != null) {
         return false;

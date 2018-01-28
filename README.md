@@ -8,24 +8,6 @@ You can have a look at [violations-test](https://gitlab.com/tomas.bjerre85/viola
 
 Available in Jenkins [here](https://wiki.jenkins-ci.org/display/JENKINS/Violation+Comments+to+GitLab+Plugin).
 
-You can get the variables you need from the [Generic Webhook Trigger plugin](https://github.com/jenkinsci/generic-webhook-trigger-plugin), [GitLab plugin](https://github.com/jenkinsci/gitlab-plugin) or [GitLab Merge Request Builder Plugin](https://github.com/timols/jenkins-gitlab-merge-request-builder-plugin).
-
-You must perform the merge before doing the analysis for the lines to match the lines in the pull request.
-
-```
-Shell script build step
-git clone $TOREPO
-cd *
-git reset --hard $TO
-git status
-git remote add from $FROMREPO
-git fetch from
-git merge $FROM
-git --no-pager log --max-count=10 --graph --abbrev-commit
-
-your build command here!
-```
-
 It supports:
  * [_AndroidLint_](http://developer.android.com/tools/help/lint.html)
  * [_Checkstyle_](http://checkstyle.sourceforge.net/)
@@ -73,6 +55,39 @@ It supports:
  * [_ZPTLint_](https://pypi.python.org/pypi/zptlint)
 
 
+There is also:
+ * A [Gradle plugin](https://github.com/tomasbjerre/violation-comments-to-gitlab-gradle-plugin).
+ * A [Maven plugin](https://github.com/tomasbjerre/violation-comments-to-gitlab-maven-plugin).
+
+## Notify Jenkins from GitHub
+
+You will need to the **pull request id** for the pull request that was built. 
+
+* You may trigger with a [webhook](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html#merge-request-events) in GitLab. And consume it with [Generic Webhook Trigger plugin](https://github.com/jenkinsci/generic-webhook-trigger-plugin) to get the variables you need.
+
+* Or, trigger with [GitLab plugin](https://github.com/jenkinsci/gitlab-plugin).
+
+* Or, trigger with [GitLab Merge Request Builder Plugin](https://github.com/timols/jenkins-gitlab-merge-request-builder-plugin).
+
+## Merge
+
+**You must perform the merge before build**. If you don't perform the merge, the reported violations will refer to other lines then those in the pull request. The merge can be done with a shell script like this.
+
+```
+echo ---
+echo --- Merging from $FROM in $FROMREPO to $TO in $TOREPO
+echo ---
+git clone $TOREPO
+cd *
+git reset --hard $TO
+git status
+git remote add from $FROMREPO
+git fetch from
+git merge $FROM
+git --no-pager log --max-count=10 --graph --abbrev-commit
+
+Your build command here!
+```
 
 # Screenshots
 
@@ -234,10 +249,8 @@ job('GitLab_MR_Builder') {
     createCommentWithAllSingleFileComments(true)
     minSeverity('INFO')
  
-    useApiToken(true)
-    apiToken("AvAkp6HtUvzpesPypXSk")
-    useApiTokenCredentials(false)
-    apiTokenCredentialsId("")
+    apiToken("")
+    apiTokenCredentialsId("gitlabtoken")
     apiTokenPrivate(true)
     authMethodHeader(true)
     ignoreCertificateErrors(true)
@@ -404,10 +417,11 @@ node {
  commentOnlyChangedContent: true,
  createCommentWithAllSingleFileComments: true,
  minSeverity: 'INFO',
- useApiToken: true,
+ 
+ //Specify one of these
  apiToken: '6xRcmSzPzzEXeS2qqr7R',
- useApiTokenCredentials: false,
  apiTokenCredentialsId: 'id',
+ 
  apiTokenPrivate: true,
  authMethodHeader: true,
  ignoreCertificateErrors: true,

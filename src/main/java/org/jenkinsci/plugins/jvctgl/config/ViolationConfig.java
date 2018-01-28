@@ -2,23 +2,30 @@ package org.jenkinsci.plugins.jvctgl.config;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 
+import hudson.Extension;
+import hudson.model.AbstractDescribableImpl;
+import hudson.model.Descriptor;
+import hudson.util.ListBoxModel;
 import se.bjurr.violations.lib.reports.Parser;
 
-public class ViolationConfig implements Serializable {
+public class ViolationConfig extends AbstractDescribableImpl<ViolationConfig>
+    implements Serializable {
   private static final long serialVersionUID = 9009372864417543781L;
 
   private String pattern;
-  /** @see Violation. */
   private Parser parser;
-  /** @see Violation. */
   private String reporter;
 
   public ViolationConfig() {}
 
   @DataBoundConstructor
-  public ViolationConfig(Parser parser, String pattern, String reporter) {
+  public ViolationConfig(final Parser parser, final String pattern, final String reporter) {
     this.parser = parser;
     this.pattern = pattern;
     this.reporter = reporter;
@@ -39,15 +46,15 @@ public class ViolationConfig implements Serializable {
     return reporter;
   }
 
-  public void setPattern(String pattern) {
+  public void setPattern(final String pattern) {
     this.pattern = pattern;
   }
 
-  public void setParser(Parser parser) {
+  public void setParser(final Parser parser) {
     this.parser = parser;
   }
 
-  public void setReporter(String reporter) {
+  public void setReporter(final String reporter) {
     this.reporter = reporter;
   }
 
@@ -60,5 +67,23 @@ public class ViolationConfig implements Serializable {
         + ", reporter="
         + reporter
         + "]";
+  }
+
+  @Extension
+  public static class DescriptorImpl extends Descriptor<ViolationConfig> {
+    @Nonnull
+    @Override
+    public String getDisplayName() {
+      return "Violations Parser Config";
+    }
+
+    @Restricted(NoExternalUse.class)
+    public ListBoxModel doFillParserItems() {
+      final ListBoxModel items = new ListBoxModel();
+      for (final Parser parser : Parser.values()) {
+        items.add(parser.name());
+      }
+      return items;
+    }
   }
 }

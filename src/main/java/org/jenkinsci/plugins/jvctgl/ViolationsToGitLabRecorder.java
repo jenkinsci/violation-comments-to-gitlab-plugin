@@ -3,27 +3,25 @@ package org.jenkinsci.plugins.jvctgl;
 import static hudson.tasks.BuildStepMonitor.NONE;
 import static org.jenkinsci.plugins.jvctgl.perform.JvctglPerformer.jvctsPerform;
 
-import hudson.Extension;
-import hudson.FilePath;
-import hudson.Launcher;
-import hudson.model.TaskListener;
-import hudson.model.Run;
-import hudson.tasks.BuildStepDescriptor;
-import hudson.tasks.BuildStepMonitor;
-import hudson.tasks.Publisher;
-import hudson.tasks.Recorder;
-
 import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-import jenkins.tasks.SimpleBuildStep;
-
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.kohsuke.stapler.DataBoundConstructor;
 
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.tasks.BuildStepDescriptor;
+import hudson.tasks.BuildStepMonitor;
+import hudson.tasks.Publisher;
+import hudson.tasks.Recorder;
+import jenkins.tasks.SimpleBuildStep;
+
 public class ViolationsToGitLabRecorder extends Recorder implements SimpleBuildStep {
-  @Extension
+
   public static final BuildStepDescriptor<Publisher> DESCRIPTOR =
       new ViolationsToGitLabDescriptor();
 
@@ -32,7 +30,7 @@ public class ViolationsToGitLabRecorder extends Recorder implements SimpleBuildS
   public ViolationsToGitLabRecorder() {}
 
   @DataBoundConstructor
-  public ViolationsToGitLabRecorder(ViolationsToGitLabConfig config) {
+  public ViolationsToGitLabRecorder(final ViolationsToGitLabConfig config) {
     this.config = config;
   }
 
@@ -52,21 +50,22 @@ public class ViolationsToGitLabRecorder extends Recorder implements SimpleBuildS
 
   @Override
   public void perform(
-      @Nonnull Run<?, ?> build,
-      @Nonnull FilePath filePath,
-      @Nonnull Launcher launcher,
-      @Nonnull TaskListener listener)
+      @Nonnull final Run<?, ?> build,
+      @Nonnull final FilePath filePath,
+      @Nonnull final Launcher launcher,
+      @Nonnull final TaskListener listener)
       throws InterruptedException, IOException {
 
-    ViolationsToGitLabConfig combinedConfig = new ViolationsToGitLabConfig(this.config);
-    ViolationsToGitLabGlobalConfiguration defaults = ViolationsToGitLabGlobalConfiguration.get();
+    final ViolationsToGitLabConfig combinedConfig = new ViolationsToGitLabConfig(this.config);
+    final ViolationsToGitLabGlobalConfiguration defaults =
+        ViolationsToGitLabGlobalConfiguration.get();
 
     combinedConfig.applyDefaults(defaults);
 
     jvctsPerform(combinedConfig, filePath, build, listener);
   }
 
-  public void setConfig(ViolationsToGitLabConfig config) {
+  public void setConfig(final ViolationsToGitLabConfig config) {
     this.config = config;
   }
 }

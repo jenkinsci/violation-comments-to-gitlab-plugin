@@ -1,55 +1,29 @@
 package org.jenkinsci.plugins.jvctgl;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKEN;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_AUTHMETHODHEADER;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_COMMENTONLYCHANGEDCONTENT;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_KEEP_OLD_COMMENTS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PATTERN;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_REPORTER;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKENCREDENTIALS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.createNewConfig;
-import hudson.model.AbstractProject;
-import hudson.tasks.BuildStepDescriptor;
-import hudson.tasks.Publisher;
-import hudson.util.ListBoxModel;
 
-import java.util.List;
-
-import net.sf.json.JSONObject;
-
-import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
-import org.jenkinsci.plugins.jvctgl.config.ViolationConfig;
+import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.kohsuke.stapler.StaplerRequest;
 
-import se.bjurr.violations.lib.model.SEVERITY;
+import hudson.Extension;
+import hudson.model.AbstractProject;
+import hudson.tasks.BuildStepDescriptor;
+import hudson.tasks.Publisher;
+import net.sf.json.JSONObject;
 
+@Extension
+@Symbol("ViolationsToGitLab")
 public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publisher> {
   private ViolationsToGitLabConfig config;
 
   public ViolationsToGitLabDescriptor() {
     super(ViolationsToGitLabRecorder.class);
     load();
-    if (this.config == null
-        || this.config.getViolationConfigs().size()
-            != createNewConfig().getViolationConfigs().size()) {
-      this.config = createNewConfig();
+    if (this.config == null) {
+      this.config = new ViolationsToGitLabConfig();
     }
-  }
-
-  public ListBoxModel doFillApiTokenCredentialsIdItems() {
-    return CredentialsHelper.doFillApiTokenCredentialsIdItems();
   }
 
   @Override
@@ -62,64 +36,23 @@ public final class ViolationsToGitLabDescriptor extends BuildStepDescriptor<Publ
     return super.getHelpFile();
   }
 
-  /** Create new blank configuration. Used when job is created. */
-  public ViolationsToGitLabConfig getNewConfig() {
-    return createNewConfig();
-  }
-
   @Override
   public boolean isApplicable(
       @SuppressWarnings("rawtypes") final Class<? extends AbstractProject> jobType) {
     return true;
   }
 
-  @SuppressWarnings("unchecked")
   @Override
-  public Publisher newInstance(StaplerRequest req, JSONObject formData)
+  public Publisher newInstance(final StaplerRequest req, final JSONObject formData)
       throws hudson.model.Descriptor.FormException {
-    final ViolationsToGitLabConfig config = createNewConfig();
-    config.setGitLabUrl(formData.getString(FIELD_GITLABURL));
-    config.setProjectId(formData.getString(FIELD_PROJECTID));
-    config.setMergeRequestId(formData.getString(FIELD_MERGEREQUESTID));
-
-    config.setCreateCommentWithAllSingleFileComments(
-        formData.getString(FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS).equalsIgnoreCase("true"));
-    config.setCommentOnlyChangedContent(
-        formData.getString(FIELD_COMMENTONLYCHANGEDCONTENT).equalsIgnoreCase("true"));
-
-    config.setUseApiToken(formData.getBoolean(FIELD_USEAPITOKEN));
-    config.setApiToken(formData.getString(FIELD_APITOKEN));
-
-    config.setUseApiTokenCredentials(
-        formData.getString(FIELD_USEAPITOKENCREDENTIALS).equalsIgnoreCase("true"));
-    config.setApiTokenCredentialsId(formData.getString(FIELD_APITOKENCREDENTIALSID));
-
-    config.setAuthMethodHeader(formData.getString(FIELD_AUTHMETHODHEADER).equalsIgnoreCase("true"));
-    config.setApiTokenPrivate(formData.getBoolean(FIELD_APITOKENPRIVATE));
-    config.setIgnoreCertificateErrors(
-        formData.getString(FIELD_IGNORECERTIFICATEERRORS).equalsIgnoreCase("true"));
-
-    final String minSeverityString = formData.getString(FIELD_MINSEVERITY);
-    if (!isNullOrEmpty(minSeverityString)) {
-      config.setMinSeverity(SEVERITY.valueOf(minSeverityString));
-    } else {
-      config.setMinSeverity(null);
+    if (formData != null) {
+      final JSONObject config = formData.getJSONObject("config");
+      final String minSeverity = config.getString(FIELD_MINSEVERITY);
+      if (StringUtils.isBlank(minSeverity)) {
+        config.remove(FIELD_MINSEVERITY);
+      }
     }
-    config.setKeepOldComments(formData.getString(FIELD_KEEP_OLD_COMMENTS).equalsIgnoreCase("true"));
-    config.setShouldSetWip(formData.getString(FIELD_SHOULD_SET_WIP).equalsIgnoreCase("true"));
 
-    int i = 0;
-    final List<String> patterns = (List<String>) formData.get(FIELD_PATTERN);
-    final List<String> reporters = (List<String>) formData.get(FIELD_REPORTER);
-    for (final String pattern : patterns) {
-      final ViolationConfig violationConfig = config.getViolationConfigs().get(i);
-      violationConfig.setPattern(pattern);
-      final String reporter = reporters.get(i);
-      violationConfig.setReporter(reporter);
-      i++;
-    }
-    final ViolationsToGitLabRecorder publisher = new ViolationsToGitLabRecorder();
-    publisher.setConfig(config);
-    return publisher;
+    return req.bindJSON(ViolationsToGitLabRecorder.class, formData);
   }
 }

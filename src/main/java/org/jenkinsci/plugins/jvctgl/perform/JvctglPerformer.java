@@ -1,8 +1,6 @@
 package org.jenkinsci.plugins.jvctgl.perform;
 
 import static com.google.common.base.Charsets.UTF_8;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Strings.emptyToNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Throwables.propagate;
 import static com.google.common.collect.Lists.newArrayList;
@@ -11,7 +9,6 @@ import static org.gitlab.api.AuthMethod.HEADER;
 import static org.gitlab.api.AuthMethod.URL_PARAMETER;
 import static org.gitlab.api.TokenType.ACCESS_TOKEN;
 import static org.gitlab.api.TokenType.PRIVATE_TOKEN;
-import static org.jenkinsci.plugins.jvctgl.config.CredentialsHelper.findApiTokenCredentials;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
@@ -25,17 +22,9 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKEN;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_USEAPITOKENCREDENTIALS;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.FilePath.FileCallable;
-import hudson.model.TaskListener;
-import hudson.model.Run;
-import hudson.remoting.VirtualChannel;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,26 +38,36 @@ import java.util.logging.Logger;
 
 import org.gitlab.api.AuthMethod;
 import org.gitlab.api.TokenType;
+import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
 import org.jenkinsci.plugins.jvctgl.config.ViolationConfig;
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.jenkinsci.remoting.RoleChecker;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.io.CharStreams;
+
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.remoting.VirtualChannel;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
-
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.io.CharStreams;
 
 public class JvctglPerformer {
   private static Logger LOG = Logger.getLogger(JvctglPerformer.class.getSimpleName());
 
   @VisibleForTesting
   public static void doPerform(
-      final ViolationsToGitLabConfig config, final File workspace, final TaskListener listener)
+      final ViolationsToGitLabConfig config,
+      final Optional<StringCredentials> apiTokenCredentials,
+      final File workspace,
+      final TaskListener listener)
       throws MalformedURLException {
     if (config.getMergeRequestId() == null) {
       listener
@@ -100,8 +99,14 @@ public class JvctglPerformer {
       }
     }
 
-    final String apiToken =
-        checkNotNull(emptyToNull(config.getApiToken()), "APIToken selected but not set!");
+    String apiToken = config.getApiToken();
+    if (apiTokenCredentials.isPresent()) {
+      apiToken = apiTokenCredentials.get().getSecret().getPlainText();
+    }
+    if (isNullOrEmpty(apiToken)) {
+      throw new IllegalStateException("No credentials found!");
+    }
+
     final String hostUrl = config.getGitLabUrl();
     final String projectId = config.getProjectId();
     final String mergeRequestId = config.getMergeRequestId();
@@ -152,10 +157,8 @@ public class JvctglPerformer {
     expanded.setProjectId(environment.expand(config.getProjectId()));
     expanded.setMergeRequestId(environment.expand(config.getMergeRequestId()));
 
-    expanded.setUseApiToken(config.getUseApiToken());
     expanded.setApiToken(config.getApiToken());
 
-    expanded.setUseApiTokenCredentials(config.isUseApiTokenCredentials());
     expanded.setApiTokenCredentialsId(config.getApiTokenCredentialsId());
 
     expanded.setAuthMethodHeader(config.getAuthMethodHeader());
@@ -173,7 +176,7 @@ public class JvctglPerformer {
       final String pattern = environment.expand(violationConfig.getPattern());
       final String reporter = violationConfig.getReporter();
       final Parser parser = violationConfig.getParser();
-      if (isNullOrEmpty(pattern) || isNullOrEmpty(reporter) || parser == null) {
+      if (isNullOrEmpty(pattern) || parser == null) {
         LOG.fine("Ignoring violationConfig because of null/empty -values: " + violationConfig);
         continue;
       }
@@ -199,7 +202,8 @@ public class JvctglPerformer {
       listener.getLogger().println("---");
       logConfiguration(configExpanded, build, listener);
 
-      setApiTokenCredentials(configExpanded, listener);
+      final Optional<StringCredentials> apiTokenCredentials =
+          CredentialsHelper.findApiTokenCredentials(configExpanded.getApiToken());
 
       listener.getLogger().println("Running Violation Comments To GitLab");
       listener.getLogger().println("Merge request: " + configExpanded.getMergeRequestId());
@@ -217,7 +221,7 @@ public class JvctglPerformer {
                 throws IOException, InterruptedException {
               setupFindBugsMessages();
               listener.getLogger().println("Workspace: " + workspace.getAbsolutePath());
-              doPerform(configExpanded, workspace, listener);
+              doPerform(configExpanded, apiTokenCredentials, workspace, listener);
               return null;
             }
           });
@@ -237,10 +241,8 @@ public class JvctglPerformer {
     logger.println(FIELD_PROJECTID + ": " + config.getProjectId());
     logger.println(FIELD_MERGEREQUESTID + ": " + config.getMergeRequestId());
 
-    logger.println(FIELD_USEAPITOKEN + ": " + config.getUseApiToken());
     logger.println(FIELD_APITOKEN + ": " + !isNullOrEmpty(config.getApiToken()));
 
-    logger.println(FIELD_USEAPITOKENCREDENTIALS + ": " + config.isUseApiTokenCredentials());
     logger.println(
         FIELD_APITOKENCREDENTIALSID + ": " + !isNullOrEmpty(config.getApiTokenCredentialsId()));
     logger.println(FIELD_IGNORECERTIFICATEERRORS + ": " + config.getIgnoreCertificateErrors());
@@ -259,29 +261,6 @@ public class JvctglPerformer {
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       logger.println(violationConfig.getParser() + " with pattern " + violationConfig.getPattern());
-    }
-  }
-
-  private static void setApiTokenCredentials(
-      final ViolationsToGitLabConfig configExpanded, final TaskListener listener) {
-    if (configExpanded.isUseApiTokenCredentials()) {
-      final String getoApiTokenCredentialsId = configExpanded.getApiTokenCredentialsId();
-      if (!isNullOrEmpty(getoApiTokenCredentialsId)) {
-        final Optional<StringCredentials> credentials =
-            findApiTokenCredentials(getoApiTokenCredentialsId);
-        if (credentials.isPresent()) {
-          final StringCredentials stringCredential =
-              checkNotNull(credentials.get(), "Credentials API token selected but not set!");
-          configExpanded.setApiToken(stringCredential.getSecret().getPlainText());
-          listener.getLogger().println("Using API token from credentials");
-        } else {
-          listener.getLogger().println("API token credentials not found!");
-          return;
-        }
-      } else {
-        listener.getLogger().println("API token credentials checked but not selected!");
-        return;
-      }
     }
   }
 

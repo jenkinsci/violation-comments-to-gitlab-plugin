@@ -6,12 +6,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jenkinsci.plugins.jvctgl.ViolationsToGitLabGlobalConfiguration;
-import org.kohsuke.stapler.DataBoundConstructor;
+import javax.annotation.Nonnull;
 
+import org.jenkinsci.plugins.jvctgl.ViolationsToGitLabGlobalConfiguration;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
+
+import hudson.Extension;
+import hudson.model.AbstractDescribableImpl;
+import hudson.model.Descriptor;
+import hudson.util.ListBoxModel;
 import se.bjurr.violations.lib.model.SEVERITY;
 
-public class ViolationsToGitLabConfig implements Serializable {
+public class ViolationsToGitLabConfig extends AbstractDescribableImpl<ViolationsToGitLabConfig>
+    implements Serializable {
   private static final long serialVersionUID = 4851568645021422528L;
 
   private boolean commentOnlyChangedContent;
@@ -19,73 +29,36 @@ public class ViolationsToGitLabConfig implements Serializable {
   private List<ViolationConfig> violationConfigs;
   private String gitLabUrl;
   private String apiToken;
-  private Boolean useApiToken;
   private String projectId;
   private String mergeRequestId;
-  private Boolean useApiTokenCredentials;
   private String apiTokenCredentialsId;
   private Boolean ignoreCertificateErrors;
   private Boolean apiTokenPrivate;
   private Boolean authMethodHeader;
   private SEVERITY minSeverity;
-
   private Boolean keepOldComments;
-
   private Boolean shouldSetWip;
 
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
-      boolean commentOnlyChangedContent,
-      boolean createCommentWithAllSingleFileComments,
-      List<ViolationConfig> violationConfigs,
-      String gitLabUrl,
-      String apiToken,
-      String projectId,
-      String mergeRequestId,
-      boolean useApiTokenCredentials,
-      String apiTokenCredentialsId,
-      boolean ignoreCertificateErrors,
-      boolean apiTokenPrivate,
-      boolean authMethodHeader,
-      boolean useApiToken,
-      SEVERITY minSeverity,
-      boolean keepOldComments,
-      boolean shouldSetWip) {
-    final List<ViolationConfig> allViolationConfigs = includeAllReporters(violationConfigs);
-
-    this.commentOnlyChangedContent = commentOnlyChangedContent;
-    this.createCommentWithAllSingleFileComments = createCommentWithAllSingleFileComments;
-    this.violationConfigs = allViolationConfigs;
+      final String gitLabUrl, final String projectId, final String mergeRequestId) {
     this.gitLabUrl = gitLabUrl;
-    this.apiToken = apiToken;
     this.projectId = projectId;
     this.mergeRequestId = mergeRequestId;
-    this.useApiTokenCredentials = useApiTokenCredentials;
-    this.apiTokenCredentialsId = apiTokenCredentialsId;
-    this.ignoreCertificateErrors = ignoreCertificateErrors;
-    this.apiTokenPrivate = apiTokenPrivate;
-    this.authMethodHeader = authMethodHeader;
-    this.useApiToken = useApiToken;
-    this.minSeverity = minSeverity;
-    this.keepOldComments = keepOldComments;
-    this.shouldSetWip = shouldSetWip;
   }
 
-  public ViolationsToGitLabConfig(ViolationsToGitLabConfig rhs) {
+  public ViolationsToGitLabConfig(final ViolationsToGitLabConfig rhs) {
     this.violationConfigs = rhs.violationConfigs;
     this.createCommentWithAllSingleFileComments = rhs.createCommentWithAllSingleFileComments;
     this.commentOnlyChangedContent = rhs.commentOnlyChangedContent;
-
     this.gitLabUrl = rhs.gitLabUrl;
     this.apiToken = rhs.apiToken;
     this.projectId = rhs.projectId;
     this.mergeRequestId = rhs.mergeRequestId;
-    this.useApiTokenCredentials = rhs.useApiTokenCredentials;
     this.apiTokenCredentialsId = rhs.apiTokenCredentialsId;
     this.ignoreCertificateErrors = rhs.ignoreCertificateErrors;
     this.apiTokenPrivate = rhs.apiTokenPrivate;
     this.authMethodHeader = rhs.authMethodHeader;
-    this.useApiToken = rhs.useApiToken;
     this.minSeverity = rhs.minSeverity;
     this.keepOldComments = rhs.keepOldComments;
     this.shouldSetWip = rhs.shouldSetWip;
@@ -95,7 +68,7 @@ public class ViolationsToGitLabConfig implements Serializable {
     this.violationConfigs = new ArrayList<>();
   }
 
-  public void applyDefaults(ViolationsToGitLabGlobalConfiguration defaults) {
+  public void applyDefaults(final ViolationsToGitLabGlobalConfiguration defaults) {
     if (defaults == null) {
       return;
     }
@@ -139,46 +112,32 @@ public class ViolationsToGitLabConfig implements Serializable {
     return this.violationConfigs;
   }
 
-  public void setIgnoreCertificateErrors(Boolean ignoreCertificateErrors) {
+  @DataBoundSetter
+  public void setIgnoreCertificateErrors(final Boolean ignoreCertificateErrors) {
     this.ignoreCertificateErrors = ignoreCertificateErrors;
   }
 
-  public void setApiTokenPrivate(Boolean apiTokenPrivate) {
+  @DataBoundSetter
+  public void setApiTokenPrivate(final Boolean apiTokenPrivate) {
     this.apiTokenPrivate = apiTokenPrivate;
   }
 
-  public void setUseApiTokenCredentials(Boolean useApiTokenCredentials) {
-    this.useApiTokenCredentials = useApiTokenCredentials;
-  }
-
-  public void setMergeRequestId(String mergeRequestId) {
+  public void setMergeRequestId(final String mergeRequestId) {
     this.mergeRequestId = mergeRequestId;
   }
 
-  public void setProjectId(String projectId) {
+  public void setProjectId(final String projectId) {
     this.projectId = projectId;
   }
 
-  public void setApiTokenCredentialsId(String apiTokenCredentialsId) {
+  @DataBoundSetter
+  public void setApiTokenCredentialsId(final String apiTokenCredentialsId) {
     this.apiTokenCredentialsId = apiTokenCredentialsId;
   }
 
-  public void setAuthMethodHeader(Boolean authMethodHeader) {
+  @DataBoundSetter
+  public void setAuthMethodHeader(final Boolean authMethodHeader) {
     this.authMethodHeader = authMethodHeader;
-  }
-
-  private List<ViolationConfig> includeAllReporters(List<ViolationConfig> violationConfigs) {
-    final List<ViolationConfig> allViolationConfigs =
-        ViolationsToGitLabConfigHelper.getAllViolationConfigs();
-    for (final ViolationConfig candidate : allViolationConfigs) {
-      for (final ViolationConfig input : violationConfigs) {
-        if (candidate.getParser() == input.getParser()) {
-          candidate.setPattern(input.getPattern());
-          candidate.setReporter(input.getReporter());
-        }
-      }
-    }
-    return allViolationConfigs;
   }
 
   public String getApiToken() {
@@ -201,10 +160,6 @@ public class ViolationsToGitLabConfig implements Serializable {
     return mergeRequestId;
   }
 
-  public boolean isUseApiTokenCredentials() {
-    return useApiTokenCredentials;
-  }
-
   public String getApiTokenCredentialsId() {
     return apiTokenCredentialsId;
   }
@@ -213,8 +168,9 @@ public class ViolationsToGitLabConfig implements Serializable {
     return ignoreCertificateErrors;
   }
 
+  @DataBoundSetter
   public void setCreateCommentWithAllSingleFileComments(
-      boolean createCommentWithAllSingleFileComments) {
+      final boolean createCommentWithAllSingleFileComments) {
     this.createCommentWithAllSingleFileComments = createCommentWithAllSingleFileComments;
   }
 
@@ -222,35 +178,27 @@ public class ViolationsToGitLabConfig implements Serializable {
     return minSeverity;
   }
 
-  public void setMinSeverity(SEVERITY minSeverity) {
+  @DataBoundSetter
+  public void setMinSeverity(final SEVERITY minSeverity) {
     this.minSeverity = minSeverity;
   }
 
-  public Boolean getUseApiToken() {
-    return useApiToken;
-  }
-
-  public Boolean getUseApiTokenCredentials() {
-    return useApiTokenCredentials;
-  }
-
-  public void setUseApiToken(Boolean useApiToken) {
-    this.useApiToken = useApiToken;
-  }
-
-  public void setCommentOnlyChangedContent(boolean commentOnlyChangedContent) {
+  @DataBoundSetter
+  public void setCommentOnlyChangedContent(final boolean commentOnlyChangedContent) {
     this.commentOnlyChangedContent = commentOnlyChangedContent;
   }
 
-  public void setViolationConfigs(List<ViolationConfig> violationConfigs) {
+  @DataBoundSetter
+  public void setViolationConfigs(final List<ViolationConfig> violationConfigs) {
     this.violationConfigs = violationConfigs;
   }
 
-  public void setGitLabUrl(String gitLabUrl) {
+  public void setGitLabUrl(final String gitLabUrl) {
     this.gitLabUrl = gitLabUrl;
   }
 
-  public void setApiToken(String apiToken) {
+  @DataBoundSetter
+  public void setApiToken(final String apiToken) {
     this.apiToken = apiToken;
   }
 
@@ -266,14 +214,10 @@ public class ViolationsToGitLabConfig implements Serializable {
         + gitLabUrl
         + ", apiToken="
         + apiToken
-        + ", useApiToken="
-        + useApiToken
         + ", projectId="
         + projectId
         + ", mergeRequestId="
         + mergeRequestId
-        + ", useApiTokenCredentials="
-        + useApiTokenCredentials
         + ", apiTokenCredentialsId="
         + apiTokenCredentialsId
         + ", ignoreCertificateErrors="
@@ -310,15 +254,12 @@ public class ViolationsToGitLabConfig implements Serializable {
     result = prime * result + (minSeverity == null ? 0 : minSeverity.hashCode());
     result = prime * result + (projectId == null ? 0 : projectId.hashCode());
     result = prime * result + (shouldSetWip == null ? 0 : shouldSetWip.hashCode());
-    result = prime * result + (useApiToken == null ? 0 : useApiToken.hashCode());
-    result =
-        prime * result + (useApiTokenCredentials == null ? 0 : useApiTokenCredentials.hashCode());
     result = prime * result + (violationConfigs == null ? 0 : violationConfigs.hashCode());
     return result;
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -408,20 +349,6 @@ public class ViolationsToGitLabConfig implements Serializable {
     } else if (!shouldSetWip.equals(other.shouldSetWip)) {
       return false;
     }
-    if (useApiToken == null) {
-      if (other.useApiToken != null) {
-        return false;
-      }
-    } else if (!useApiToken.equals(other.useApiToken)) {
-      return false;
-    }
-    if (useApiTokenCredentials == null) {
-      if (other.useApiTokenCredentials != null) {
-        return false;
-      }
-    } else if (!useApiTokenCredentials.equals(other.useApiTokenCredentials)) {
-      return false;
-    }
     if (violationConfigs == null) {
       if (other.violationConfigs != null) {
         return false;
@@ -440,11 +367,36 @@ public class ViolationsToGitLabConfig implements Serializable {
     return shouldSetWip;
   }
 
-  public void setShouldSetWip(Boolean shouldSetWip) {
+  @DataBoundSetter
+  public void setShouldSetWip(final Boolean shouldSetWip) {
     this.shouldSetWip = shouldSetWip;
   }
 
-  public void setKeepOldComments(Boolean keepOldComments) {
+  @DataBoundSetter
+  public void setKeepOldComments(final Boolean keepOldComments) {
     this.keepOldComments = keepOldComments;
+  }
+
+  @Extension
+  public static class DescriptorImpl extends Descriptor<ViolationsToGitLabConfig> {
+    @Nonnull
+    @Override
+    public String getDisplayName() {
+      return "Violations To GitHub Server Config";
+    }
+
+    @Restricted(NoExternalUse.class)
+    public ListBoxModel doFillMinSeverityItems() {
+      final ListBoxModel items = new ListBoxModel();
+      items.add("Default, Global Config or Info", "");
+      for (final SEVERITY severity : SEVERITY.values()) {
+        items.add(severity.name());
+      }
+      return items;
+    }
+
+    public ListBoxModel doFillApiTokenCredentialsIdItems() {
+      return CredentialsHelper.doFillApiTokenCredentialsIdItems();
+    }
   }
 }

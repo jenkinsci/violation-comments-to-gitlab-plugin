@@ -3,6 +3,20 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Refactoring**
+
+
+[94a9c6258be681a](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/94a9c6258be681a4414ce3edcef4c75650075bbf) Tomas Bjerre *2018-01-28 14:59:45*
+
+**Jenkinsfile**
+
+
+[22f12c73e6e44ce](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/22f12c73e6e44ceb2c853e23eff7b76b183c6c57) Tomas Bjerre *2018-01-27 18:32:50*
+
+
+## 1.23
+### No issue
+
 **Google error-prone**
 
 
