@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**PCLint**
+
+
+[9a5adfb19a4625d](https://github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin/9a5adfb19a4625df2ff0d278c414b67a0dcb642d) Tomas Bjerre *2018-02-13 19:21:08*
+
+
 ## 1.24
 ### No issue
 
