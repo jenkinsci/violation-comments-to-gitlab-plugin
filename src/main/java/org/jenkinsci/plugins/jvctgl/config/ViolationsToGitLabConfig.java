@@ -1,6 +1,11 @@
 package org.jenkinsci.plugins.jvctgl.config;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static se.bjurr.violations.lib.util.Utils.firstNonNull;
+import hudson.Extension;
+import hudson.model.AbstractDescribableImpl;
+import hudson.model.Descriptor;
+import hudson.util.ListBoxModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,10 +19,6 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 
-import hudson.Extension;
-import hudson.model.AbstractDescribableImpl;
-import hudson.model.Descriptor;
-import hudson.util.ListBoxModel;
 import se.bjurr.violations.lib.model.SEVERITY;
 
 public class ViolationsToGitLabConfig extends AbstractDescribableImpl<ViolationsToGitLabConfig>
@@ -45,6 +46,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.gitLabUrl = gitLabUrl;
     this.projectId = projectId;
     this.mergeRequestId = mergeRequestId;
+    this.keepOldComments = true;
+    this.shouldSetWip = false;
   }
 
   public ViolationsToGitLabConfig(final ViolationsToGitLabConfig rhs) {
@@ -164,8 +167,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     return apiTokenCredentialsId;
   }
 
-  public boolean getIgnoreCertificateErrors() {
-    return ignoreCertificateErrors;
+  public Boolean getIgnoreCertificateErrors() {
+    return firstNonNull(ignoreCertificateErrors, false);
   }
 
   @DataBoundSetter

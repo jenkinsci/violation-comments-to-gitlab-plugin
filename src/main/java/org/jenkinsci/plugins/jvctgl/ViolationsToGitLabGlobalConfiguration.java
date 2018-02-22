@@ -1,6 +1,12 @@
 package org.jenkinsci.plugins.jvctgl;
 
+import hudson.Extension;
+import hudson.util.ListBoxModel;
+
 import java.io.Serializable;
+
+import jenkins.model.GlobalConfiguration;
+import net.sf.json.JSONObject;
 
 import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
 import org.kohsuke.accmod.Restricted;
@@ -8,10 +14,6 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import hudson.Extension;
-import hudson.util.ListBoxModel;
-import jenkins.model.GlobalConfiguration;
-import net.sf.json.JSONObject;
 import se.bjurr.violations.lib.model.SEVERITY;
 
 @Extension
@@ -31,11 +33,11 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
 
   private String gitLabUrl;
 
-  private Boolean ignoreCertificateErrors;
+  private boolean ignoreCertificateErrors;
 
   private String apiToken;
-  private Boolean apiTokenPrivate;
-  private Boolean authMethodHeader;
+  private boolean apiTokenPrivate;
+  private boolean authMethodHeader;
   private String apiTokenCredentialsId;
   private SEVERITY minSeverity = SEVERITY.INFO;
 
@@ -67,7 +69,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     return gitLabUrl;
   }
 
-  public Boolean isIgnoreCertificateErrors() {
+  public boolean isIgnoreCertificateErrors() {
     return ignoreCertificateErrors;
   }
 
@@ -112,7 +114,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     this.gitLabUrl = gitLabUrl;
   }
 
-  public Boolean isApiTokenPrivate() {
+  public boolean isApiTokenPrivate() {
     return apiTokenPrivate;
   }
 
@@ -121,7 +123,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     this.apiTokenPrivate = apiTokenPrivate;
   }
 
-  public Boolean isAuthMethodHeader() {
+  public boolean isAuthMethodHeader() {
     return authMethodHeader;
   }
 
@@ -137,17 +139,16 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     result = prime * result + (apiToken == null ? 0 : apiToken.hashCode());
     result =
         prime * result + (apiTokenCredentialsId == null ? 0 : apiTokenCredentialsId.hashCode());
-    result = prime * result + (apiTokenPrivate == null ? 0 : apiTokenPrivate.hashCode());
-    result = prime * result + (authMethodHeader == null ? 0 : authMethodHeader.hashCode());
+    result = prime * result + (apiTokenPrivate ? 1231 : 1237);
+    result = prime * result + (authMethodHeader ? 1231 : 1237);
     result = prime * result + (gitLabUrl == null ? 0 : gitLabUrl.hashCode());
-    result =
-        prime * result + (ignoreCertificateErrors == null ? 0 : ignoreCertificateErrors.hashCode());
+    result = prime * result + (ignoreCertificateErrors ? 1231 : 1237);
     result = prime * result + (minSeverity == null ? 0 : minSeverity.hashCode());
     return result;
   }
 
   @Override
-  public boolean equals(final Object obj) {
+  public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
@@ -172,18 +173,10 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     } else if (!apiTokenCredentialsId.equals(other.apiTokenCredentialsId)) {
       return false;
     }
-    if (apiTokenPrivate == null) {
-      if (other.apiTokenPrivate != null) {
-        return false;
-      }
-    } else if (!apiTokenPrivate.equals(other.apiTokenPrivate)) {
+    if (apiTokenPrivate != other.apiTokenPrivate) {
       return false;
     }
-    if (authMethodHeader == null) {
-      if (other.authMethodHeader != null) {
-        return false;
-      }
-    } else if (!authMethodHeader.equals(other.authMethodHeader)) {
+    if (authMethodHeader != other.authMethodHeader) {
       return false;
     }
     if (gitLabUrl == null) {
@@ -193,11 +186,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     } else if (!gitLabUrl.equals(other.gitLabUrl)) {
       return false;
     }
-    if (ignoreCertificateErrors == null) {
-      if (other.ignoreCertificateErrors != null) {
-        return false;
-      }
-    } else if (!ignoreCertificateErrors.equals(other.ignoreCertificateErrors)) {
+    if (ignoreCertificateErrors != other.ignoreCertificateErrors) {
       return false;
     }
     if (minSeverity != other.minSeverity) {
