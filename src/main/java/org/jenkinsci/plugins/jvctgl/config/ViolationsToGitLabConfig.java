@@ -11,14 +11,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.jenkinsci.plugins.jvctgl.ViolationsToGitLabGlobalConfiguration;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import se.bjurr.violations.lib.model.SEVERITY;
 
 public class ViolationsToGitLabConfig extends AbstractDescribableImpl<ViolationsToGitLabConfig>
@@ -382,7 +381,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   @Extension
   public static class DescriptorImpl extends Descriptor<ViolationsToGitLabConfig> {
-    @Nonnull
+    @NonNull
     @Override
     public String getDisplayName() {
       return "Violations To GitHub Server Config";

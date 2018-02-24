@@ -5,11 +5,10 @@ import static org.jenkinsci.plugins.jvctgl.perform.JvctglPerformer.jvctsPerform;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
-
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.kohsuke.stapler.DataBoundConstructor;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.model.Run;
@@ -50,10 +49,10 @@ public class ViolationsToGitLabRecorder extends Recorder implements SimpleBuildS
 
   @Override
   public void perform(
-      @Nonnull final Run<?, ?> build,
-      @Nonnull final FilePath filePath,
-      @Nonnull final Launcher launcher,
-      @Nonnull final TaskListener listener)
+      @NonNull final Run<?, ?> build,
+      @NonNull final FilePath filePath,
+      @NonNull final Launcher launcher,
+      @NonNull final TaskListener listener)
       throws InterruptedException, IOException {
 
     final ViolationsToGitLabConfig combinedConfig = new ViolationsToGitLabConfig(this.config);
