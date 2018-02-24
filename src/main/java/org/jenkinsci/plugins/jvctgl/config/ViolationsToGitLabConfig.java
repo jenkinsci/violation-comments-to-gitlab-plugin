@@ -402,12 +402,17 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     }
 
     @SuppressWarnings("unused") // Used by stapler
-    public ListBoxModel doFillApiTokenCredentialsIdItems(@AncestorInPath Item item, @QueryParameter String apiTokenCredentialsId, @QueryParameter String gitLabUrl) {
-      return CredentialsHelper.doFillApiTokenCredentialsIdItems(item, apiTokenCredentialsId, gitLabUrl);
+    public ListBoxModel doFillApiTokenCredentialsIdItems(
+        @AncestorInPath Item item,
+        @QueryParameter String apiTokenCredentialsId,
+        @QueryParameter String gitLabUrl) {
+      return CredentialsHelper.doFillApiTokenCredentialsIdItems(
+          item, apiTokenCredentialsId, gitLabUrl);
     }
 
     @SuppressWarnings("unused") // Used by stapler
-    public FormValidation doCheckApiTokenCredentialsId(@AncestorInPath Item item, @QueryParameter String value, @QueryParameter String gitLabUrl) {
+    public FormValidation doCheckApiTokenCredentialsId(
+        @AncestorInPath Item item, @QueryParameter String value, @QueryParameter String gitLabUrl) {
       return CredentialsHelper.doCheckApiTokenCredentialsId(item, value, gitLabUrl);
     }
   }

@@ -23,7 +23,8 @@ import jenkins.model.Jenkins;
 
 /* Read more about credentials api here: https://github.com/jenkinsci/credentials-plugin/blob/master/docs/consumer.adoc */
 public class CredentialsHelper {
-  public static ListBoxModel doFillApiTokenCredentialsIdItems(Item item, String credentialsId, String uri) {
+  public static ListBoxModel doFillApiTokenCredentialsIdItems(
+      Item item, String credentialsId, String uri) {
     StandardListBoxModel result = new StandardListBoxModel();
     if (item == null) {
       if (!Jenkins.getInstance().hasPermission(Jenkins.ADMINISTER)) {
@@ -46,7 +47,8 @@ public class CredentialsHelper {
         .includeCurrentValue(credentialsId);
   }
 
-  public static FormValidation doCheckApiTokenCredentialsId(Item item, String credentialsId, String uri) {
+  public static FormValidation doCheckApiTokenCredentialsId(
+      Item item, String credentialsId, String uri) {
     if (item == null) {
       if (!Jenkins.getInstance().hasPermission(Jenkins.ADMINISTER)) {
         return FormValidation.ok();
@@ -66,7 +68,8 @@ public class CredentialsHelper {
     return FormValidation.ok();
   }
 
-  public static Optional<StringCredentials> findApiTokenCredentials(Item item, String credentialsId, String uri) {
+  public static Optional<StringCredentials> findApiTokenCredentials(
+      Item item, String credentialsId, String uri) {
     if (isNullOrEmpty(credentialsId)) {
       return absent();
     }

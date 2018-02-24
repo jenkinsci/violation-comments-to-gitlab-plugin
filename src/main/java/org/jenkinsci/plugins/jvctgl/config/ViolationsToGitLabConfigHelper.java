@@ -21,5 +21,4 @@ public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_MINSEVERITY = "minSeverity";
   public static final String FIELD_KEEP_OLD_COMMENTS = "keepOldComments";
   public static final String FIELD_SHOULD_SET_WIP = "shouldSetWip";
-
 }
