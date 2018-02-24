@@ -16,4 +16,5 @@ gradlew
 .gradle
 build
 .okhttpcache
+.idea/
 
