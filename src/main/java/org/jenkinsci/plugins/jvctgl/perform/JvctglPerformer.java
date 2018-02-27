@@ -203,7 +203,8 @@ public class JvctglPerformer {
       logConfiguration(configExpanded, build, listener);
 
       final Optional<StringCredentials> apiTokenCredentials =
-          CredentialsHelper.findApiTokenCredentials(configExpanded.getApiToken());
+          CredentialsHelper.findApiTokenCredentials(
+              build.getParent(), configExpanded.getApiToken(), configExpanded.getGitLabUrl());
 
       listener.getLogger().println("Running Violation Comments To GitLab");
       listener.getLogger().println("Merge request: " + configExpanded.getMergeRequestId());

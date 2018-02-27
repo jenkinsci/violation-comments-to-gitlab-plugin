@@ -1,11 +1,5 @@
 package org.jenkinsci.plugins.jvctgl.config;
 
-import static com.google.common.collect.Lists.newArrayList;
-
-import java.util.List;
-
-import se.bjurr.violations.lib.reports.Parser;
-
 public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_COMMENTONLYCHANGEDCONTENT = "commentOnlyChangedContent";
   public static final String FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS =
@@ -27,21 +21,4 @@ public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_MINSEVERITY = "minSeverity";
   public static final String FIELD_KEEP_OLD_COMMENTS = "keepOldComments";
   public static final String FIELD_SHOULD_SET_WIP = "shouldSetWip";
-
-  public static ViolationsToGitLabConfig createNewConfig() {
-    final ViolationsToGitLabConfig config = new ViolationsToGitLabConfig();
-    final List<ViolationConfig> violationConfigs = getAllViolationConfigs();
-    config.setViolationConfigs(violationConfigs);
-    return config;
-  }
-
-  public static List<ViolationConfig> getAllViolationConfigs() {
-    final List<ViolationConfig> violationConfigs = newArrayList();
-    for (final Parser parser : Parser.values()) {
-      final ViolationConfig violationConfig = new ViolationConfig();
-      violationConfig.setParser(parser);
-      violationConfigs.add(violationConfig);
-    }
-    return violationConfigs;
-  }
 }

@@ -2,23 +2,26 @@ package org.jenkinsci.plugins.jvctgl.config;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static se.bjurr.violations.lib.util.Utils.firstNonNull;
-import hudson.Extension;
-import hudson.model.AbstractDescribableImpl;
-import hudson.model.Descriptor;
-import hudson.util.ListBoxModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.jenkinsci.plugins.jvctgl.ViolationsToGitLabGlobalConfiguration;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.QueryParameter;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import hudson.Extension;
+import hudson.model.AbstractDescribableImpl;
+import hudson.model.Descriptor;
+import hudson.model.Item;
+import hudson.util.FormValidation;
+import hudson.util.ListBoxModel;
 import se.bjurr.violations.lib.model.SEVERITY;
 
 public class ViolationsToGitLabConfig extends AbstractDescribableImpl<ViolationsToGitLabConfig>
@@ -382,7 +385,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   @Extension
   public static class DescriptorImpl extends Descriptor<ViolationsToGitLabConfig> {
-    @Nonnull
+    @NonNull
     @Override
     public String getDisplayName() {
       return "Violations To GitHub Server Config";
@@ -398,8 +401,19 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
       return items;
     }
 
-    public ListBoxModel doFillApiTokenCredentialsIdItems() {
-      return CredentialsHelper.doFillApiTokenCredentialsIdItems();
+    @SuppressWarnings("unused") // Used by stapler
+    public ListBoxModel doFillApiTokenCredentialsIdItems(
+        @AncestorInPath Item item,
+        @QueryParameter String apiTokenCredentialsId,
+        @QueryParameter String gitLabUrl) {
+      return CredentialsHelper.doFillApiTokenCredentialsIdItems(
+          item, apiTokenCredentialsId, gitLabUrl);
+    }
+
+    @SuppressWarnings("unused") // Used by stapler
+    public FormValidation doCheckApiTokenCredentialsId(
+        @AncestorInPath Item item, @QueryParameter String value, @QueryParameter String gitLabUrl) {
+      return CredentialsHelper.doCheckApiTokenCredentialsId(item, value, gitLabUrl);
     }
   }
 }
