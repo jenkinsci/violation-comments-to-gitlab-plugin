@@ -1,7 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 1.28
 ### No issue
+
+**Looking for credentials with the id**
+
+
+[13e8e54325c3731](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/13e8e54325c373110e909e6d3e1153ac7eecff70) Tomas Bjerre *2018-02-27 18:09:50*
 
 **Styles**
 
