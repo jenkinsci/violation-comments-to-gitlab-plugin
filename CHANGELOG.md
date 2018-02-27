@@ -1,5 +1,44 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Styles**
+
+
+[6d6a2d5657e1855](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/6d6a2d5657e18557aead1f9aa811cac96a5a74b3) Joseph Petersen *2018-02-24 20:22:08*
+
+**Remove unused code**
+
+
+[ecdba0af35cbcae](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/ecdba0af35cbcae15e4f359ef219871c2791cc6f) Joseph Petersen *2018-02-24 20:17:05*
+
+**provide credentials item**
+
+
+[c8a743162a4cc24](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/c8a743162a4cc24d9a325fc1d1637300386af0d5) Joseph Petersen *2018-02-24 20:16:48*
+
+**Javax nonnull is bad due to licensing**
+
+
+[cf99843f1e86f34](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/cf99843f1e86f34470b053cd93889b065c84ff16) Joseph Petersen *2018-02-24 20:03:54*
+
+**avoid commit nightmare on windows due to formatter**
+
+
+[3f2508ff48a1072](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/3f2508ff48a107244a9963253a27b3e62e95baf9) Joseph Petersen *2018-02-24 20:03:54*
+
+**ignore .idea**
+
+
+[2e6d99125a783a0](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/2e6d99125a783a0567177819023ef9d9a38a0c42) Joseph Petersen *2018-02-24 20:03:54*
+
+**Update Jenkinsfile**
+
+
+[e40160cb454776b](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e40160cb454776b859d423531bc25cac19d8fda6) Joseph Petersen *2018-02-24 15:12:29*
+
+
 ## 1.27
 ### GitHub [#10](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/10) Global config needs to be saved first, or NPE will happen
 

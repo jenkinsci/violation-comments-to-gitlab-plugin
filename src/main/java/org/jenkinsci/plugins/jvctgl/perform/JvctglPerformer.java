@@ -25,6 +25,12 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.model.TaskListener;
+import hudson.model.Run;
+import hudson.remoting.VirtualChannel;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,20 +50,14 @@ import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.jenkinsci.remoting.RoleChecker;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.io.CharStreams;
-
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.FilePath.FileCallable;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-import hudson.remoting.VirtualChannel;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
+
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.io.CharStreams;
 
 public class JvctglPerformer {
   private static Logger LOG = Logger.getLogger(JvctglPerformer.class.getSimpleName());
@@ -204,7 +204,9 @@ public class JvctglPerformer {
 
       final Optional<StringCredentials> apiTokenCredentials =
           CredentialsHelper.findApiTokenCredentials(
-              build.getParent(), configExpanded.getApiToken(), configExpanded.getGitLabUrl());
+              build.getParent(),
+              configExpanded.getApiTokenCredentialsId(),
+              configExpanded.getGitLabUrl());
 
       listener.getLogger().println("Running Violation Comments To GitLab");
       listener.getLogger().println("Merge request: " + configExpanded.getMergeRequestId());
