@@ -34,7 +34,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private String gitLabUrl;
   private String apiToken;
   private String projectId;
-  private String mergeRequestId;
+  private String mergeRequestIid;
+  @Deprecated private transient String mergeRequestId;
   private String apiTokenCredentialsId;
   private Boolean ignoreCertificateErrors;
   private Boolean apiTokenPrivate;
@@ -45,10 +46,10 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
-      final String gitLabUrl, final String projectId, final String mergeRequestId) {
+      final String gitLabUrl, final String projectId, final String mergeRequestIid) {
     this.gitLabUrl = gitLabUrl;
     this.projectId = projectId;
-    this.mergeRequestId = mergeRequestId;
+    this.mergeRequestIid = mergeRequestIid;
     this.keepOldComments = true;
     this.shouldSetWip = false;
   }
@@ -60,7 +61,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.gitLabUrl = rhs.gitLabUrl;
     this.apiToken = rhs.apiToken;
     this.projectId = rhs.projectId;
-    this.mergeRequestId = rhs.mergeRequestId;
+    this.mergeRequestIid = rhs.mergeRequestIid;
     this.apiTokenCredentialsId = rhs.apiTokenCredentialsId;
     this.ignoreCertificateErrors = rhs.ignoreCertificateErrors;
     this.apiTokenPrivate = rhs.apiTokenPrivate;
@@ -68,6 +69,13 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.minSeverity = rhs.minSeverity;
     this.keepOldComments = rhs.keepOldComments;
     this.shouldSetWip = rhs.shouldSetWip;
+  }
+
+  private Object readResolve() {
+    if (isNullOrEmpty(mergeRequestIid)) {
+      mergeRequestIid = mergeRequestId;
+    }
+    return this;
   }
 
   public ViolationsToGitLabConfig() {
@@ -128,8 +136,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.apiTokenPrivate = apiTokenPrivate;
   }
 
-  public void setMergeRequestId(final String mergeRequestId) {
-    this.mergeRequestId = mergeRequestId;
+  public void setMergeRequestIid(final String mergeRequestIid) {
+    this.mergeRequestIid = mergeRequestIid;
   }
 
   public void setProjectId(final String projectId) {
@@ -162,8 +170,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     return apiTokenPrivate;
   }
 
-  public String getMergeRequestId() {
-    return mergeRequestId;
+  public String getMergeRequestIid() {
+    return mergeRequestIid;
   }
 
   public String getApiTokenCredentialsId() {
@@ -222,8 +230,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         + apiToken
         + ", projectId="
         + projectId
-        + ", mergeRequestId="
-        + mergeRequestId
+        + ", mergeRequestIid="
+        + mergeRequestIid
         + ", apiTokenCredentialsId="
         + apiTokenCredentialsId
         + ", ignoreCertificateErrors="
@@ -256,7 +264,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     result =
         prime * result + (ignoreCertificateErrors == null ? 0 : ignoreCertificateErrors.hashCode());
     result = prime * result + (keepOldComments == null ? 0 : keepOldComments.hashCode());
-    result = prime * result + (mergeRequestId == null ? 0 : mergeRequestId.hashCode());
+    result = prime * result + (mergeRequestIid == null ? 0 : mergeRequestIid.hashCode());
     result = prime * result + (minSeverity == null ? 0 : minSeverity.hashCode());
     result = prime * result + (projectId == null ? 0 : projectId.hashCode());
     result = prime * result + (shouldSetWip == null ? 0 : shouldSetWip.hashCode());
@@ -331,11 +339,11 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     } else if (!keepOldComments.equals(other.keepOldComments)) {
       return false;
     }
-    if (mergeRequestId == null) {
-      if (other.mergeRequestId != null) {
+    if (mergeRequestIid == null) {
+      if (other.mergeRequestIid != null) {
         return false;
       }
-    } else if (!mergeRequestId.equals(other.mergeRequestId)) {
+    } else if (!mergeRequestIid.equals(other.mergeRequestIid)) {
       return false;
     }
     if (minSeverity != other.minSeverity) {
@@ -403,16 +411,18 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
     @SuppressWarnings("unused") // Used by stapler
     public ListBoxModel doFillApiTokenCredentialsIdItems(
-        @AncestorInPath Item item,
-        @QueryParameter String apiTokenCredentialsId,
-        @QueryParameter String gitLabUrl) {
+        @AncestorInPath final Item item,
+        @QueryParameter final String apiTokenCredentialsId,
+        @QueryParameter final String gitLabUrl) {
       return CredentialsHelper.doFillApiTokenCredentialsIdItems(
           item, apiTokenCredentialsId, gitLabUrl);
     }
 
     @SuppressWarnings("unused") // Used by stapler
     public FormValidation doCheckApiTokenCredentialsId(
-        @AncestorInPath Item item, @QueryParameter String value, @QueryParameter String gitLabUrl) {
+        @AncestorInPath final Item item,
+        @QueryParameter final String value,
+        @QueryParameter final String gitLabUrl) {
       return CredentialsHelper.doCheckApiTokenCredentialsId(item, value, gitLabUrl);
     }
   }

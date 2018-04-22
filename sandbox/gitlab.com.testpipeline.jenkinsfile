@@ -21,7 +21,7 @@ node {
    config: [
     gitLabUrl: 'https://gitlab.com/',
     projectId: "2732496",
-    mergeRequestId: "1",
+    mergeRequestIid: "1",
     commentOnlyChangedContent: true,
     createCommentWithAllSingleFileComments: true, 
     minSeverity: 'INFO',

@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### GitHub #33 
+
+**NullAway #33**
+
+
+[79786fa2ccb5111](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/79786fa2ccb51113d0226eaec78df98a2dde639d) Tomas Bjerre *2018-04-14 05:16:48*
+
+
 ## 1.28
 ### No issue
 

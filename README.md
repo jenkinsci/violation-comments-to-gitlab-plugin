@@ -243,7 +243,7 @@ job('GitLab_MR_Builder') {
    config {
     gitLabUrl("http://gitlab:880/")
     projectId("\$PROJECT_ID")
-    mergeRequestId("\$MERGE_REQUST_ID")
+    mergeRequestIid("\$MERGE_REQUST_IID")
  
     commentOnlyChangedContent(true)
     createCommentWithAllSingleFileComments(true)
@@ -368,12 +368,12 @@ pipelineJob("merge-request-pipeline") {
 
 And the merge_request_pipeline.pipeline contains
 ```
-def commentMr(projectId, mergeRequestId, comment) {def body = comment
+def commentMr(projectId, mergeRequestIid, comment) {def body = comment
  .replaceAll(" ","%20")
  .replaceAll("/","%2F")
  def project = projectId
  .replaceAll("/","%2F")
- sh "curl http://gitlab:80/api/v4/projects/$project/merge_requests/$mergeRequestId/notes -H 'PRIVATE-TOKEN: 6xRcmSzPzzEXeS2qqr7R' -X POST -d \"body="+body+"\""
+ sh "curl http://gitlab:80/api/v4/projects/$project/merge_requests/$mergeRequestIid/notes -H 'PRIVATE-TOKEN: 6xRcmSzPzzEXeS2qqr7R' -X POST -d \"body="+body+"\""
 }
   
 node {
@@ -413,7 +413,7 @@ node {
  config: [
  gitLabUrl: 'http://gitlab:80/',
  projectId: env.PROJECT_PATH,
- mergeRequestId: env.MERGE_REQUST_IID,
+ mergeRequestIid: env.MERGE_REQUST_IID,
  commentOnlyChangedContent: true,
  createCommentWithAllSingleFileComments: true,
  minSeverity: 'INFO',

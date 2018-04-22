@@ -18,19 +18,13 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_KEEP_OLD_COMMENTS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTIID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.FilePath.FileCallable;
-import hudson.model.TaskListener;
-import hudson.model.Run;
-import hudson.remoting.VirtualChannel;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,14 +44,20 @@ import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.jenkinsci.remoting.RoleChecker;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.io.CharStreams;
+
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.remoting.VirtualChannel;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
-
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.io.CharStreams;
 
 public class JvctglPerformer {
   private static Logger LOG = Logger.getLogger(JvctglPerformer.class.getSimpleName());
@@ -69,10 +69,15 @@ public class JvctglPerformer {
       final File workspace,
       final TaskListener listener)
       throws MalformedURLException {
-    if (config.getMergeRequestId() == null) {
+    if (config.getMergeRequestIid() == null) {
       listener
           .getLogger()
-          .println("No merge request id defined, will not send violation comments.");
+          .println(
+              "No merge request id defined, will not send violation comments. "
+                  + "\n\nPossible cause might be: mergeRequestId changed in version 2.0 and is now mergeRequestIid. "
+                  + "If you just updated the plugin, mergeRequestIid should have the same value that you previously used for mergeRequestId. "
+                  + "It is named wrong in the Java GitLab API and that wrong name has spread to this API."
+                  + "\n\n");
       return;
     }
 
@@ -109,22 +114,22 @@ public class JvctglPerformer {
 
     final String hostUrl = config.getGitLabUrl();
     final String projectId = config.getProjectId();
-    final String mergeRequestId = config.getMergeRequestId();
+    final String mergeRequestIid = config.getMergeRequestIid();
 
     listener
         .getLogger()
-        .println("Will comment PR " + hostUrl + " " + projectId + " " + mergeRequestId);
+        .println("Will comment PR " + hostUrl + " " + projectId + " " + mergeRequestIid);
 
     try {
       final TokenType tokenType = config.getApiTokenPrivate() ? PRIVATE_TOKEN : ACCESS_TOKEN;
       final AuthMethod authMethod = config.getAuthMethodHeader() ? HEADER : URL_PARAMETER;
-      final Integer mergeRequestIdInteger = Integer.parseInt(mergeRequestId);
+      final Integer mergeRequestIidInteger = Integer.parseInt(mergeRequestIid);
       final boolean shouldKeepOldComments = config.getKeepOldComments();
       final boolean shouldSetWIP = config.getShouldSetWip();
       violationCommentsToGitLabApi() //
           .setHostUrl(hostUrl) //
           .setProjectId(projectId) //
-          .setMergeRequestId(mergeRequestIdInteger) //
+          .setMergeRequestIid(mergeRequestIidInteger) //
           .setApiToken(apiToken) //
           .setTokenType(tokenType) //
           .setMethod(authMethod) //
@@ -155,7 +160,7 @@ public class JvctglPerformer {
     final ViolationsToGitLabConfig expanded = new ViolationsToGitLabConfig();
     expanded.setGitLabUrl(environment.expand(config.getGitLabUrl()));
     expanded.setProjectId(environment.expand(config.getProjectId()));
-    expanded.setMergeRequestId(environment.expand(config.getMergeRequestId()));
+    expanded.setMergeRequestIid(environment.expand(config.getMergeRequestIid()));
 
     expanded.setApiToken(config.getApiToken());
 
@@ -209,7 +214,7 @@ public class JvctglPerformer {
               configExpanded.getGitLabUrl());
 
       listener.getLogger().println("Running Violation Comments To GitLab");
-      listener.getLogger().println("Merge request: " + configExpanded.getMergeRequestId());
+      listener.getLogger().println("Merge request: " + configExpanded.getMergeRequestIid());
 
       fp.act(
           new FileCallable<Void>() {
@@ -242,7 +247,7 @@ public class JvctglPerformer {
     final PrintStream logger = listener.getLogger();
     logger.println(FIELD_GITLABURL + ": " + config.getGitLabUrl());
     logger.println(FIELD_PROJECTID + ": " + config.getProjectId());
-    logger.println(FIELD_MERGEREQUESTID + ": " + config.getMergeRequestId());
+    logger.println(FIELD_MERGEREQUESTIID + ": " + config.getMergeRequestIid());
 
     logger.println(FIELD_APITOKEN + ": " + !isNullOrEmpty(config.getApiToken()));
 

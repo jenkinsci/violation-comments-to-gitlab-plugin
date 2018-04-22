@@ -54,7 +54,7 @@
     <f:textbox />
   </f:entry>
   
-  <f:entry title="Merge Request Id" field="mergeRequestId">
+  <f:entry title="Merge Request Iid" field="mergeRequestIid">
     <f:textbox />
   </f:entry>
 
