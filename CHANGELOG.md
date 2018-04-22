@@ -1,12 +1,22 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.0
 ### GitHub #33 
 
 **NullAway #33**
 
 
 [79786fa2ccb5111](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/79786fa2ccb51113d0226eaec78df98a2dde639d) Tomas Bjerre *2018-04-14 05:16:48*
+
+
+### No issue
+
+**Changing mergeRequestId to mergeRequestIid**
+
+ * Because it is named wrong in the Java GitLab API Lib! 
+ * This breaks API for Pipelines. 
+
+[5a9db9a63559fc6](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/5a9db9a63559fc6ee134c94b76ebf077eba75198) Tomas Bjerre *2018-04-22 16:53:45*
 
 
 ## 1.28
