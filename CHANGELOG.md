@@ -3,6 +3,11 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Custom template**
+
+
+[3e4c660b1aff27a](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/3e4c660b1aff27aabb8a970f827183a1bf53e49b) Tomas Bjerre *2018-07-04 11:49:40*
+
 **Correcting license**
 
 
