@@ -1,6 +1,15 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.2
+### No issue
+
+**GCC, ARM GCC and Doxygen**
+
+
+[ef01edce558aabd](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/ef01edce558aabd0b7614622521de3675670e8c2) Tomas Bjerre *2018-07-04 18:30:30*
+
+
+## 2.1
 ### No issue
 
 **Custom template**
