@@ -126,6 +126,7 @@ public class JvctglPerformer {
       final Integer mergeRequestIidInteger = Integer.parseInt(mergeRequestIid);
       final boolean shouldKeepOldComments = config.getKeepOldComments();
       final boolean shouldSetWIP = config.getShouldSetWip();
+      final String commentTemplate = config.getCommentTemplate();
       violationCommentsToGitLabApi() //
           .setHostUrl(hostUrl) //
           .setProjectId(projectId) //
@@ -144,6 +145,7 @@ public class JvctglPerformer {
           .setViolations(allParsedViolations) //
           .setShouldKeepOldComments(shouldKeepOldComments) //
           .setShouldSetWIP(shouldSetWIP) //
+          .withCommentTemplate(commentTemplate) //
           .toPullRequest();
     } catch (final Exception e) {
       Logger.getLogger(JvctglPerformer.class.getName()).log(SEVERE, "", e);
@@ -176,6 +178,7 @@ public class JvctglPerformer {
     expanded.setMinSeverity(config.getMinSeverity());
     expanded.setShouldSetWip(config.getShouldSetWip());
     expanded.setKeepOldComments(config.getKeepOldComments());
+    expanded.setCommentTemplate(config.getCommentTemplate());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       final String pattern = environment.expand(violationConfig.getPattern());
@@ -266,6 +269,7 @@ public class JvctglPerformer {
     logger.println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());
     logger.println(FIELD_KEEP_OLD_COMMENTS + ": " + config.getKeepOldComments());
     logger.println(FIELD_SHOULD_SET_WIP + ": " + config.getShouldSetWip());
+    logger.println("commentTemplate: " + config.getCommentTemplate());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       logger.println(violationConfig.getParser() + " with pattern " + violationConfig.getPattern());

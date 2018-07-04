@@ -42,6 +42,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private Boolean authMethodHeader;
   private SEVERITY minSeverity;
   private Boolean keepOldComments;
+  private String commentTemplate;
   private Boolean shouldSetWip;
 
   @DataBoundConstructor
@@ -68,7 +69,17 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.authMethodHeader = rhs.authMethodHeader;
     this.minSeverity = rhs.minSeverity;
     this.keepOldComments = rhs.keepOldComments;
+    this.commentTemplate = rhs.commentTemplate;
     this.shouldSetWip = rhs.shouldSetWip;
+  }
+
+  public String getCommentTemplate() {
+    return commentTemplate;
+  }
+
+  @DataBoundSetter
+  public void setCommentTemplate(final String commentTemplate) {
+    this.commentTemplate = commentTemplate;
   }
 
   private Object readResolve() {

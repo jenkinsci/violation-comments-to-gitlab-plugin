@@ -1,5 +1,19 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Correcting license**
+
+
+[939fa35d9c7d295](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/939fa35d9c7d2955ecff8411654176728fad3881) Tomas Bjerre *2018-06-21 17:21:42*
+
+**License**
+
+
+[7a2a48bb72d193f](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7a2a48bb72d193fcbaee7b3408f08721209ae3bc) Tomas Bjerre *2018-06-14 15:27:59*
+
+
 ## 2.0
 ### GitHub #33 
 
