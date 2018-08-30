@@ -26,6 +26,15 @@ import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabA
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
+import com.google.common.io.CharStreams;
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.remoting.VirtualChannel;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,7 +44,6 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.logging.Logger;
-
 import org.gitlab.api.AuthMethod;
 import org.gitlab.api.TokenType;
 import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
@@ -43,17 +51,6 @@ import org.jenkinsci.plugins.jvctgl.config.ViolationConfig;
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.jenkinsci.remoting.RoleChecker;
-
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.io.CharStreams;
-
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.FilePath.FileCallable;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-import hudson.remoting.VirtualChannel;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;

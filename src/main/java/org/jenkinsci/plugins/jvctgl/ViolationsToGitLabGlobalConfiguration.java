@@ -1,7 +1,12 @@
 package org.jenkinsci.plugins.jvctgl;
 
+import hudson.Extension;
+import hudson.model.Item;
+import hudson.util.FormValidation;
+import hudson.util.ListBoxModel;
 import java.io.Serializable;
-
+import jenkins.model.GlobalConfiguration;
+import net.sf.json.JSONObject;
 import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -9,13 +14,6 @@ import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
-
-import hudson.Extension;
-import hudson.model.Item;
-import hudson.util.FormValidation;
-import hudson.util.ListBoxModel;
-import jenkins.model.GlobalConfiguration;
-import net.sf.json.JSONObject;
 import se.bjurr.violations.lib.model.SEVERITY;
 
 @Extension

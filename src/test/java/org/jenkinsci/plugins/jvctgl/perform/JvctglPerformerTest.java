@@ -2,10 +2,9 @@ package org.jenkinsci.plugins.jvctgl.perform;
 
 import static org.junit.Assert.assertEquals;
 
+import hudson.EnvVars;
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.junit.Test;
-
-import hudson.EnvVars;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 public class JvctglPerformerTest {

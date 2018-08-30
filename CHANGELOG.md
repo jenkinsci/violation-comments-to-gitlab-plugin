@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Using java-gitlab-api from Central**
+
+
+[deb0d8db45be051](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/deb0d8db45be051863b9e328fedb60502ef06865) Tomas Bjerre *2018-08-29 18:04:25*
+
+
 ## 2.2
 ### No issue
 
