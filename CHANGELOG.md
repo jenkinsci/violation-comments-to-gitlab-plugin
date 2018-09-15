@@ -1,6 +1,15 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.4
+### No issue
+
+**YAMLLint**
+
+
+[15611403072863a](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/15611403072863a34f308820eb1a4b2dcc4bb4ba) Tomas Bjerre *2018-09-15 08:23:05*
+
+
+## 2.3
 ### No issue
 
 **Correcting ownerName and CPD**
