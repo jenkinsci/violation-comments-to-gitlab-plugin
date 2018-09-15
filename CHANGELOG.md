@@ -3,6 +3,21 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**Correcting ownerName and CPD**
+
+
+[8820c490992f5fa](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/8820c490992f5faa4e892ef4723d0eb80dc9557f) Tomas Bjerre *2018-09-13 05:20:53*
+
+**Updating readme with parsers**
+
+
+[bdc23b97cf24813](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/bdc23b97cf24813293246d9ae3d18b93c251d0d9) Tomas Bjerre *2018-09-12 17:08:18*
+
+**Updating fmt-maven-plugin**
+
+
+[904e31377cd6552](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/904e31377cd65525074dd7c1a1a231dc6a000216) Tomas Bjerre *2018-08-30 17:50:22*
+
 **Using java-gitlab-api from Central**
 
 
