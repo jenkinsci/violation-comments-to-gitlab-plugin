@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.5
+### No issue
+
+**Fix optional rule in YAMLLint**
+
+
+[a377fe3c89daf3c](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/a377fe3c89daf3ca620e1fc8417d2609e2f9e147) Tomas Bjerre *2018-09-17 13:42:06*
+
+
 ## 2.4
 ### No issue
 
