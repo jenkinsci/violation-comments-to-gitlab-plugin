@@ -143,6 +143,7 @@ public class JvctglPerformer {
           .setShouldKeepOldComments(shouldKeepOldComments) //
           .setShouldSetWIP(shouldSetWIP) //
           .withCommentTemplate(commentTemplate) //
+          .withViolationsLogger(string -> listener.getLogger().println(string)) //
           .toPullRequest();
     } catch (final Exception e) {
       Logger.getLogger(JvctglPerformer.class.getName()).log(SEVERE, "", e);
