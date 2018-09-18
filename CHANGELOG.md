@@ -1,5 +1,19 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.6
+### No issue
+
+**More information in log**
+
+
+[942494eb055d547](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/942494eb055d547b3a62d745b8582525833642ba) Tomas Bjerre *2018-09-18 10:07:33*
+
+**Issue template**
+
+
+[e42c8be70ba2283](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e42c8be70ba2283b65f1b611434018ea4f0cc5e2) Tomas Bjerre *2018-09-17 17:01:06*
+
+
 ## 2.5
 ### No issue
 
