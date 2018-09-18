@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.7
+### No issue
+
+**Exception logging in build job log**
+
+
+[fd36871f2baa0ac](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/fd36871f2baa0ac6dcdcc7ee4b09e483b0e2d95f) Tomas Bjerre *2018-09-18 18:58:47*
+
+
 ## 2.6
 ### No issue
 
