@@ -43,6 +43,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.gitlab.api.AuthMethod;
 import org.gitlab.api.TokenType;
@@ -51,6 +52,7 @@ import org.jenkinsci.plugins.jvctgl.config.ViolationConfig;
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.jenkinsci.remoting.RoleChecker;
+import se.bjurr.violations.comments.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
@@ -143,7 +145,20 @@ public class JvctglPerformer {
           .setShouldKeepOldComments(shouldKeepOldComments) //
           .setShouldSetWIP(shouldSetWIP) //
           .withCommentTemplate(commentTemplate) //
-          .withViolationsLogger(string -> listener.getLogger().println(string)) //
+          .withViolationsLogger(
+              new ViolationsLogger() {
+                @Override
+                public void log(final Level level, final String string) {
+                  listener.getLogger().println(level + " " + string);
+                }
+
+                @Override
+                public void log(final Level level, final String string, final Throwable t) {
+                  final StringWriter sw = new StringWriter();
+                  t.printStackTrace(new PrintWriter(sw));
+                  listener.getLogger().println(level + " " + sw.toString());
+                }
+              }) //
           .toPullRequest();
     } catch (final Exception e) {
       Logger.getLogger(JvctglPerformer.class.getName()).log(SEVERE, "", e);
