@@ -6,7 +6,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 **Automatically stepping dependencies**
 
 
-[f6f5a425bc6cda8](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/f6f5a425bc6cda8163fc529fa43ac2343e9d17f7) Tomas Bjerre *2018-09-23 15:28:05*
+[31bc850d83cc32e](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/31bc850d83cc32e26b925b8dd9e2ed5f4eb42eba) Tomas Bjerre *2018-09-23 19:05:37*
 
 
 ## 2.11

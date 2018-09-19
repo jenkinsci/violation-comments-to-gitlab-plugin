@@ -14,7 +14,7 @@
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<violations-maven>1.13</violations-maven>
-		<violations-lib>1.50</violations-lib>
+		<violations-lib>1.54</violations-lib>
 		<changelog>1.55</changelog>
 		<fmt>2.5.1</fmt>
 	</properties>
@@ -184,6 +184,11 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 	<dependencies>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
 			<groupId>org.jenkins-ci.plugins</groupId>
 			<artifactId>credentials</artifactId>
 			<version>2.1.4</version>
@@ -203,6 +208,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 			<groupId>se.bjurr.violations</groupId>
 			<artifactId>violation-comments-to-gitlab-lib</artifactId>
 			<version>${violations-lib}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.jenkins-ci.plugins</groupId>

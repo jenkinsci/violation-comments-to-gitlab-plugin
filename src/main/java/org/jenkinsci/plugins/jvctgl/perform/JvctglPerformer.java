@@ -136,10 +136,7 @@ public class JvctglPerformer {
           .setCommentOnlyChangedContent(config.getCommentOnlyChangedContent()) //
           .setCreateCommentWithAllSingleFileComments(
               config.getCreateCommentWithAllSingleFileComments()) //
-          /**
-           * Cannot yet support this because the API does not support it.
-           * https://gitlab.com/gitlab-org/gitlab-ce/issues/14850
-           */
+          .setCreateSingleFileComments(config.getCreateSingleFileComments())
           .setIgnoreCertificateErrors(config.getIgnoreCertificateErrors()) //
           .setViolations(allParsedViolations) //
           .setShouldKeepOldComments(shouldKeepOldComments) //
@@ -188,6 +185,7 @@ public class JvctglPerformer {
     expanded.setCommentOnlyChangedContent(config.getCommentOnlyChangedContent());
     expanded.setCreateCommentWithAllSingleFileComments(
         config.getCreateCommentWithAllSingleFileComments());
+    expanded.setCreateSingleFileComments(config.getCreateSingleFileComments());
     expanded.setMinSeverity(config.getMinSeverity());
     expanded.setShouldSetWip(config.getShouldSetWip());
     expanded.setKeepOldComments(config.getKeepOldComments());
@@ -277,6 +275,7 @@ public class JvctglPerformer {
         FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS
             + ": "
             + config.getCreateCommentWithAllSingleFileComments());
+    logger.println("createSingleFileComments" + ": " + config.getCreateSingleFileComments());
     logger.println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
 
     logger.println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());

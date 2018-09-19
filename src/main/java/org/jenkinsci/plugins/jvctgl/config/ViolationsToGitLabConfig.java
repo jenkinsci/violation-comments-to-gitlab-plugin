@@ -13,6 +13,7 @@ import hudson.util.ListBoxModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.jenkinsci.plugins.jvctgl.ViolationsToGitLabGlobalConfiguration;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -28,6 +29,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   private boolean commentOnlyChangedContent;
   private boolean createCommentWithAllSingleFileComments;
+  private boolean createSingleFileComments;
   private List<ViolationConfig> violationConfigs;
   private String gitLabUrl;
   private String apiToken;
@@ -56,6 +58,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   public ViolationsToGitLabConfig(final ViolationsToGitLabConfig rhs) {
     this.violationConfigs = rhs.violationConfigs;
     this.createCommentWithAllSingleFileComments = rhs.createCommentWithAllSingleFileComments;
+    this.createSingleFileComments = rhs.createSingleFileComments;
     this.commentOnlyChangedContent = rhs.commentOnlyChangedContent;
     this.gitLabUrl = rhs.gitLabUrl;
     this.apiToken = rhs.apiToken;
@@ -131,6 +134,10 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     return this.createCommentWithAllSingleFileComments;
   }
 
+  public boolean getCreateSingleFileComments() {
+    return createSingleFileComments;
+  }
+
   public List<ViolationConfig> getViolationConfigs() {
     return this.violationConfigs;
   }
@@ -197,6 +204,11 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.createCommentWithAllSingleFileComments = createCommentWithAllSingleFileComments;
   }
 
+  @DataBoundSetter
+  public void setCreateSingleFileComments(final boolean createSingleFileComments) {
+    this.createSingleFileComments = createSingleFileComments;
+  }
+
   public SEVERITY getMinSeverity() {
     return minSeverity;
   }
@@ -226,23 +238,80 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    final ViolationsToGitLabConfig that = (ViolationsToGitLabConfig) o;
+    return commentOnlyChangedContent == that.commentOnlyChangedContent
+        && createCommentWithAllSingleFileComments == that.createCommentWithAllSingleFileComments
+        && createSingleFileComments == that.createSingleFileComments
+        && Objects.equals(violationConfigs, that.violationConfigs)
+        && Objects.equals(gitLabUrl, that.gitLabUrl)
+        && Objects.equals(apiToken, that.apiToken)
+        && Objects.equals(projectId, that.projectId)
+        && Objects.equals(mergeRequestIid, that.mergeRequestIid)
+        && Objects.equals(mergeRequestId, that.mergeRequestId)
+        && Objects.equals(apiTokenCredentialsId, that.apiTokenCredentialsId)
+        && Objects.equals(ignoreCertificateErrors, that.ignoreCertificateErrors)
+        && Objects.equals(apiTokenPrivate, that.apiTokenPrivate)
+        && Objects.equals(authMethodHeader, that.authMethodHeader)
+        && minSeverity == that.minSeverity
+        && Objects.equals(keepOldComments, that.keepOldComments)
+        && Objects.equals(commentTemplate, that.commentTemplate)
+        && Objects.equals(shouldSetWip, that.shouldSetWip);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        commentOnlyChangedContent,
+        createCommentWithAllSingleFileComments,
+        createSingleFileComments,
+        violationConfigs,
+        gitLabUrl,
+        apiToken,
+        projectId,
+        mergeRequestIid,
+        mergeRequestId,
+        apiTokenCredentialsId,
+        ignoreCertificateErrors,
+        apiTokenPrivate,
+        authMethodHeader,
+        minSeverity,
+        keepOldComments,
+        commentTemplate,
+        shouldSetWip);
+  }
+
+  @Override
   public String toString() {
-    return "ViolationsToGitLabConfig [commentOnlyChangedContent="
+    return "ViolationsToGitLabConfig{"
+        + "commentOnlyChangedContent="
         + commentOnlyChangedContent
         + ", createCommentWithAllSingleFileComments="
         + createCommentWithAllSingleFileComments
+        + ", createSingleFileComments="
+        + createSingleFileComments
         + ", violationConfigs="
         + violationConfigs
-        + ", gitLabUrl="
+        + ", gitLabUrl='"
         + gitLabUrl
-        + ", apiToken="
+        + '\''
+        + ", apiToken='"
         + apiToken
-        + ", projectId="
+        + '\''
+        + ", projectId='"
         + projectId
-        + ", mergeRequestIid="
+        + '\''
+        + ", mergeRequestIid='"
         + mergeRequestIid
-        + ", apiTokenCredentialsId="
+        + '\''
+        + ", mergeRequestId='"
+        + mergeRequestId
+        + '\''
+        + ", apiTokenCredentialsId='"
         + apiTokenCredentialsId
+        + '\''
         + ", ignoreCertificateErrors="
         + ignoreCertificateErrors
         + ", apiTokenPrivate="
@@ -253,133 +322,12 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         + minSeverity
         + ", keepOldComments="
         + keepOldComments
+        + ", commentTemplate='"
+        + commentTemplate
+        + '\''
         + ", shouldSetWip="
         + shouldSetWip
-        + "]";
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + (apiToken == null ? 0 : apiToken.hashCode());
-    result =
-        prime * result + (apiTokenCredentialsId == null ? 0 : apiTokenCredentialsId.hashCode());
-    result = prime * result + (apiTokenPrivate == null ? 0 : apiTokenPrivate.hashCode());
-    result = prime * result + (authMethodHeader == null ? 0 : authMethodHeader.hashCode());
-    result = prime * result + (commentOnlyChangedContent ? 1231 : 1237);
-    result = prime * result + (createCommentWithAllSingleFileComments ? 1231 : 1237);
-    result = prime * result + (gitLabUrl == null ? 0 : gitLabUrl.hashCode());
-    result =
-        prime * result + (ignoreCertificateErrors == null ? 0 : ignoreCertificateErrors.hashCode());
-    result = prime * result + (keepOldComments == null ? 0 : keepOldComments.hashCode());
-    result = prime * result + (mergeRequestIid == null ? 0 : mergeRequestIid.hashCode());
-    result = prime * result + (minSeverity == null ? 0 : minSeverity.hashCode());
-    result = prime * result + (projectId == null ? 0 : projectId.hashCode());
-    result = prime * result + (shouldSetWip == null ? 0 : shouldSetWip.hashCode());
-    result = prime * result + (violationConfigs == null ? 0 : violationConfigs.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final ViolationsToGitLabConfig other = (ViolationsToGitLabConfig) obj;
-    if (apiToken == null) {
-      if (other.apiToken != null) {
-        return false;
-      }
-    } else if (!apiToken.equals(other.apiToken)) {
-      return false;
-    }
-    if (apiTokenCredentialsId == null) {
-      if (other.apiTokenCredentialsId != null) {
-        return false;
-      }
-    } else if (!apiTokenCredentialsId.equals(other.apiTokenCredentialsId)) {
-      return false;
-    }
-    if (apiTokenPrivate == null) {
-      if (other.apiTokenPrivate != null) {
-        return false;
-      }
-    } else if (!apiTokenPrivate.equals(other.apiTokenPrivate)) {
-      return false;
-    }
-    if (authMethodHeader == null) {
-      if (other.authMethodHeader != null) {
-        return false;
-      }
-    } else if (!authMethodHeader.equals(other.authMethodHeader)) {
-      return false;
-    }
-    if (commentOnlyChangedContent != other.commentOnlyChangedContent) {
-      return false;
-    }
-    if (createCommentWithAllSingleFileComments != other.createCommentWithAllSingleFileComments) {
-      return false;
-    }
-    if (gitLabUrl == null) {
-      if (other.gitLabUrl != null) {
-        return false;
-      }
-    } else if (!gitLabUrl.equals(other.gitLabUrl)) {
-      return false;
-    }
-    if (ignoreCertificateErrors == null) {
-      if (other.ignoreCertificateErrors != null) {
-        return false;
-      }
-    } else if (!ignoreCertificateErrors.equals(other.ignoreCertificateErrors)) {
-      return false;
-    }
-    if (keepOldComments == null) {
-      if (other.keepOldComments != null) {
-        return false;
-      }
-    } else if (!keepOldComments.equals(other.keepOldComments)) {
-      return false;
-    }
-    if (mergeRequestIid == null) {
-      if (other.mergeRequestIid != null) {
-        return false;
-      }
-    } else if (!mergeRequestIid.equals(other.mergeRequestIid)) {
-      return false;
-    }
-    if (minSeverity != other.minSeverity) {
-      return false;
-    }
-    if (projectId == null) {
-      if (other.projectId != null) {
-        return false;
-      }
-    } else if (!projectId.equals(other.projectId)) {
-      return false;
-    }
-    if (shouldSetWip == null) {
-      if (other.shouldSetWip != null) {
-        return false;
-      }
-    } else if (!shouldSetWip.equals(other.shouldSetWip)) {
-      return false;
-    }
-    if (violationConfigs == null) {
-      if (other.violationConfigs != null) {
-        return false;
-      }
-    } else if (!violationConfigs.equals(other.violationConfigs)) {
-      return false;
-    }
-    return true;
+        + '}';
   }
 
   public Boolean getKeepOldComments() {

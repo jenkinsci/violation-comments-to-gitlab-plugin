@@ -103,6 +103,12 @@ Your build command here!
 
 # Screenshots
 
+Comments can be made on the diff with one comment per violation `createSingleFileComments`.
+
+![Example comment on diff](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/blob/master/sandbox/gitlab-comment-diff.png)
+
+Or one big comment can be made, `createCommentWithAllSingleFileComments`.
+
 ![Example comment](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/blob/master/sandbox/mergerequest-onecomment.png)
 
 ## Job DSL Plugin
@@ -258,6 +264,7 @@ job('GitLab_MR_Builder') {
     mergeRequestIid("\$MERGE_REQUST_IID")
  
     commentOnlyChangedContent(true)
+    createSingleFileComments(true)
     createCommentWithAllSingleFileComments(true)
     minSeverity('INFO')
  
@@ -439,6 +446,7 @@ node {
  projectId: env.PROJECT_PATH,
  mergeRequestIid: env.MERGE_REQUST_IID,
  commentOnlyChangedContent: true,
+ createSingleFileComments: true,
  createCommentWithAllSingleFileComments: true,
  minSeverity: 'INFO',
  
