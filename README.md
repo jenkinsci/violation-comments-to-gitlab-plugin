@@ -262,6 +262,18 @@ job('GitLab_MR_Builder') {
     apiTokenPrivate(true)
     authMethodHeader(true)
     ignoreCertificateErrors(true)
+    
+    commentTemplate("""
+    **Reporter**: {{violation.reporter}}{{#violation.rule}}
+    
+    **Rule**: {{violation.rule}}{{/violation.rule}}
+    **Severity**: {{violation.severity}}
+    **File**: {{violation.file}} L{{violation.startLine}}{{#violation.source}}
+    
+    **Source**: {{violation.source}}{{/violation.source}}
+    
+    {{violation.message}}
+    """)
  
     violationConfigs {
      violationConfig {
@@ -435,6 +447,19 @@ node {
  ignoreCertificateErrors: true,
  keepOldComments: false,
  shouldSetWip: true,
+ 
+ commentTemplate: """
+ **Reporter**: {{violation.reporter}}{{#violation.rule}}
+ 
+ **Rule**: {{violation.rule}}{{/violation.rule}}
+ **Severity**: {{violation.severity}}
+ **File**: {{violation.file}} L{{violation.startLine}}{{#violation.source}}
+ 
+ **Source**: {{violation.source}}{{/violation.source}}
+ 
+ {{violation.message}}
+ """,
+ 
  violationConfigs: [
  [ pattern: '.*/checkstyle/.*\\.xml$', parser: 'CHECKSTYLE', reporter: 'Checkstyle' ],
  [ pattern: '.*/findbugs/.*\\.xml$', parser: 'FINDBUGS', reporter: 'Findbugs' ],

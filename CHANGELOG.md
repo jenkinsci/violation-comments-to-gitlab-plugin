@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.8
+### No issue
+
+**Kotlin Maven and Gradle parsers**
+
+
+[2492ddd6dd6d885](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/2492ddd6dd6d88578a014ed2c58bfcbce0d2c2d5) Tomas Bjerre *2018-09-20 14:25:28*
+
+
 ## 2.7
 ### No issue
 
