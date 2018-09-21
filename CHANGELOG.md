@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.9
+### No issue
+
+**Correcting Kotlin parsers**
+
+
+[0b9dc8349ce97e9](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/0b9dc8349ce97e9500443ace18b7963e11676e94) Tomas Bjerre *2018-09-20 23:59:00*
+
+
 ## 2.8
 ### No issue
 
