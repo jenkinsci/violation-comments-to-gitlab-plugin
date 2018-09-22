@@ -1,5 +1,22 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.10
+### GitHub [#3](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/3) Include in Update Center
+
+**Avoid java-gitlab-api bug to spam logs with exception #3**
+
+
+[1f0bf0afcf93af7](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/1f0bf0afcf93af725a2ba7d630ab66564ee0c612) Tomas Bjerre *2018-09-22 17:03:11*
+
+
+### No issue
+
+**Documenting parsers as a table**
+
+
+[6a06250d3afab0d](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/6a06250d3afab0dd1d8376ffb24ba21d4d8c4b83) Tomas Bjerre *2018-09-22 08:46:28*
+
+
 ## 2.9
 ### No issue
 
