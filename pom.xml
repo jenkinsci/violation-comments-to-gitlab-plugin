@@ -13,6 +13,10 @@
 		<jenkins.version>2.1</jenkins.version>
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
+		<violations-maven>1.13</violations-maven>
+		<violations-lib>1.50</violations-lib>
+		<changelog>1.55</changelog>
+		<fmt>2.5.1</fmt>
 	</properties>
 
 	<artifactId>violation-comments-to-gitlab</artifactId>
@@ -84,7 +88,7 @@
 			<plugin>
 				<groupId>se.bjurr.gitchangelog</groupId>
 				<artifactId>git-changelog-maven-plugin</artifactId>
-				<version>1.38</version>
+				<version>${changelog}</version>
 				<executions>
 					<execution>
 						<id>GenerateGitChangelog</id>
@@ -139,7 +143,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 			<plugin>
 				<groupId>com.coveo</groupId>
 				<artifactId>fmt-maven-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>${fmt}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -151,7 +155,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 			<plugin>
 				<groupId>se.bjurr.violations</groupId>
 				<artifactId>violations-maven-plugin</artifactId>
-				<version>1.7</version>
+				<version>${violations-maven}</version>
 				<configuration>
 					<minSeverity>INFO</minSeverity>
 					<detailLevel>VERBOSE</detailLevel>
@@ -198,7 +202,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 		<dependency>
 			<groupId>se.bjurr.violations</groupId>
 			<artifactId>violation-comments-to-gitlab-lib</artifactId>
-			<version>1.50</version>
+			<version>${violations-lib}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jenkins-ci.plugins</groupId>
