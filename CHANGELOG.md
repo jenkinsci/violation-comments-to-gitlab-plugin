@@ -1,7 +1,17 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.11
 ### No issue
+
+**Clarifying parsers**
+
+
+[4b3bc79ff2c29c2](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/4b3bc79ff2c29c29cb89c3e8d20568f592084b4f) Tomas Bjerre *2018-09-23 13:38:10*
+
+**Automating reporters in readme**
+
+
+[a1389d2f25b299a](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/a1389d2f25b299a62b0606c462cf16377be9e3ba) Tomas Bjerre *2018-09-23 12:58:32*
 
 **Doc**
 
