@@ -1,12 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.13
 ### No issue
 
-**Stepping lib**
+**Avoid NPE when commenting diff**
 
 
-[17352564161c717](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/17352564161c717b5536b12d2103bf04e18d4a2d) Tomas Bjerre *2018-10-08 17:02:38*
+[32be727bb879acc](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/32be727bb879acc7e50a61d205f60d96ab30a96f) Tomas Bjerre *2018-10-08 17:33:05*
 
 
 ## 2.12
