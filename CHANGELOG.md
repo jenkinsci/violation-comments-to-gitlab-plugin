@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Stepping lib**
+
+
+[17352564161c717](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/17352564161c717b5536b12d2103bf04e18d4a2d) Tomas Bjerre *2018-10-08 17:02:38*
+
+
 ## 2.12
 ### GitHub [#1](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/1) Support commenting on the diff
 
