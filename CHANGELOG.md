@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.14
+### No issue
+
+**Correcting AnsibleLint parsing**
+
+
+[0f30fdc2de2e2c0](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/0f30fdc2de2e2c00e82fed504bce615ac1f37ea3) Tomas Bjerre *2019-01-03 17:42:38*
+
+
 ## 2.13
 ### No issue
 
