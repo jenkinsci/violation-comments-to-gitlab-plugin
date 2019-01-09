@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.15
+### No issue
+
+**Making CodeNarc respect source directory**
+
+
+[5a965cbe34ba401](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/5a965cbe34ba401690de325270a14670006853b5) Tomas Bjerre *2019-01-09 19:53:08*
+
+
 ## 2.14
 ### No issue
 
