@@ -13,10 +13,10 @@
 		<jenkins.version>2.1</jenkins.version>
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
-		<violations-maven>1.13</violations-maven>
-		<violations-lib>1.56</violations-lib>
-		<changelog>1.58</changelog>
-		<fmt>2.6.0</fmt>
+		<violations-maven>1.14</violations-maven>
+		<violations-lib>1.57</violations-lib>
+		<changelog>1.59</changelog>
+		<fmt>2.7</fmt>
 	</properties>
 
 	<artifactId>violation-comments-to-gitlab</artifactId>
