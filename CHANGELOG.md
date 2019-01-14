@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.16
+### No issue
+
+**Avoiding faulty slash with CodeNarc**
+
+
+[8c3524df918fff5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/8c3524df918fff528f13f5d0447ea8cd63c81bf5) Tomas Bjerre *2019-01-14 17:53:21*
+
+
 ## 2.15
 ### No issue
 
