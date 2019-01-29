@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.17
+### No issue
+
+**MSCPP and IAR**
+
+
+[134cabe32aca09b](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/134cabe32aca09b2d8b95b40af3795b18e45f7a8) Tomas Bjerre *2019-01-29 17:28:23*
+
+
 ## 2.16
 ### No issue
 
