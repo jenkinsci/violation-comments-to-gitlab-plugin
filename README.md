@@ -8,6 +8,8 @@ Available in Jenkins [here](https://wiki.jenkins-ci.org/display/JENKINS/Violatio
 
 Example of supported reports are available [here](https://github.com/tomasbjerre/violations-lib/tree/master/src/test/resources).
 
+There is a complete running example available here: https://github.com/tomasbjerre/jenkins-configuration-as-code-sandbox
+
 A number of **parsers** have been implemented. Some **parsers** can parse output from several **reporters**.
 
 | Reporter | Parser | Notes
