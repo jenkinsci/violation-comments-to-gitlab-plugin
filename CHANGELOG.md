@@ -1,5 +1,22 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### GitHub [#17](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/17) Proxy support
+
+**Proxy support #17**
+
+
+[f7d710faf694902](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/f7d710faf694902ba0379b8e3094ef9eaf213a45) Tomas Bjerre *2019-03-04 17:09:33*
+
+
+### No issue
+
+**Doc**
+
+
+[012d46c0fd844ce](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/012d46c0fd844ce8b74d8111c2f88d8b14499258) Tomas Bjerre *2019-02-08 19:02:26*
+
+
 ## 2.17
 ### No issue
 

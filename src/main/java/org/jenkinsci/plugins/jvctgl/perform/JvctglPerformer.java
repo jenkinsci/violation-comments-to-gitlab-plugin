@@ -2,13 +2,10 @@ package org.jenkinsci.plugins.jvctgl.perform;
 
 import static com.google.common.base.Charsets.UTF_8;
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.base.Throwables.propagate;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.logging.Level.SEVERE;
-import static org.gitlab.api.AuthMethod.HEADER;
-import static org.gitlab.api.AuthMethod.URL_PARAMETER;
-import static org.gitlab.api.TokenType.ACCESS_TOKEN;
-import static org.gitlab.api.TokenType.PRIVATE_TOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
@@ -45,8 +42,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.gitlab.api.AuthMethod;
-import org.gitlab.api.TokenType;
+import org.gitlab4j.api.Constants.TokenType;
 import org.jenkinsci.plugins.jvctgl.config.CredentialsHelper;
 import org.jenkinsci.plugins.jvctgl.config.ViolationConfig;
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
@@ -120,19 +116,21 @@ public class JvctglPerformer {
         .println("Will comment PR " + hostUrl + " " + projectId + " " + mergeRequestIid);
 
     try {
-      final TokenType tokenType = config.getApiTokenPrivate() ? PRIVATE_TOKEN : ACCESS_TOKEN;
-      final AuthMethod authMethod = config.getAuthMethodHeader() ? HEADER : URL_PARAMETER;
+      final TokenType tokenType =
+          config.getApiTokenPrivate() ? TokenType.PRIVATE : TokenType.ACCESS;
       final Integer mergeRequestIidInteger = Integer.parseInt(mergeRequestIid);
       final boolean shouldKeepOldComments = config.getKeepOldComments();
       final boolean shouldSetWIP = config.getShouldSetWip();
       final String commentTemplate = config.getCommentTemplate();
       violationCommentsToGitLabApi() //
+          .setProxyServer(config.getProxyUri()) //
+          .setProxyUser(config.getProxyUser()) //
+          .setProxyPassword(config.getProxyPassword()) //
           .setHostUrl(hostUrl) //
           .setProjectId(projectId) //
           .setMergeRequestIid(mergeRequestIidInteger) //
           .setApiToken(apiToken) //
           .setTokenType(tokenType) //
-          .setMethod(authMethod) //
           .setCommentOnlyChangedContent(config.getCommentOnlyChangedContent()) //
           .setCreateCommentWithAllSingleFileComments(
               config.getCreateCommentWithAllSingleFileComments()) //
@@ -141,8 +139,8 @@ public class JvctglPerformer {
           .setViolations(allParsedViolations) //
           .setShouldKeepOldComments(shouldKeepOldComments) //
           .setShouldSetWIP(shouldSetWIP) //
-          .withCommentTemplate(commentTemplate) //
-          .withViolationsLogger(
+          .setCommentTemplate(commentTemplate) //
+          .setViolationsLogger(
               new ViolationsLogger() {
                 @Override
                 public void log(final Level level, final String string) {
@@ -190,6 +188,10 @@ public class JvctglPerformer {
     expanded.setShouldSetWip(config.getShouldSetWip());
     expanded.setKeepOldComments(config.getKeepOldComments());
     expanded.setCommentTemplate(config.getCommentTemplate());
+
+    expanded.setProxyUri(config.getProxyUri());
+    expanded.setProxyUser(config.getProxyUser());
+    expanded.setProxyPassword(config.getProxyPassword());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       final String pattern = environment.expand(violationConfig.getPattern());
@@ -282,6 +284,10 @@ public class JvctglPerformer {
     logger.println(FIELD_KEEP_OLD_COMMENTS + ": " + config.getKeepOldComments());
     logger.println(FIELD_SHOULD_SET_WIP + ": " + config.getShouldSetWip());
     logger.println("commentTemplate: " + config.getCommentTemplate());
+    logger.println("proxyUri: " + config.getProxyUri());
+    logger.println("proxyUser: " + (nullToEmpty(config.getProxyUser()).isEmpty() ? "no" : "yes"));
+    logger.println(
+        "proxyPassword: " + (nullToEmpty(config.getProxyPassword()).isEmpty() ? "no" : "yes"));
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       logger.println(violationConfig.getParser() + " with pattern " + violationConfig.getPattern());
