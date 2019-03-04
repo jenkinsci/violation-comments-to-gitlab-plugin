@@ -26,6 +26,18 @@
     </f:entry>
   </f:optionalBlock>
 
+  <f:optionalBlock checked="${!empty instance.proxyUri}" title="Use proxy" inline="true">
+    <f:entry title="URI" field="proxyUri">
+	  <f:textbox />
+    </f:entry>
+    <f:entry title="User" field="proxyUser">
+	  <f:textbox />
+    </f:entry>
+    <f:entry title="Password" field="proxyPassword">
+	  <f:textbox />
+    </f:entry>
+  </f:optionalBlock>
+
   <f:entry>
    You may want to use one of these to get the values:
    <ul>

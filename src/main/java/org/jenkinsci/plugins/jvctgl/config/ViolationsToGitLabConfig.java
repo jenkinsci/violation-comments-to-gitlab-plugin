@@ -44,6 +44,9 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private Boolean keepOldComments;
   private String commentTemplate;
   private Boolean shouldSetWip;
+  private String proxyUri;
+  private String proxyUser;
+  private String proxyPassword;
 
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
@@ -72,6 +75,9 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.keepOldComments = rhs.keepOldComments;
     this.commentTemplate = rhs.commentTemplate;
     this.shouldSetWip = rhs.shouldSetWip;
+    this.proxyUri = rhs.proxyUri;
+    this.proxyUser = rhs.proxyUser;
+    this.proxyPassword = rhs.proxyPassword;
   }
 
   public String getCommentTemplate() {
@@ -239,8 +245,12 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   @Override
   public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     final ViolationsToGitLabConfig that = (ViolationsToGitLabConfig) o;
     return commentOnlyChangedContent == that.commentOnlyChangedContent
         && createCommentWithAllSingleFileComments == that.createCommentWithAllSingleFileComments
@@ -258,7 +268,10 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         && minSeverity == that.minSeverity
         && Objects.equals(keepOldComments, that.keepOldComments)
         && Objects.equals(commentTemplate, that.commentTemplate)
-        && Objects.equals(shouldSetWip, that.shouldSetWip);
+        && Objects.equals(shouldSetWip, that.shouldSetWip)
+        && Objects.equals(proxyUri, that.proxyUri)
+        && Objects.equals(proxyUser, that.proxyUser)
+        && Objects.equals(proxyPassword, that.proxyPassword);
   }
 
   @Override
@@ -280,7 +293,10 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         minSeverity,
         keepOldComments,
         commentTemplate,
-        shouldSetWip);
+        shouldSetWip,
+        proxyUri,
+        proxyUser,
+        proxyPassword);
   }
 
   @Override
@@ -296,9 +312,6 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         + violationConfigs
         + ", gitLabUrl='"
         + gitLabUrl
-        + '\''
-        + ", apiToken='"
-        + apiToken
         + '\''
         + ", projectId='"
         + projectId
@@ -346,6 +359,33 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   @DataBoundSetter
   public void setKeepOldComments(final Boolean keepOldComments) {
     this.keepOldComments = keepOldComments;
+  }
+
+  @DataBoundSetter
+  public void setProxyUri(final String proxyUri) {
+    this.proxyUri = proxyUri;
+  }
+
+  @DataBoundSetter
+  public void setProxyPassword(final String proxyPassword) {
+    this.proxyPassword = proxyPassword;
+  }
+
+  @DataBoundSetter
+  public void setProxyUser(final String proxyUser) {
+    this.proxyUser = proxyUser;
+  }
+
+  public String getProxyPassword() {
+    return proxyPassword;
+  }
+
+  public String getProxyUri() {
+    return proxyUri;
+  }
+
+  public String getProxyUser() {
+    return proxyUser;
   }
 
   @Extension
