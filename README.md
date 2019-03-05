@@ -279,6 +279,10 @@ job('GitLab_MR_Builder') {
     createSingleFileComments(true)
     createCommentWithAllSingleFileComments(true)
     minSeverity('INFO')
+    
+    //You may want this when troubleshooting things
+    enableLogging(true)
+    
  
     apiToken("")
     apiTokenCredentialsId("gitlabtoken")
@@ -461,6 +465,9 @@ node {
  createSingleFileComments: true,
  createCommentWithAllSingleFileComments: true,
  minSeverity: 'INFO',
+ 
+ //You may want this when troubleshooting things
+ enableLogging: true,
  
  // Only specify proxy if you need it
  proxyUri: '',

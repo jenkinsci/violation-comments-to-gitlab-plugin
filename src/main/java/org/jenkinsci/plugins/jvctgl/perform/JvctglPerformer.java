@@ -122,6 +122,26 @@ public class JvctglPerformer {
       final boolean shouldKeepOldComments = config.getKeepOldComments();
       final boolean shouldSetWIP = config.getShouldSetWip();
       final String commentTemplate = config.getCommentTemplate();
+      final ViolationsLogger violationsLogger =
+          new ViolationsLogger() {
+            @Override
+            public void log(final Level level, final String string) {
+              if (!config.getEnableLogging()) {
+                return;
+              }
+              listener.getLogger().println(level + " " + string);
+            }
+
+            @Override
+            public void log(final Level level, final String string, final Throwable t) {
+              if (!config.getEnableLogging()) {
+                return;
+              }
+              final StringWriter sw = new StringWriter();
+              t.printStackTrace(new PrintWriter(sw));
+              listener.getLogger().println(level + " " + sw.toString());
+            }
+          };
       violationCommentsToGitLabApi() //
           .setProxyServer(config.getProxyUri()) //
           .setProxyUser(config.getProxyUser()) //
@@ -140,20 +160,7 @@ public class JvctglPerformer {
           .setShouldKeepOldComments(shouldKeepOldComments) //
           .setShouldSetWIP(shouldSetWIP) //
           .setCommentTemplate(commentTemplate) //
-          .setViolationsLogger(
-              new ViolationsLogger() {
-                @Override
-                public void log(final Level level, final String string) {
-                  listener.getLogger().println(level + " " + string);
-                }
-
-                @Override
-                public void log(final Level level, final String string, final Throwable t) {
-                  final StringWriter sw = new StringWriter();
-                  t.printStackTrace(new PrintWriter(sw));
-                  listener.getLogger().println(level + " " + sw.toString());
-                }
-              }) //
+          .setViolationsLogger(violationsLogger) //
           .toPullRequest();
     } catch (final Exception e) {
       Logger.getLogger(JvctglPerformer.class.getName()).log(SEVERE, "", e);
@@ -192,6 +199,8 @@ public class JvctglPerformer {
     expanded.setProxyUri(config.getProxyUri());
     expanded.setProxyUser(config.getProxyUser());
     expanded.setProxyPassword(config.getProxyPassword());
+
+    expanded.setEnableLogging(config.getEnableLogging());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       final String pattern = environment.expand(violationConfig.getPattern());

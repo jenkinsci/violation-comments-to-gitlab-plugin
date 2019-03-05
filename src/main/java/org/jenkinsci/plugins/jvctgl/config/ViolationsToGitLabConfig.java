@@ -47,6 +47,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private String proxyUri;
   private String proxyUser;
   private String proxyPassword;
+  private Boolean enableLogging;
 
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
@@ -56,6 +57,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.mergeRequestIid = mergeRequestIid;
     this.keepOldComments = true;
     this.shouldSetWip = false;
+    this.enableLogging = false;
   }
 
   public ViolationsToGitLabConfig(final ViolationsToGitLabConfig rhs) {
@@ -78,6 +80,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.proxyUri = rhs.proxyUri;
     this.proxyUser = rhs.proxyUser;
     this.proxyPassword = rhs.proxyPassword;
+    this.enableLogging = rhs.enableLogging;
   }
 
   public String getCommentTemplate() {
@@ -271,7 +274,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         && Objects.equals(shouldSetWip, that.shouldSetWip)
         && Objects.equals(proxyUri, that.proxyUri)
         && Objects.equals(proxyUser, that.proxyUser)
-        && Objects.equals(proxyPassword, that.proxyPassword);
+        && Objects.equals(proxyPassword, that.proxyPassword)
+        && Objects.equals(enableLogging, that.enableLogging);
   }
 
   @Override
@@ -296,7 +300,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         shouldSetWip,
         proxyUri,
         proxyUser,
-        proxyPassword);
+        proxyPassword,
+        enableLogging);
   }
 
   @Override
@@ -386,6 +391,15 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   public String getProxyUser() {
     return proxyUser;
+  }
+
+  @DataBoundSetter
+  public void setEnableLogging(final Boolean enableLogging) {
+    this.enableLogging = enableLogging;
+  }
+
+  public Boolean getEnableLogging() {
+    return enableLogging;
   }
 
   @Extension

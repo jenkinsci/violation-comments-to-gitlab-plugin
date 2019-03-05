@@ -38,6 +38,10 @@
     </f:entry>
   </f:optionalBlock>
 
+  <f:entry title="Enable logging" field="enableLogging">
+    <f:checkbox />
+  </f:entry>
+  
   <f:entry>
    You may want to use one of these to get the values:
    <ul>
