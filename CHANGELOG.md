@@ -1,12 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.19
 ### GitHub [#20](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/20) Enable/Disable request/response logging
 
 **Allowing logging to be disabled #20**
 
 
-[a4abb05b6f3647a](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/a4abb05b6f3647a107e59a8eff23c25c97298a8f) Tomas Bjerre *2019-03-05 11:49:00*
+[1b2d68cf770beb8](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/1b2d68cf770beb80e62ab79c8e20a839fb85f02a) Tomas Bjerre *2019-03-05 12:02:16*
 
 
 ## 2.18

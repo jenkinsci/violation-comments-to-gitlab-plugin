@@ -92,7 +92,7 @@ There is also:
 
 **You must perform the merge before build**. If you don't perform the merge, the reported violations will refer to other lines then those in the pull request. The merge can be done with a shell script like this.
 
-```
+```shell
 echo ---
 echo --- Merging from $FROM in $FROMREPO to $TO in $TOREPO
 echo ---
@@ -122,7 +122,7 @@ Or one big comment can be made, `createCommentWithAllSingleFileComments`.
 
 This plugin can be used with the Job DSL Plugin. Here is an example using [Generic Webhook Trigger plugin](https://github.com/jenkinsci/generic-webhook-trigger-plugin), [HTTP Request Plugin](https://wiki.jenkins-ci.org/display/JENKINS/HTTP+Request+Plugin) and [Conditional BuildStep Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin).
 
-```
+```groovy
 job('GitLab_MR_Builder') {
  concurrentBuild()
  quietPeriod(0)
@@ -324,7 +324,7 @@ job('GitLab_MR_Builder') {
 
 Here is an example pipeline that will merge, run unit tests, run static code analysis and finally report back to GitLab. It requires the [GitLab Plugin](https://github.com/jenkinsci/gitlab-plugin).
 
-```
+```groovy
 pipelineJob("merge-request-pipeline") {
  concurrentBuild()
  quietPeriod(0)
@@ -414,8 +414,9 @@ pipelineJob("merge-request-pipeline") {
 ```
 
 And the merge_request_pipeline.pipeline contains
-```
-def commentMr(projectId, mergeRequestIid, comment) {def body = comment
+```groovy
+def commentMr(projectId, mergeRequestIid, comment) {
+ def body = comment
  .replaceAll(" ","%20")
  .replaceAll("/","%2F")
  def project = projectId
@@ -430,27 +431,27 @@ node {
  commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Verifierar $MERGE_REQUEST_FROM_BRANCH... ${env.BUILD_URL}")
   
  stage('Merge') {
- sh "git init"
- sh "git fetch --no-tags $MERGE_REQUEST_TO_URL +refs/heads/*:refs/remotes/origin/* --depth=200"
- sh "git checkout origin/${env.MERGE_REQUEST_TO_BRANCH}"
- sh "git config user.email 'je@nkins.domain'"
- sh "git config user.name 'jenkins'"
- sh "git merge origin/${env.MERGE_REQUEST_FROM_BRANCH}"
- sh "git log --graph --abbrev-commit --max-count=10"
+  sh "git init"
+  sh "git fetch --no-tags $MERGE_REQUEST_TO_URL +refs/heads/*:refs/remotes/origin/* --depth=200"
+  sh "git checkout origin/${env.MERGE_REQUEST_TO_BRANCH}"
+  sh "git config user.email 'je@nkins.domain'"
+  sh "git config user.name 'jenkins'"
+  sh "git merge origin/${env.MERGE_REQUEST_FROM_BRANCH}"
+  sh "git log --graph --abbrev-commit --max-count=10"
  }
   
  stage('Compile') {
- sh "./gradlew assemble"
+  sh "./gradlew assemble"
  }
   
  stage('Unit test') {
- sh "./gradlew test"
- commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Test ok in $MERGE_REQUEST_FROM_BRANCH =) ${env.BUILD_URL}")
+  sh "./gradlew test"
+  commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Test ok in $MERGE_REQUEST_FROM_BRANCH =) ${env.BUILD_URL}")
  }
   
  stage('Regression test') {
- sh "echo regtest"
- commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Regression test ok in $MERGE_REQUEST_FROM_BRANCH =) ${env.BUILD_URL}")
+  sh "echo regtest"
+  commentMr(env.PROJECT_PATH,env.MERGE_REQUST_IID,"Regression test ok in $MERGE_REQUEST_FROM_BRANCH =) ${env.BUILD_URL}")
  }
   
  stage('Static code analysis') {
@@ -458,33 +459,33 @@ node {
  step([
  $class: 'ViolationsToGitLabRecorder',
  config: [
- gitLabUrl: 'http://gitlab:80/',
- projectId: env.PROJECT_PATH,
- mergeRequestIid: env.MERGE_REQUST_IID,
- commentOnlyChangedContent: true,
- createSingleFileComments: true,
- createCommentWithAllSingleFileComments: true,
- minSeverity: 'INFO',
+  gitLabUrl: 'http://gitlab:80/',
+  projectId: env.PROJECT_PATH,
+  mergeRequestIid: env.MERGE_REQUST_IID,
+  commentOnlyChangedContent: true,
+  createSingleFileComments: true,
+  createCommentWithAllSingleFileComments: true,
+  minSeverity: 'INFO',
  
- //You may want this when troubleshooting things
- enableLogging: true,
+  // You may want this when troubleshooting things
+  enableLogging: true,
  
- // Only specify proxy if you need it
- proxyUri: '',
- proxyUser: '',
- proxyPassword: '',
+  // Only specify proxy if you need it
+  proxyUri: '',
+  proxyUser: '',
+  proxyPassword: '',
  
- //Specify one of these
- apiToken: '6xRcmSzPzzEXeS2qqr7R',
- apiTokenCredentialsId: 'id',
+  // Specify one of these
+  apiToken: '6xRcmSzPzzEXeS2qqr7R',
+  apiTokenCredentialsId: 'id',
  
- apiTokenPrivate: true,
- authMethodHeader: true,
- ignoreCertificateErrors: true,
- keepOldComments: false,
- shouldSetWip: true,
+  apiTokenPrivate: true,
+  authMethodHeader: true,
+  ignoreCertificateErrors: true,
+  keepOldComments: false,
+  shouldSetWip: true,
  
- commentTemplate: """
+  commentTemplate: """
  **Reporter**: {{violation.reporter}}{{#violation.rule}}
  
  **Rule**: {{violation.rule}}{{/violation.rule}}
@@ -494,13 +495,13 @@ node {
  **Source**: {{violation.source}}{{/violation.source}}
  
  {{violation.message}}
- """,
+  """,
  
- violationConfigs: [
- [ pattern: '.*/checkstyle/.*\\.xml$', parser: 'CHECKSTYLE', reporter: 'Checkstyle' ],
- [ pattern: '.*/findbugs/.*\\.xml$', parser: 'FINDBUGS', reporter: 'Findbugs' ],
- [ pattern: '.*/pmd/.*\\.xml$', parser: 'PMD', reporter: 'PMD' ],
- ]
+  violationConfigs: [
+   [ pattern: '.*/checkstyle/.*\\.xml$', parser: 'CHECKSTYLE', reporter: 'Checkstyle' ],
+   [ pattern: '.*/findbugs/.*\\.xml$', parser: 'FINDBUGS', reporter: 'Findbugs' ],
+   [ pattern: '.*/pmd/.*\\.xml$', parser: 'PMD', reporter: 'PMD' ],
+  ]
  ]
  ])
  }
