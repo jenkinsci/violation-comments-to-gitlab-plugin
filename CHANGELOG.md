@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.20
+### No issue
+
+**golangci-lint**
+
+
+[33e722a77cd0442](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/33e722a77cd04428a0756433e14745f452292963) Tomas Bjerre *2019-03-07 16:28:28*
+
+
 ## 2.19
 ### GitHub [#20](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/20) Enable/Disable request/response logging
 
