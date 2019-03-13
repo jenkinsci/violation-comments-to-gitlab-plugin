@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.21
+### No issue
+
+**Klocwork line numbers**
+
+
+[27dd19b212cc2b7](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/27dd19b212cc2b7a4ff10fe3b83ea36898c8c2f2) Tomas Bjerre *2019-03-13 19:19:57*
+
+
 ## 2.20
 ### No issue
 
