@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.22
+### No issue
+
+**Sonar Report**
+
+
+[b1148a048103e37](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/b1148a048103e3709da9ee3dcfdeb2a6a6b9cb88) Tomas Bjerre *2019-03-23 14:39:17*
+
+
 ## 2.21
 ### No issue
 
