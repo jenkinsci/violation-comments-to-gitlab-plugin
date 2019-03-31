@@ -486,6 +486,7 @@ node {
   ignoreCertificateErrors: true,
   keepOldComments: false,
   shouldSetWip: true,
+  maxNumberOfViolations: 99999,
  
   commentTemplate: """
  **Reporter**: {{violation.reporter}}{{#violation.rule}}

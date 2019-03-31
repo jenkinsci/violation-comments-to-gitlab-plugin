@@ -48,6 +48,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private String proxyUser;
   private String proxyPassword;
   private Boolean enableLogging;
+  private Integer maxNumberOfViolations;
 
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
@@ -58,6 +59,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.keepOldComments = true;
     this.shouldSetWip = false;
     this.enableLogging = false;
+    this.maxNumberOfViolations = null;
   }
 
   public ViolationsToGitLabConfig(final ViolationsToGitLabConfig rhs) {
@@ -81,6 +83,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.proxyUser = rhs.proxyUser;
     this.proxyPassword = rhs.proxyPassword;
     this.enableLogging = rhs.enableLogging;
+    this.maxNumberOfViolations = rhs.maxNumberOfViolations;
   }
 
   public String getCommentTemplate() {
@@ -400,6 +403,15 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   public Boolean getEnableLogging() {
     return enableLogging;
+  }
+
+  public Integer getMaxNumberOfViolations() {
+    return maxNumberOfViolations;
+  }
+
+  @DataBoundSetter
+  public void setMaxNumberOfViolations(final Integer maxNumberOfViolations) {
+    this.maxNumberOfViolations = maxNumberOfViolations;
   }
 
   @Extension

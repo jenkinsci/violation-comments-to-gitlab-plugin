@@ -139,7 +139,7 @@ public class JvctglPerformer {
               }
               final StringWriter sw = new StringWriter();
               t.printStackTrace(new PrintWriter(sw));
-              listener.getLogger().println(level + " " + sw.toString());
+              listener.getLogger().println(level + " " + string + "\n" + sw.toString());
             }
           };
       violationCommentsToGitLabApi() //
@@ -161,6 +161,7 @@ public class JvctglPerformer {
           .setShouldSetWIP(shouldSetWIP) //
           .setCommentTemplate(commentTemplate) //
           .setViolationsLogger(violationsLogger) //
+          .setMaxNumberOfViolations(config.getMaxNumberOfViolations()) //
           .toPullRequest();
     } catch (final Exception e) {
       Logger.getLogger(JvctglPerformer.class.getName()).log(SEVERE, "", e);
@@ -201,6 +202,8 @@ public class JvctglPerformer {
     expanded.setProxyPassword(config.getProxyPassword());
 
     expanded.setEnableLogging(config.getEnableLogging());
+
+    expanded.setMaxNumberOfViolations(config.getMaxNumberOfViolations());
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       final String pattern = environment.expand(violationConfig.getPattern());
@@ -289,6 +292,7 @@ public class JvctglPerformer {
     logger.println("createSingleFileComments" + ": " + config.getCreateSingleFileComments());
     logger.println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
 
+    logger.println("maxNumberOfViolations:" + config.getMaxNumberOfViolations());
     logger.println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());
     logger.println(FIELD_KEEP_OLD_COMMENTS + ": " + config.getKeepOldComments());
     logger.println(FIELD_SHOULD_SET_WIP + ": " + config.getShouldSetWip());
