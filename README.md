@@ -281,6 +281,7 @@ job('GitLab_MR_Builder') {
     createSingleFileComments(true)
     createCommentWithAllSingleFileComments(true)
     minSeverity('INFO')
+    maxNumberOfViolations(99999)
     
     //You may want this when troubleshooting things
     enableLogging(true)
@@ -468,6 +469,7 @@ node {
   createSingleFileComments: true,
   createCommentWithAllSingleFileComments: true,
   minSeverity: 'INFO',
+  maxNumberOfViolations: 99999,
  
   // You may want this when troubleshooting things
   enableLogging: true,
@@ -486,7 +488,6 @@ node {
   ignoreCertificateErrors: true,
   keepOldComments: false,
   shouldSetWip: true,
-  maxNumberOfViolations: 99999,
  
   commentTemplate: """
  **Reporter**: {{violation.reporter}}{{#violation.rule}}

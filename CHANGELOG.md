@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.24
+### No issue
+
+**maxNumberOfViolations**
+
+
+[821f2807e070a49](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/821f2807e070a49dfd6b7eb81bf2c3c94d56d47e) Tomas Bjerre *2019-03-31 12:22:45*
+
+
 ## 2.23
 ### No issue
 
