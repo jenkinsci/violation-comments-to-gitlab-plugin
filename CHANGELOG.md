@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.25
+### No issue
+
+**Cpplint correction to handle line None**
+
+
+[871ab05fb62592b](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/871ab05fb62592b0003c06b295eee36e2f57a0be) Tomas Bjerre *2019-04-24 15:58:35*
+
+
 ## 2.24
 ### No issue
 
