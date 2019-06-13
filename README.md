@@ -10,6 +10,8 @@ Example of supported reports are available [here](https://github.com/tomasbjerre
 
 There is a complete running example available here: https://github.com/tomasbjerre/jenkins-configuration-as-code-sandbox
 
+You can also do this with a [command line tool](https://www.npmjs.com/package/violation-comments-to-gitlab-command-line).
+
 A number of **parsers** have been implemented. Some **parsers** can parse output from several **reporters**.
 
 | Reporter | Parser | Notes
