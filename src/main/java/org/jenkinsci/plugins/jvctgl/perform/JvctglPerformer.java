@@ -152,6 +152,7 @@ public class JvctglPerformer {
           .setApiToken(apiToken) //
           .setTokenType(tokenType) //
           .setCommentOnlyChangedContent(config.getCommentOnlyChangedContent()) //
+          .withShouldCommentOnlyChangedFiles(config.getCommentOnlyChangedFiles()) //
           .setCreateCommentWithAllSingleFileComments(
               config.getCreateCommentWithAllSingleFileComments()) //
           .setCreateSingleFileComments(config.getCreateSingleFileComments())
@@ -189,6 +190,7 @@ public class JvctglPerformer {
     expanded.setIgnoreCertificateErrors(config.getIgnoreCertificateErrors());
 
     expanded.setCommentOnlyChangedContent(config.getCommentOnlyChangedContent());
+    expanded.setCommentOnlyChangedFiles(config.getCommentOnlyChangedFiles());
     expanded.setCreateCommentWithAllSingleFileComments(
         config.getCreateCommentWithAllSingleFileComments());
     expanded.setCreateSingleFileComments(config.getCreateSingleFileComments());
@@ -291,6 +293,7 @@ public class JvctglPerformer {
             + config.getCreateCommentWithAllSingleFileComments());
     logger.println("createSingleFileComments" + ": " + config.getCreateSingleFileComments());
     logger.println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
+    logger.println("commentOnlyChangedFiles: " + config.getCommentOnlyChangedFiles());
 
     logger.println("maxNumberOfViolations:" + config.getMaxNumberOfViolations());
     logger.println(FIELD_MINSEVERITY + ": " + config.getMinSeverity());

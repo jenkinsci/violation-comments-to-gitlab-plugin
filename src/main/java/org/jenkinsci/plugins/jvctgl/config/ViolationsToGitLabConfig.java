@@ -28,6 +28,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private static final long serialVersionUID = 4851568645021422528L;
 
   private boolean commentOnlyChangedContent;
+  private boolean commentOnlyChangedFiles = true;
   private boolean createCommentWithAllSingleFileComments;
   private boolean createSingleFileComments;
   private List<ViolationConfig> violationConfigs;
@@ -67,6 +68,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.createCommentWithAllSingleFileComments = rhs.createCommentWithAllSingleFileComments;
     this.createSingleFileComments = rhs.createSingleFileComments;
     this.commentOnlyChangedContent = rhs.commentOnlyChangedContent;
+    this.commentOnlyChangedFiles = rhs.commentOnlyChangedFiles;
     this.gitLabUrl = rhs.gitLabUrl;
     this.apiToken = rhs.apiToken;
     this.projectId = rhs.projectId;
@@ -236,6 +238,15 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   @DataBoundSetter
+  public void setCommentOnlyChangedFiles(final boolean commentOnlyChangedFiles) {
+    this.commentOnlyChangedFiles = commentOnlyChangedFiles;
+  }
+
+  public boolean getCommentOnlyChangedFiles() {
+    return commentOnlyChangedFiles;
+  }
+
+  @DataBoundSetter
   public void setViolationConfigs(final List<ViolationConfig> violationConfigs) {
     this.violationConfigs = violationConfigs;
   }
@@ -259,6 +270,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     }
     final ViolationsToGitLabConfig that = (ViolationsToGitLabConfig) o;
     return commentOnlyChangedContent == that.commentOnlyChangedContent
+        && commentOnlyChangedFiles == that.commentOnlyChangedFiles
         && createCommentWithAllSingleFileComments == that.createCommentWithAllSingleFileComments
         && createSingleFileComments == that.createSingleFileComments
         && Objects.equals(violationConfigs, that.violationConfigs)
@@ -285,6 +297,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   public int hashCode() {
     return Objects.hash(
         commentOnlyChangedContent,
+        commentOnlyChangedFiles,
         createCommentWithAllSingleFileComments,
         createSingleFileComments,
         violationConfigs,
@@ -312,6 +325,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     return "ViolationsToGitLabConfig{"
         + "commentOnlyChangedContent="
         + commentOnlyChangedContent
+        + "commentOnlyChangedFiles="
+        + commentOnlyChangedFiles
         + ", createCommentWithAllSingleFileComments="
         + createCommentWithAllSingleFileComments
         + ", createSingleFileComments="

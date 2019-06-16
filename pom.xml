@@ -14,9 +14,9 @@
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<violations-maven>1.19</violations-maven>
-		<violations-lib>1.76</violations-lib>
-		<changelog>1.59</changelog>
-		<fmt>2.8</fmt>
+		<violations-lib>1.78</violations-lib>
+		<changelog>1.60</changelog>
+		<fmt>2.9</fmt>
 	</properties>
 
 	<artifactId>violation-comments-to-gitlab</artifactId>
