@@ -1,7 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.26
 ### No issue
+
+**commentOnlyChangedFiles**
+
+
+[df61346ce397ce5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/df61346ce397ce5096329b56d2c95745243957c5) Tomas Bjerre *2019-06-16 17:55:05*
 
 **doc**
 

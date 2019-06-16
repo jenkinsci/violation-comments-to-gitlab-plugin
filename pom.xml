@@ -14,13 +14,14 @@
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<violations-maven>1.19</violations-maven>
-		<violations-lib>1.78</violations-lib>
+		<violation-comments-lib>1.78</violation-comments-lib>
+		<violations-lib>1.96</violations-lib>
 		<changelog>1.60</changelog>
 		<fmt>2.9</fmt>
 	</properties>
 
 	<artifactId>violation-comments-to-gitlab</artifactId>
-	<version>2.26</version>
+	<version>2.27-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 	<name>Violation Comments to GitLab Plugin</name>
 	<description>Finds violations reported by code analyzers and comments GitLab merge requests with them.</description>
@@ -50,7 +51,7 @@
 		<connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
 		<developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
 		<url>git@github.com:jenkinsci/${project.artifactId}-plugin</url>
-		<tag>violation-comments-to-gitlab-2.26</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<repositories>
@@ -206,8 +207,13 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 		</dependency>
 		<dependency>
 			<groupId>se.bjurr.violations</groupId>
-			<artifactId>violation-comments-to-gitlab-lib</artifactId>
+			<artifactId>violations-lib</artifactId>
 			<version>${violations-lib}</version>
+		</dependency>
+		<dependency>
+			<groupId>se.bjurr.violations</groupId>
+			<artifactId>violation-comments-to-gitlab-lib</artifactId>
+			<version>${violation-comments-lib}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
