@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.28
+### No issue
+
+**Correcting Sonar-parser when severity missing**
+
+
+[6f5be3ffa0d3a96](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/6f5be3ffa0d3a969b3178c8de042eb2be2d03fba) Tomas Bjerre *2019-09-04 19:35:37*
+
+
 ## 2.26
 ### No issue
 
