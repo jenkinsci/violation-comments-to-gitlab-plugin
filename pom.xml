@@ -13,9 +13,9 @@
 		<jenkins.version>2.1</jenkins.version>
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
-		<violations-maven>1.19</violations-maven>
+		<violations-maven>1.20</violations-maven>
 		<violation-comments-lib>1.78</violation-comments-lib>
-		<violations-lib>1.96</violations-lib>
+		<violations-lib>1.97</violations-lib>
 		<changelog>1.60</changelog>
 		<fmt>2.9</fmt>
 	</properties>
