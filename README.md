@@ -26,6 +26,7 @@ A number of **parsers** have been implemented. Some **parsers** can parse output
 | [_CPPLint_](https://github.com/theandrewdavis/cpplint)                                | `CPPLINT`            | 
 | [_CSSLint_](https://github.com/CSSLint/csslint)                                       | `CSSLINT`            | 
 | [_Checkstyle_](http://checkstyle.sourceforge.net/)                                    | `CHECKSTYLE`         | 
+| [_CodeClimate_](https://codeclimate.com/)                                             | `CODECLIMATE`        | 
 | [_CodeNarc_](http://codenarc.sourceforge.net/)                                        | `CODENARC`           | 
 | [_Detekt_](https://github.com/arturbosch/detekt)                                      | `CHECKSTYLE`         | With `--output-format xml`.
 | [_DocFX_](http://dotnet.github.io/docfx/)                                             | `DOCFX`              | 
@@ -71,7 +72,7 @@ A number of **parsers** have been implemented. Some **parsers** can parse output
 | [_SbtScalac_](http://www.scala-sbt.org/)                                              | `SBTSCALAC`          | 
 | [_Scalastyle_](http://www.scalastyle.org/)                                            | `CHECKSTYLE`         | 
 | [_Simian_](http://www.harukizaemon.com/simian/)                                       | `SIMIAN`             | 
-| [_Sonar_](https://www.sonarqube.org/)                                                 | `SONAR`              | With `mvn sonar:sonar -Dsonar.analysis.mode=preview -Dsonar.report.export.path=sonar-report.json`. Removed in 7.7, see [SONAR-11670](https://jira.sonarsource.com/browse/SONAR-11670).
+| [_Sonar_](https://www.sonarqube.org/)                                                 | `SONAR`              | With `mvn sonar:sonar -Dsonar.analysis.mode=preview -Dsonar.report.export.path=sonar-report.json`. Removed in 7.7, see [SONAR-11670](https://jira.sonarsource.com/browse/SONAR-11670) but can be retrieved with: `curl --silent 'http://sonar-server/api/issues/search?componentKeys=unique-key&resolved=false' \| jq -f sonar-report-builder.jq > sonar-report.json`.
 | [_Spotbugs_](https://spotbugs.github.io/)                                             | `FINDBUGS`           | 
 | [_StyleCop_](https://stylecop.codeplex.com/)                                          | `STYLECOP`           | 
 | [_SwiftLint_](https://github.com/realm/SwiftLint)                                     | `CHECKSTYLE`         | With `--reporter checkstyle`.

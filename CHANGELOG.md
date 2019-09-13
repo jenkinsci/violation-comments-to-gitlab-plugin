@@ -1,5 +1,16 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.29
+### Jira SECURITY-1577 
+
+**Removing raw API Token and forcing credential**
+
+ * In a pipeline you can no longer do `apiToken: &#39;asd&#39;` and will have to do `apiTokenCredentialsId: &#39;id&#39;`. 
+ * SECURITY-1577 
+
+[e8237a803012bae](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e8237a803012bae7773d8bd10fe02e21892be3fe) Tomas Bjerre *2019-09-13 19:00:13*
+
+
 ## 2.28
 ### No issue
 
