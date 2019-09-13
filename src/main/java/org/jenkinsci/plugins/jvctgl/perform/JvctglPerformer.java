@@ -6,7 +6,6 @@ import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.base.Throwables.propagate;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.logging.Level.SEVERE;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKEN;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_AUTHMETHODHEADER;
@@ -60,7 +59,7 @@ public class JvctglPerformer {
   @VisibleForTesting
   public static void doPerform(
       final ViolationsToGitLabConfig config,
-      final Optional<StringCredentials> apiTokenCredentials,
+      final String apiToken,
       final File workspace,
       final TaskListener listener)
       throws MalformedURLException {
@@ -97,14 +96,6 @@ public class JvctglPerformer {
             .println(
                 "Found " + parsedViolations.size() + " violations from " + violationConfig + ".");
       }
-    }
-
-    String apiToken = config.getApiToken();
-    if (apiTokenCredentials.isPresent()) {
-      apiToken = apiTokenCredentials.get().getSecret().getPlainText();
-    }
-    if (isNullOrEmpty(apiToken)) {
-      throw new IllegalStateException("No credentials found!");
     }
 
     final String hostUrl = config.getGitLabUrl();
@@ -180,8 +171,6 @@ public class JvctglPerformer {
     expanded.setGitLabUrl(environment.expand(config.getGitLabUrl()));
     expanded.setProjectId(environment.expand(config.getProjectId()));
     expanded.setMergeRequestIid(environment.expand(config.getMergeRequestIid()));
-
-    expanded.setApiToken(config.getApiToken());
 
     expanded.setApiTokenCredentialsId(config.getApiTokenCredentialsId());
 
@@ -259,7 +248,11 @@ public class JvctglPerformer {
                 throws IOException, InterruptedException {
               setupFindBugsMessages();
               listener.getLogger().println("Workspace: " + workspace.getAbsolutePath());
-              doPerform(configExpanded, apiTokenCredentials, workspace, listener);
+              doPerform(
+                  configExpanded,
+                  apiTokenCredentials.get().getSecret().getPlainText(),
+                  workspace,
+                  listener);
               return null;
             }
           });
@@ -278,8 +271,6 @@ public class JvctglPerformer {
     logger.println(FIELD_GITLABURL + ": " + config.getGitLabUrl());
     logger.println(FIELD_PROJECTID + ": " + config.getProjectId());
     logger.println(FIELD_MERGEREQUESTIID + ": " + config.getMergeRequestIid());
-
-    logger.println(FIELD_APITOKEN + ": " + !isNullOrEmpty(config.getApiToken()));
 
     logger.println(
         FIELD_APITOKENCREDENTIALSID + ": " + !isNullOrEmpty(config.getApiTokenCredentialsId()));

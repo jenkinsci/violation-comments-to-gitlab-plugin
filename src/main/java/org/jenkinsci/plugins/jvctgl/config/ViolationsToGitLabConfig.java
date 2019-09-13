@@ -33,7 +33,6 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private boolean createSingleFileComments;
   private List<ViolationConfig> violationConfigs;
   private String gitLabUrl;
-  private String apiToken;
   private String projectId;
   private String mergeRequestIid;
   @Deprecated private transient String mergeRequestId;
@@ -53,7 +52,10 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
   @DataBoundConstructor
   public ViolationsToGitLabConfig(
-      final String gitLabUrl, final String projectId, final String mergeRequestIid) {
+      final String gitLabUrl,
+      final String projectId,
+      final String mergeRequestIid,
+      final String apiTokenCredentialsId) {
     this.gitLabUrl = gitLabUrl;
     this.projectId = projectId;
     this.mergeRequestIid = mergeRequestIid;
@@ -61,6 +63,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.shouldSetWip = false;
     this.enableLogging = false;
     this.maxNumberOfViolations = null;
+    this.apiTokenCredentialsId = apiTokenCredentialsId;
   }
 
   public ViolationsToGitLabConfig(final ViolationsToGitLabConfig rhs) {
@@ -70,7 +73,6 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.commentOnlyChangedContent = rhs.commentOnlyChangedContent;
     this.commentOnlyChangedFiles = rhs.commentOnlyChangedFiles;
     this.gitLabUrl = rhs.gitLabUrl;
-    this.apiToken = rhs.apiToken;
     this.projectId = rhs.projectId;
     this.mergeRequestIid = rhs.mergeRequestIid;
     this.apiTokenCredentialsId = rhs.apiTokenCredentialsId;
@@ -115,9 +117,6 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
 
     if (isNullOrEmpty(this.gitLabUrl)) {
       this.gitLabUrl = defaults.getGitLabUrl();
-    }
-    if (isNullOrEmpty(this.apiToken)) {
-      this.apiToken = defaults.getApiToken();
     }
     if (isNullOrEmpty(this.apiTokenCredentialsId)) {
       this.apiTokenCredentialsId = defaults.getApiTokenCredentialsId();
@@ -175,17 +174,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   @DataBoundSetter
-  public void setApiTokenCredentialsId(final String apiTokenCredentialsId) {
-    this.apiTokenCredentialsId = apiTokenCredentialsId;
-  }
-
-  @DataBoundSetter
   public void setAuthMethodHeader(final Boolean authMethodHeader) {
     this.authMethodHeader = authMethodHeader;
-  }
-
-  public String getApiToken() {
-    return apiToken;
   }
 
   public String getProjectId() {
@@ -255,9 +245,15 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.gitLabUrl = gitLabUrl;
   }
 
+  public void setApiTokenCredentialsId(final String apiTokenCredentialsId) {
+    this.apiTokenCredentialsId = apiTokenCredentialsId;
+  }
+
   @DataBoundSetter
+  @Deprecated
   public void setApiToken(final String apiToken) {
-    this.apiToken = apiToken;
+    throw new RuntimeException(
+        "Setting raw API token is removed, set the apiTokenCredentialsId with a string credential instead!");
   }
 
   @Override
@@ -275,7 +271,6 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         && createSingleFileComments == that.createSingleFileComments
         && Objects.equals(violationConfigs, that.violationConfigs)
         && Objects.equals(gitLabUrl, that.gitLabUrl)
-        && Objects.equals(apiToken, that.apiToken)
         && Objects.equals(projectId, that.projectId)
         && Objects.equals(mergeRequestIid, that.mergeRequestIid)
         && Objects.equals(mergeRequestId, that.mergeRequestId)
@@ -302,7 +297,6 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         createSingleFileComments,
         violationConfigs,
         gitLabUrl,
-        apiToken,
         projectId,
         mergeRequestIid,
         mergeRequestId,

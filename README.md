@@ -292,7 +292,6 @@ job('GitLab_MR_Builder') {
     enableLogging(true)
     
  
-    apiToken("")
     apiTokenCredentialsId("gitlabtoken")
     apiTokenPrivate(true)
     authMethodHeader(true)
@@ -485,8 +484,6 @@ node {
   proxyUser: '',
   proxyPassword: '',
  
-  // Specify one of these
-  apiToken: '6xRcmSzPzzEXeS2qqr7R',
   apiTokenCredentialsId: 'id',
  
   apiTokenPrivate: true,

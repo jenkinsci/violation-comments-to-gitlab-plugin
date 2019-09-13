@@ -11,9 +11,6 @@ public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_PARSER = "parser";
   public static final String FIELD_PROJECTID = "projectId";
   public static final String FIELD_MERGEREQUESTIID = "mergeRequestIid";
-  public static final String FIELD_APITOKEN = "apiToken";
-  public static final String FIELD_USEAPITOKENCREDENTIALS = "useApiTokenCredentials";
-  public static final String FIELD_USEAPITOKEN = "useApiToken";
   public static final String FIELD_APITOKENCREDENTIALSID = "apiTokenCredentialsId";
   public static final String FIELD_IGNORECERTIFICATEERRORS = "ignoreCertificateErrors";
   public static final String FIELD_APITOKENPRIVATE = "apiTokenPrivate";

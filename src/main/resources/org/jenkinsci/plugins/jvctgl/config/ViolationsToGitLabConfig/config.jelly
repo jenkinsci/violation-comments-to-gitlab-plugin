@@ -8,23 +8,12 @@
          xmlns:t="/lib/hudson"
          xmlns:c="/lib/credentials">
 
-  <f:optionalBlock checked="${!empty instance.apiTokenCredentialsId}" title="Specify API token from credentials" inline="true">
-    <f:entry title="API token Crendential" field="apiTokenCredentialsId">
+  <f:entry title="API token Crendential" field="apiTokenCredentialsId">
         <c:select />
         <f:description>
             Will default to global config.
         </f:description>
-    </f:entry>
-  </f:optionalBlock>
-
-  <f:optionalBlock checked="${!empty instance.apiToken}" title="Specify API token here" inline="true">
-    <f:entry title="OAuth2 token" field="apiToken">
-        <f:password />
-        <f:description>
-          Will default to global config.
-        </f:description>
-    </f:entry>
-  </f:optionalBlock>
+  </f:entry>
 
   <f:optionalBlock checked="${!empty instance.proxyUri}" title="Use proxy" inline="true">
     <f:entry title="URI" field="proxyUri">

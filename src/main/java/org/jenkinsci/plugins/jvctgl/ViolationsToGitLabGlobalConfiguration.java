@@ -35,7 +35,6 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
 
   private boolean ignoreCertificateErrors;
 
-  private String apiToken;
   private boolean apiTokenPrivate;
   private boolean authMethodHeader;
   private String apiTokenCredentialsId;
@@ -63,16 +62,18 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
 
   @SuppressWarnings("unused") // Used by stapler
   public ListBoxModel doFillApiTokenCredentialsIdItems(
-      @AncestorInPath Item item,
-      @QueryParameter String apiTokenCredentialsId,
-      @QueryParameter String gitLabUrl) {
+      @AncestorInPath final Item item,
+      @QueryParameter final String apiTokenCredentialsId,
+      @QueryParameter final String gitLabUrl) {
     return CredentialsHelper.doFillApiTokenCredentialsIdItems(
         item, apiTokenCredentialsId, gitLabUrl);
   }
 
   @SuppressWarnings("unused") // Used by stapler
   public FormValidation doCheckApiTokenCredentialsId(
-      @AncestorInPath Item item, @QueryParameter String value, @QueryParameter String gitLabUrl) {
+      @AncestorInPath final Item item,
+      @QueryParameter final String value,
+      @QueryParameter final String gitLabUrl) {
     return CredentialsHelper.doCheckApiTokenCredentialsId(item, value, gitLabUrl);
   }
 
@@ -89,13 +90,11 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
     this.ignoreCertificateErrors = ignoreCertificateErrors;
   }
 
-  public String getApiToken() {
-    return apiToken;
-  }
-
   @DataBoundSetter
+  @Deprecated
   public void setApiToken(final String apiToken) {
-    this.apiToken = apiToken;
+    throw new RuntimeException(
+        "Setting raw API token is removed, set the apiTokenCredentialsId with a string credential instead!");
   }
 
   public String getApiTokenCredentialsId() {
@@ -147,7 +146,6 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (apiToken == null ? 0 : apiToken.hashCode());
     result =
         prime * result + (apiTokenCredentialsId == null ? 0 : apiTokenCredentialsId.hashCode());
     result = prime * result + (apiTokenPrivate ? 1231 : 1237);
@@ -159,7 +157,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -170,13 +168,6 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
       return false;
     }
     final ViolationsToGitLabGlobalConfiguration other = (ViolationsToGitLabGlobalConfiguration) obj;
-    if (apiToken == null) {
-      if (other.apiToken != null) {
-        return false;
-      }
-    } else if (!apiToken.equals(other.apiToken)) {
-      return false;
-    }
     if (apiTokenCredentialsId == null) {
       if (other.apiTokenCredentialsId != null) {
         return false;
@@ -212,8 +203,6 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
         + gitLabUrl
         + ", ignoreCertificateErrors="
         + ignoreCertificateErrors
-        + ", apiToken="
-        + apiToken
         + ", apiTokenPrivate="
         + apiTokenPrivate
         + ", authMethodHeader="
