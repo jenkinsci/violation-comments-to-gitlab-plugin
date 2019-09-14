@@ -1,5 +1,15 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.30
+### Jira SECURITY-1577 
+
+**Removing raw proxy username/password forcing credentials**
+
+ * SECURITY-1577 
+
+[76ee602dc529706](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/76ee602dc5297064cdce798dcabaa1560a5adfc6) Tomas Bjerre *2019-09-14 07:58:30*
+
+
 ## 2.29
 ### Jira SECURITY-1577 
 
