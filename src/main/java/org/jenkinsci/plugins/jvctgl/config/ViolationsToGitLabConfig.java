@@ -45,8 +45,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private String commentTemplate;
   private Boolean shouldSetWip;
   private String proxyUri;
-  private String proxyUser;
-  private String proxyPassword;
+  private String proxyCredentialsId;
   private Boolean enableLogging;
   private Integer maxNumberOfViolations;
 
@@ -84,8 +83,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.commentTemplate = rhs.commentTemplate;
     this.shouldSetWip = rhs.shouldSetWip;
     this.proxyUri = rhs.proxyUri;
-    this.proxyUser = rhs.proxyUser;
-    this.proxyPassword = rhs.proxyPassword;
+    this.proxyCredentialsId = rhs.proxyCredentialsId;
     this.enableLogging = rhs.enableLogging;
     this.maxNumberOfViolations = rhs.maxNumberOfViolations;
   }
@@ -283,8 +281,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         && Objects.equals(commentTemplate, that.commentTemplate)
         && Objects.equals(shouldSetWip, that.shouldSetWip)
         && Objects.equals(proxyUri, that.proxyUri)
-        && Objects.equals(proxyUser, that.proxyUser)
-        && Objects.equals(proxyPassword, that.proxyPassword)
+        && Objects.equals(proxyCredentialsId, that.proxyCredentialsId)
         && Objects.equals(enableLogging, that.enableLogging);
   }
 
@@ -309,8 +306,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         commentTemplate,
         shouldSetWip,
         proxyUri,
-        proxyUser,
-        proxyPassword,
+        proxyCredentialsId,
         enableLogging);
   }
 
@@ -384,25 +380,28 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   @DataBoundSetter
+  @Deprecated
   public void setProxyPassword(final String proxyPassword) {
-    this.proxyPassword = proxyPassword;
+    throw new RuntimeException("Use proxyCredentialsId");
   }
 
   @DataBoundSetter
+  @Deprecated
   public void setProxyUser(final String proxyUser) {
-    this.proxyUser = proxyUser;
-  }
-
-  public String getProxyPassword() {
-    return proxyPassword;
+    throw new RuntimeException("Use proxyCredentialsId");
   }
 
   public String getProxyUri() {
     return proxyUri;
   }
 
-  public String getProxyUser() {
-    return proxyUser;
+  @DataBoundSetter
+  public void setProxyCredentialsId(final String proxyCredentialsId) {
+    this.proxyCredentialsId = proxyCredentialsId;
+  }
+
+  public String getProxyCredentialsId() {
+    return proxyCredentialsId;
   }
 
   @DataBoundSetter
@@ -439,6 +438,14 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
         items.add(severity.name());
       }
       return items;
+    }
+
+    @SuppressWarnings("unused") // Used by stapler
+    public ListBoxModel doFillProxyCredentialsIdItems(
+        @AncestorInPath final Item item,
+        @QueryParameter final String apiTokenCredentialsId,
+        @QueryParameter final String gitLabUrl) {
+      return CredentialsHelper.doFillUserNamePasswordCredentialsIdItems();
     }
 
     @SuppressWarnings("unused") // Used by stapler

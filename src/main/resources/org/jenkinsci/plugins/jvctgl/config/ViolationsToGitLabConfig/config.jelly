@@ -19,11 +19,8 @@
     <f:entry title="URI" field="proxyUri">
 	  <f:textbox />
     </f:entry>
-    <f:entry title="User" field="proxyUser">
-	  <f:textbox />
-    </f:entry>
-    <f:entry title="Password" field="proxyPassword">
-	  <f:textbox />
+    <f:entry title="Credential" field="proxyCredentialsId">
+      <c:select default="${config.proxyCredentialsId}" />
     </f:entry>
   </f:optionalBlock>
 

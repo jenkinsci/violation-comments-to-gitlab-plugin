@@ -279,8 +279,7 @@ job('GitLab_MR_Builder') {
     
     // Only specify proxy if you need it
     proxyUri('')
-    proxyUser('')
-    proxyPassword('')
+    proxyCredentialsId('')
  
     commentOnlyChangedContent(true)
     commentOnlyChangedFiles(true)
@@ -482,8 +481,7 @@ node {
  
   // Only specify proxy if you need it
   proxyUri: '',
-  proxyUser: '',
-  proxyPassword: '',
+  proxyCredentialsId: '',
  
   apiTokenCredentialsId: 'id',
  

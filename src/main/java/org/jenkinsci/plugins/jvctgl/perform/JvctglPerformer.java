@@ -22,8 +22,8 @@ import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabA
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
 
+import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials;
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
 import com.google.common.io.CharStreams;
 import hudson.EnvVars;
 import hudson.FilePath;
@@ -39,6 +39,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.gitlab4j.api.Constants.TokenType;
@@ -61,7 +62,9 @@ public class JvctglPerformer {
       final ViolationsToGitLabConfig config,
       final String apiToken,
       final File workspace,
-      final TaskListener listener)
+      final TaskListener listener,
+      final String proxyUser,
+      final String proxyPassword)
       throws MalformedURLException {
     if (config.getMergeRequestIid() == null) {
       listener
@@ -135,8 +138,8 @@ public class JvctglPerformer {
           };
       violationCommentsToGitLabApi() //
           .setProxyServer(config.getProxyUri()) //
-          .setProxyUser(config.getProxyUser()) //
-          .setProxyPassword(config.getProxyPassword()) //
+          .setProxyUser(proxyUser) //
+          .setProxyPassword(proxyPassword) //
           .setHostUrl(hostUrl) //
           .setProjectId(projectId) //
           .setMergeRequestIid(mergeRequestIidInteger) //
@@ -189,8 +192,7 @@ public class JvctglPerformer {
     expanded.setCommentTemplate(config.getCommentTemplate());
 
     expanded.setProxyUri(config.getProxyUri());
-    expanded.setProxyUser(config.getProxyUser());
-    expanded.setProxyPassword(config.getProxyPassword());
+    expanded.setProxyCredentialsId(config.getProxyCredentialsId());
 
     expanded.setEnableLogging(config.getEnableLogging());
 
@@ -231,6 +233,21 @@ public class JvctglPerformer {
               build.getParent(),
               configExpanded.getApiTokenCredentialsId(),
               configExpanded.getGitLabUrl());
+      if (!apiTokenCredentials.isPresent()) {
+        throw new RuntimeException("API Token not set!");
+      }
+      final String apiToken = apiTokenCredentials.get().getSecret().getPlainText();
+
+      String proxyUserValue = "";
+      String proxyPasswordValue = "";
+      final Optional<StandardUsernamePasswordCredentials> proxyCredentials =
+          CredentialsHelper.findUserCredentials(configExpanded.getProxyCredentialsId());
+      if (proxyCredentials.isPresent()) {
+        proxyUserValue = proxyCredentials.get().getUsername();
+        proxyPasswordValue = proxyCredentials.get().getPassword().getPlainText();
+      }
+      final String proxyUser = proxyUserValue;
+      final String proxyPassword = proxyPasswordValue;
 
       listener.getLogger().println("Running Violation Comments To GitLab");
       listener.getLogger().println("Merge request: " + configExpanded.getMergeRequestIid());
@@ -248,11 +265,7 @@ public class JvctglPerformer {
                 throws IOException, InterruptedException {
               setupFindBugsMessages();
               listener.getLogger().println("Workspace: " + workspace.getAbsolutePath());
-              doPerform(
-                  configExpanded,
-                  apiTokenCredentials.get().getSecret().getPlainText(),
-                  workspace,
-                  listener);
+              doPerform(configExpanded, apiToken, workspace, listener, proxyUser, proxyPassword);
               return null;
             }
           });
@@ -292,9 +305,9 @@ public class JvctglPerformer {
     logger.println(FIELD_SHOULD_SET_WIP + ": " + config.getShouldSetWip());
     logger.println("commentTemplate: " + config.getCommentTemplate());
     logger.println("proxyUri: " + config.getProxyUri());
-    logger.println("proxyUser: " + (nullToEmpty(config.getProxyUser()).isEmpty() ? "no" : "yes"));
     logger.println(
-        "proxyPassword: " + (nullToEmpty(config.getProxyPassword()).isEmpty() ? "no" : "yes"));
+        "proxyCredentialsId: "
+            + (nullToEmpty(config.getProxyCredentialsId()).isEmpty() ? "no" : "yes"));
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       logger.println(violationConfig.getParser() + " with pattern " + violationConfig.getPattern());
