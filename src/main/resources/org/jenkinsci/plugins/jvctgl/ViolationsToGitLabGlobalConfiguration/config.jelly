@@ -11,6 +11,9 @@
 
   <f:entry title="API token Crendential" field="apiTokenCredentialsId">
       <c:select />
+      <f:description>
+         A secret text credential.
+      </f:description>
   </f:entry>
 
   <f:entry title="Private token" field="apiTokenPrivate">

@@ -279,7 +279,7 @@ job('GitLab_MR_Builder') {
     
     // Only specify proxy if you need it
     proxyUri('')
-    proxyCredentialsId('')
+    proxyCredentialsId('') // A username/password credential
  
     commentOnlyChangedContent(true)
     commentOnlyChangedFiles(true)
@@ -292,7 +292,7 @@ job('GitLab_MR_Builder') {
     enableLogging(true)
     
  
-    apiTokenCredentialsId("gitlabtoken")
+    apiTokenCredentialsId("gitlabtoken") // A secret text credential
     apiTokenPrivate(true)
     authMethodHeader(true)
     ignoreCertificateErrors(true)
@@ -481,10 +481,9 @@ node {
  
   // Only specify proxy if you need it
   proxyUri: '',
-  proxyCredentialsId: '',
+  proxyCredentialsId: '', // A username/password credential
  
-  apiTokenCredentialsId: 'id',
- 
+  apiTokenCredentialsId: 'id', // A secret text credential
   apiTokenPrivate: true,
   authMethodHeader: true,
   ignoreCertificateErrors: true,

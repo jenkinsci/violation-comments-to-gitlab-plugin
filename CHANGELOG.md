@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Doc**
+
+
+[e45322ec7f45a72](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e45322ec7f45a72a10fb9f8930bb92766c368474) Tomas Bjerre *2019-09-14 16:50:35*
+
+
 ## 2.30
 ### Jira SECURITY-1577 
 

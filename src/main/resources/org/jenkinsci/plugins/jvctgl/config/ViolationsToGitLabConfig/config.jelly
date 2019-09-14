@@ -11,7 +11,7 @@
   <f:entry title="API token Crendential" field="apiTokenCredentialsId">
         <c:select />
         <f:description>
-            Will default to global config.
+           A secret text credential. Will default to global config.
         </f:description>
   </f:entry>
 
@@ -19,8 +19,11 @@
     <f:entry title="URI" field="proxyUri">
 	  <f:textbox />
     </f:entry>
-    <f:entry title="Credential" field="proxyCredentialsId">
+    <f:entry title="Proxy credential" field="proxyCredentialsId">
       <c:select default="${config.proxyCredentialsId}" />
+      <f:description>
+          A username/password credential.
+      </f:description>
     </f:entry>
   </f:optionalBlock>
 

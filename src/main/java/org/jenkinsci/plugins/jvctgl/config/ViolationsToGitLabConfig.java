@@ -251,7 +251,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   @Deprecated
   public void setApiToken(final String apiToken) {
     throw new RuntimeException(
-        "Setting raw API token is removed, set the apiTokenCredentialsId with a string credential instead!");
+        "Setting raw API token is removed, set the apiTokenCredentialsId with a secret text credential instead!");
   }
 
   @Override
@@ -382,13 +382,15 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   @DataBoundSetter
   @Deprecated
   public void setProxyPassword(final String proxyPassword) {
-    throw new RuntimeException("Use proxyCredentialsId");
+    throw new RuntimeException(
+        "Set proxyPassword is removed. Use proxyCredentialsId with a username/password credential");
   }
 
   @DataBoundSetter
   @Deprecated
   public void setProxyUser(final String proxyUser) {
-    throw new RuntimeException("Use proxyCredentialsId");
+    throw new RuntimeException(
+        "Set proxyUser is removed. Use proxyCredentialsId with a username/password credential");
   }
 
   public String getProxyUri() {

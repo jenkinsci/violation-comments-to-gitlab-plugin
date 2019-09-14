@@ -94,7 +94,7 @@ public class ViolationsToGitLabGlobalConfiguration extends GlobalConfiguration
   @Deprecated
   public void setApiToken(final String apiToken) {
     throw new RuntimeException(
-        "Setting raw API token is removed, set the apiTokenCredentialsId with a string credential instead!");
+        "Setting raw API token is removed, set the apiTokenCredentialsId with a secret text credential instead!");
   }
 
   public String getApiTokenCredentialsId() {
