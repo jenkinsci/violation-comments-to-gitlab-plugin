@@ -1,5 +1,27 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.32
+### GitHub [#23](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/23) Getting null pointer exception on comment
+
+**Clearer error message when diffRefs null #23**
+
+
+[3318b39fdac0c8b](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/3318b39fdac0c8bf380e5fcbb52a6fc3f254a98f) Tomas Bjerre *2019-10-08 13:51:45*
+
+
+### No issue
+
+**Use HTTPS URLs in pom.xml**
+
+
+[2a5b903c57b9ed0](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/2a5b903c57b9ed09eef831b5cfbb7a145e8337c1) Daniel Beck *2019-10-08 11:12:55*
+
+**Create FUNDING.yml**
+
+
+[210bbef9c33cd39](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/210bbef9c33cd39771015bc2c760030eb7b26ee8) Tomas Bjerre *2019-09-28 06:52:46*
+
+
 ## 2.31
 ### No issue
 
