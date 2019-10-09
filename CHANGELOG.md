@@ -1,12 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.33
 ### GitHub [#23](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/23) Getting null pointer exception on comment
 
 **Avoiding NPE when getting diff_refs #23**
 
 
-[c3cf7dcca7ce788](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/c3cf7dcca7ce78851c2463fbc40cebe1945b7208) Tomas Bjerre *2019-10-09 18:43:41*
+[3f7cd7020a1f10a](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/3f7cd7020a1f10a23e437cca149f5422eb1dcc0a) Tomas Bjerre *2019-10-09 18:46:03*
 
 
 ## 2.32
