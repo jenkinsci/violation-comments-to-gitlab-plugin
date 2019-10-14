@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.35
+### No issue
+
+**Correcting ReSharper och PyDocStyle**
+
+
+[c6e0c8dacd25192](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/c6e0c8dacd251921ec032f9050526873b35d576b) Tomas Bjerre *2019-10-14 15:43:29*
+
+
 ## 2.33
 ### GitHub [#23](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/23) Getting null pointer exception on comment
 
