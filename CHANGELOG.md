@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.36
+### GitHub #79 
+
+**Protolint tomasbjerre/violations-lib#79**
+
+
+[7052cc0d12d16c5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7052cc0d12d16c5c6d730d8bacd934b9f7a2383c) Tomas Bjerre *2019-10-22 03:28:26*
+
+
 ## 2.35
 ### No issue
 
