@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.37
+### No issue
+
+**Setting URL to README.md to update plugins.jenkins.io**
+
+
+[68701aaba373c97](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/68701aaba373c977dd77555f3290a6fd42d706d2) Tomas Bjerre *2019-10-24 18:44:16*
+
+
 ## 2.36
 ### GitHub #79 
 
