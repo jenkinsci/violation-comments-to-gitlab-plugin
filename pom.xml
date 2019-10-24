@@ -13,7 +13,7 @@
 		<jenkins.version>2.1</jenkins.version>
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
-		<violations-maven>1.29</violations-maven>
+		<violations-maven>1.30</violations-maven>
 		<violation-comments-lib>1.81</violation-comments-lib>
 		<violations-lib>1.107</violations-lib>
 		<changelog>1.60</changelog>
@@ -26,7 +26,7 @@
 	<packaging>hpi</packaging>
 	<name>Violation Comments to GitLab Plugin</name>
 	<description>Finds violations reported by code analyzers and comments GitLab merge requests with them.</description>
-	<url>https://wiki.jenkins-ci.org/display/JENKINS/Violation+Comments+to+GitLab+Plugin</url>
+	<url>https://github.com/jenkinsci/violation-comments-to-gitlab-plugin</url>
 
 	<licenses>
 		<license>
