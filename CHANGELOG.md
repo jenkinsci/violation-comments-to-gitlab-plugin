@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.39
+### GitHub #82 
+
+**CPPCheckParser with auto closed <error/> tags tomasbjerre/violations-lib#82**
+
+
+[d8e6a17274a0b13](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/d8e6a17274a0b13f60831fffddf3cca7accdb9f0) Tomas Bjerre *2020-02-03 16:46:22*
+
+
 ## 2.38
 ### GitHub #80 
 
