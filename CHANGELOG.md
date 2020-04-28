@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.40
+### GitHub [#26](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/26) NPE (ServiceLocaterUtilities) when commenting MR
+
+**gitlab4j-api 4.12.3 -> 4.14.27 jenkinsci/violation-comments-to-gitlab-plugin#26**
+
+
+[118c37c2dcddece](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/118c37c2dcddececc4c601fa825d4ce511c7058d) Tomas Bjerre *2020-04-28 17:58:37*
+
+
 ## 2.39
 ### GitHub #82 
 
