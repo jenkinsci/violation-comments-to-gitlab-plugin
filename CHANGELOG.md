@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.41
+### GitHub #85 
+
+**Fix: JUunit parser tomasbjerre/violations-lib#85**
+
+
+[3867c96ad2b9e05](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/3867c96ad2b9e0516dbafee1d3dbb8ffec51db58) Tomas Bjerre *2020-05-12 15:04:29*
+
+
 ## 2.40
 ### GitHub [#26](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/26) NPE (ServiceLocaterUtilities) when commenting MR
 
