@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.42
+### Jira SECURITY-1854 
+
+**Fixing SECURITY-1854**
+
+
+[05a72d36f15ce8b](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/05a72d36f15ce8b00354984d3c0d3dabe883af67) Tomas Bjerre *2020-05-20 14:48:21*
+
+
 ## 2.41
 ### GitHub #85 
 
