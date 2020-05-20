@@ -15,7 +15,7 @@
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<violations-maven>1.36</violations-maven>
 		<violation-comments-lib>1.83</violation-comments-lib>
-		<violations-lib>1.114</violations-lib>
+		<violations-lib>1.116</violations-lib>
 		<changelog>1.61</changelog>
 		<fmt>2.9</fmt>
                 <findbugs.failOnError>false</findbugs.failOnError>
