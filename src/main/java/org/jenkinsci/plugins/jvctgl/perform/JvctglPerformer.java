@@ -4,7 +4,6 @@ import static com.google.common.base.Charsets.UTF_8;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.base.Throwables.propagate;
-import static com.google.common.collect.Lists.newArrayList;
 import static java.util.logging.Level.SEVERE;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
@@ -38,8 +37,9 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.gitlab4j.api.Constants.TokenType;
@@ -48,7 +48,7 @@ import org.jenkinsci.plugins.jvctgl.config.ViolationConfig;
 import org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfig;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.jenkinsci.remoting.RoleChecker;
-import se.bjurr.violations.comments.lib.ViolationsLogger;
+import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
@@ -78,11 +78,37 @@ public class JvctglPerformer {
       return;
     }
 
-    final List<Violation> allParsedViolations = newArrayList();
+    final ViolationsLogger violationsLogger =
+        new ViolationsLogger() {
+          @Override
+          public void log(final Level level, final String string) {
+            if (!config.getEnableLogging()) {
+              return;
+            }
+            Logger.getLogger(JvctglPerformer.class.getName()).log(level, string);
+            if (level != Level.FINE) {
+              listener.getLogger().println(level + " " + string);
+            }
+          }
+
+          @Override
+          public void log(final Level level, final String string, final Throwable t) {
+            if (!config.getEnableLogging()) {
+              return;
+            }
+            Logger.getLogger(JvctglPerformer.class.getName()).log(level, string);
+            final StringWriter sw = new StringWriter();
+            t.printStackTrace(new PrintWriter(sw));
+            listener.getLogger().println(level + " " + string + "\n" + sw.toString());
+          }
+        };
+
+    final Set<Violation> allParsedViolations = new TreeSet<>();
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       if (!isNullOrEmpty(violationConfig.getPattern())) {
-        List<Violation> parsedViolations =
-            violationsApi() //
+        Set<Violation> parsedViolations =
+            violationsApi()
+                .withViolationsLogger(violationsLogger) //
                 .findAll(violationConfig.getParser()) //
                 .withReporter(violationConfig.getReporter()) //
                 .inFolder(workspace.getAbsolutePath()) //
@@ -116,39 +142,20 @@ public class JvctglPerformer {
       final boolean shouldKeepOldComments = config.getKeepOldComments();
       final boolean shouldSetWIP = config.getShouldSetWip();
       final String commentTemplate = config.getCommentTemplate();
-      final ViolationsLogger violationsLogger =
-          new ViolationsLogger() {
-            @Override
-            public void log(final Level level, final String string) {
-              if (!config.getEnableLogging()) {
-                return;
-              }
-              listener.getLogger().println(level + " " + string);
-            }
 
-            @Override
-            public void log(final Level level, final String string, final Throwable t) {
-              if (!config.getEnableLogging()) {
-                return;
-              }
-              final StringWriter sw = new StringWriter();
-              t.printStackTrace(new PrintWriter(sw));
-              listener.getLogger().println(level + " " + string + "\n" + sw.toString());
-            }
-          };
-      violationCommentsToGitLabApi() //
-          .setProxyServer(config.getProxyUri()) //
-          .setProxyUser(proxyUser) //
-          .setProxyPassword(proxyPassword) //
-          .setHostUrl(hostUrl) //
-          .setProjectId(projectId) //
-          .setMergeRequestIid(mergeRequestIidInteger) //
-          .setApiToken(apiToken) //
-          .setTokenType(tokenType) //
-          .setCommentOnlyChangedContent(config.getCommentOnlyChangedContent()) //
-          .withShouldCommentOnlyChangedFiles(config.getCommentOnlyChangedFiles()) //
+      violationCommentsToGitLabApi()
+          .setProxyServer(config.getProxyUri())
+          .setProxyUser(proxyUser)
+          .setProxyPassword(proxyPassword)
+          .setHostUrl(hostUrl)
+          .setProjectId(projectId)
+          .setMergeRequestIid(mergeRequestIidInteger)
+          .setApiToken(apiToken)
+          .setTokenType(tokenType)
+          .setCommentOnlyChangedContent(config.getCommentOnlyChangedContent())
+          .withShouldCommentOnlyChangedFiles(config.getCommentOnlyChangedFiles())
           .setCreateCommentWithAllSingleFileComments(
-              config.getCreateCommentWithAllSingleFileComments()) //
+              config.getCreateCommentWithAllSingleFileComments())
           .setCreateSingleFileComments(config.getCreateSingleFileComments())
           .setIgnoreCertificateErrors(config.getIgnoreCertificateErrors()) //
           .setViolations(allParsedViolations) //
