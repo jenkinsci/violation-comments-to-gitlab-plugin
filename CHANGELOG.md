@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.43
+### No issue
+
+**New: custom logging in violations-lib**
+
+
+[1fafdc25a6235b5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/1fafdc25a6235b583614557832b471bf69adc326) Tomas Bjerre *2020-07-05 14:12:42*
+
+
 ## 2.42
 ### Jira SECURITY-1854 
 
