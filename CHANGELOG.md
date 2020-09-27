@@ -1,7 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.44
 ### No issue
+
+**Find Security Bugs messages**
+
+
+[5e28dd147a34c95](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/5e28dd147a34c95c20626cd8ecaf4dac0409f500) Tomas Bjerre *2020-09-27 17:28:20*
 
 **Remove unneeded configuration in buildPlugin**
 
