@@ -1,9 +1,7 @@
 package org.jenkinsci.plugins.jvctgl.perform;
 
-import static com.google.common.base.Charsets.UTF_8;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
-import static com.google.common.base.Throwables.propagate;
 import static java.util.logging.Level.SEVERE;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
@@ -19,11 +17,9 @@ import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper
 import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
-import static se.bjurr.violations.lib.parsers.FindbugsParser.setFindbugsMessagesXml;
 
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials;
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.io.CharStreams;
 import hudson.EnvVars;
 import hudson.FilePath;
 import hudson.FilePath.FileCallable;
@@ -32,7 +28,6 @@ import hudson.model.TaskListener;
 import hudson.remoting.VirtualChannel;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -270,7 +265,6 @@ public class JvctglPerformer {
             @Override
             public Void invoke(final File workspace, final VirtualChannel channel)
                 throws IOException, InterruptedException {
-              setupFindBugsMessages();
               listener.getLogger().println("Workspace: " + workspace.getAbsolutePath());
               doPerform(configExpanded, apiToken, workspace, listener, proxyUser, proxyPassword);
               return null;
@@ -318,18 +312,6 @@ public class JvctglPerformer {
 
     for (final ViolationConfig violationConfig : config.getViolationConfigs()) {
       logger.println(violationConfig.getParser() + " with pattern " + violationConfig.getPattern());
-    }
-  }
-
-  private static void setupFindBugsMessages() {
-    try {
-      final String findbugsMessagesXml =
-          CharStreams.toString(
-              new InputStreamReader(
-                  JvctglPerformer.class.getResourceAsStream("findbugs-messages.xml"), UTF_8));
-      setFindbugsMessagesXml(findbugsMessagesXml);
-    } catch (final IOException e) {
-      propagate(e);
     }
   }
 }

@@ -1,5 +1,15 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Remove unneeded configuration in buildPlugin**
+
+ * Spotbugs reporting is being enabled by default in https://github.com/jenkins-infra/pipeline-library/pull/121, update to parent pom 4.x to use spotbugs instead of findbugs. 
+
+[25093f6449cc9c4](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/25093f6449cc9c477ddfb0d8e3f0be2a91eac511) Tim Jacomb *2020-07-25 14:42:25*
+
+
 ## 2.43
 ### No issue
 
