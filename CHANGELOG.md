@@ -1,5 +1,22 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.45
+### GitHub #117 
+
+**Correctings in patchparsing tomasbjerre/violations-lib#117**
+
+
+[742b399c86631da](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/742b399c86631dabcffc647bf05052b7a9a869ad) Tomas Bjerre *2020-12-14 15:10:16*
+
+
+### No issue
+
+**Spotbugs report**
+
+
+[240ec6a51a29fbf](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/240ec6a51a29fbf732148348c234827bc9043aed) Tomas Bjerre *2020-09-27 17:32:19*
+
+
 ## 2.44
 ### No issue
 
