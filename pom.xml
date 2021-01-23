@@ -99,7 +99,7 @@
 							<goal>git-changelog</goal>
 						</goals>
 						<configuration>
-						<ignoreCommitsIfMessageMatches>^[maven-release-plugin].</ignoreCommitsIfMessageMatches>
+						<ignoreCommitsIfMessageMatches>^\[maven-release-plugin\].*</ignoreCommitsIfMessageMatches>
 							<filePath>CHANGELOG.md</filePath>
 							<readableTagName>-([^-]+?)$</readableTagName>
 							<gitHubApi>https://api.github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin</gitHubApi>
