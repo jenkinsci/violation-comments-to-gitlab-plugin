@@ -15,8 +15,8 @@
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<violations-maven>1.42</violations-maven>
 		<violation-comments-lib>1.85</violation-comments-lib>
-		<violations-lib>1.140</violations-lib>
-		<changelog>1.63</changelog>
+		<violations-lib>1.141</violations-lib>
+		<changelog>1.67</changelog>
 		<fmt>2.9</fmt>
                 <findbugs.failOnError>false</findbugs.failOnError>
 	</properties>
@@ -99,6 +99,7 @@
 							<goal>git-changelog</goal>
 						</goals>
 						<configuration>
+						<ignoreCommitsIfMessageMatches>^[maven-release-plugin].</ignoreCommitsIfMessageMatches>
 							<filePath>CHANGELOG.md</filePath>
 							<readableTagName>-([^-]+?)$</readableTagName>
 							<gitHubApi>https://api.github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin</gitHubApi>

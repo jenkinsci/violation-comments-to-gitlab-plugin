@@ -35,7 +35,6 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   private String gitLabUrl;
   private String projectId;
   private String mergeRequestIid;
-  @Deprecated private transient String mergeRequestId;
   private String apiTokenCredentialsId;
   private Boolean ignoreCertificateErrors;
   private Boolean apiTokenPrivate;
@@ -89,19 +88,12 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public String getCommentTemplate() {
-    return commentTemplate;
+    return this.commentTemplate;
   }
 
   @DataBoundSetter
   public void setCommentTemplate(final String commentTemplate) {
     this.commentTemplate = commentTemplate;
-  }
-
-  private Object readResolve() {
-    if (isNullOrEmpty(mergeRequestIid)) {
-      mergeRequestIid = mergeRequestId;
-    }
-    return this;
   }
 
   public ViolationsToGitLabConfig() {
@@ -119,13 +111,13 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     if (isNullOrEmpty(this.apiTokenCredentialsId)) {
       this.apiTokenCredentialsId = defaults.getApiTokenCredentialsId();
     }
-    if (ignoreCertificateErrors == null) {
+    if (this.ignoreCertificateErrors == null) {
       this.ignoreCertificateErrors = defaults.isIgnoreCertificateErrors();
     }
-    if (apiTokenPrivate == null) {
+    if (this.apiTokenPrivate == null) {
       this.apiTokenPrivate = defaults.isApiTokenPrivate();
     }
-    if (authMethodHeader == null) {
+    if (this.authMethodHeader == null) {
       this.authMethodHeader = defaults.isAuthMethodHeader();
     }
     if (this.minSeverity == null) {
@@ -134,7 +126,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public String getGitLabUrl() {
-    return gitLabUrl;
+    return this.gitLabUrl;
   }
 
   public boolean getCommentOnlyChangedContent() {
@@ -146,7 +138,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public boolean getCreateSingleFileComments() {
-    return createSingleFileComments;
+    return this.createSingleFileComments;
   }
 
   public List<ViolationConfig> getViolationConfigs() {
@@ -177,27 +169,27 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public String getProjectId() {
-    return projectId;
+    return this.projectId;
   }
 
   public Boolean getAuthMethodHeader() {
-    return authMethodHeader;
+    return this.authMethodHeader;
   }
 
   public Boolean getApiTokenPrivate() {
-    return apiTokenPrivate;
+    return this.apiTokenPrivate;
   }
 
   public String getMergeRequestIid() {
-    return mergeRequestIid;
+    return this.mergeRequestIid;
   }
 
   public String getApiTokenCredentialsId() {
-    return apiTokenCredentialsId;
+    return this.apiTokenCredentialsId;
   }
 
   public Boolean getIgnoreCertificateErrors() {
-    return firstNonNull(ignoreCertificateErrors, false);
+    return firstNonNull(this.ignoreCertificateErrors, false);
   }
 
   @DataBoundSetter
@@ -212,7 +204,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public SEVERITY getMinSeverity() {
-    return minSeverity;
+    return this.minSeverity;
   }
 
   @DataBoundSetter
@@ -231,7 +223,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public boolean getCommentOnlyChangedFiles() {
-    return commentOnlyChangedFiles;
+    return this.commentOnlyChangedFiles;
   }
 
   @DataBoundSetter
@@ -247,121 +239,110 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.apiTokenCredentialsId = apiTokenCredentialsId;
   }
 
-  @DataBoundSetter
-  @Deprecated
-  public void setApiToken(final String apiToken) {
-    throw new RuntimeException(
-        "Setting raw API token is removed, set the apiTokenCredentialsId with a secret text credential instead!");
-  }
-
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (o == null || this.getClass() != o.getClass()) {
       return false;
     }
     final ViolationsToGitLabConfig that = (ViolationsToGitLabConfig) o;
-    return commentOnlyChangedContent == that.commentOnlyChangedContent
-        && commentOnlyChangedFiles == that.commentOnlyChangedFiles
-        && createCommentWithAllSingleFileComments == that.createCommentWithAllSingleFileComments
-        && createSingleFileComments == that.createSingleFileComments
-        && Objects.equals(violationConfigs, that.violationConfigs)
-        && Objects.equals(gitLabUrl, that.gitLabUrl)
-        && Objects.equals(projectId, that.projectId)
-        && Objects.equals(mergeRequestIid, that.mergeRequestIid)
-        && Objects.equals(mergeRequestId, that.mergeRequestId)
-        && Objects.equals(apiTokenCredentialsId, that.apiTokenCredentialsId)
-        && Objects.equals(ignoreCertificateErrors, that.ignoreCertificateErrors)
-        && Objects.equals(apiTokenPrivate, that.apiTokenPrivate)
-        && Objects.equals(authMethodHeader, that.authMethodHeader)
-        && minSeverity == that.minSeverity
-        && Objects.equals(keepOldComments, that.keepOldComments)
-        && Objects.equals(commentTemplate, that.commentTemplate)
-        && Objects.equals(shouldSetWip, that.shouldSetWip)
-        && Objects.equals(proxyUri, that.proxyUri)
-        && Objects.equals(proxyCredentialsId, that.proxyCredentialsId)
-        && Objects.equals(enableLogging, that.enableLogging);
+    return this.commentOnlyChangedContent == that.commentOnlyChangedContent
+        && this.commentOnlyChangedFiles == that.commentOnlyChangedFiles
+        && this.createCommentWithAllSingleFileComments
+            == that.createCommentWithAllSingleFileComments
+        && this.createSingleFileComments == that.createSingleFileComments
+        && Objects.equals(this.violationConfigs, that.violationConfigs)
+        && Objects.equals(this.gitLabUrl, that.gitLabUrl)
+        && Objects.equals(this.projectId, that.projectId)
+        && Objects.equals(this.mergeRequestIid, that.mergeRequestIid)
+        && Objects.equals(this.apiTokenCredentialsId, that.apiTokenCredentialsId)
+        && Objects.equals(this.ignoreCertificateErrors, that.ignoreCertificateErrors)
+        && Objects.equals(this.apiTokenPrivate, that.apiTokenPrivate)
+        && Objects.equals(this.authMethodHeader, that.authMethodHeader)
+        && this.minSeverity == that.minSeverity
+        && Objects.equals(this.keepOldComments, that.keepOldComments)
+        && Objects.equals(this.commentTemplate, that.commentTemplate)
+        && Objects.equals(this.shouldSetWip, that.shouldSetWip)
+        && Objects.equals(this.proxyUri, that.proxyUri)
+        && Objects.equals(this.proxyCredentialsId, that.proxyCredentialsId)
+        && Objects.equals(this.enableLogging, that.enableLogging);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        commentOnlyChangedContent,
-        commentOnlyChangedFiles,
-        createCommentWithAllSingleFileComments,
-        createSingleFileComments,
-        violationConfigs,
-        gitLabUrl,
-        projectId,
-        mergeRequestIid,
-        mergeRequestId,
-        apiTokenCredentialsId,
-        ignoreCertificateErrors,
-        apiTokenPrivate,
-        authMethodHeader,
-        minSeverity,
-        keepOldComments,
-        commentTemplate,
-        shouldSetWip,
-        proxyUri,
-        proxyCredentialsId,
-        enableLogging);
+        this.commentOnlyChangedContent,
+        this.commentOnlyChangedFiles,
+        this.createCommentWithAllSingleFileComments,
+        this.createSingleFileComments,
+        this.violationConfigs,
+        this.gitLabUrl,
+        this.projectId,
+        this.mergeRequestIid,
+        this.apiTokenCredentialsId,
+        this.ignoreCertificateErrors,
+        this.apiTokenPrivate,
+        this.authMethodHeader,
+        this.minSeverity,
+        this.keepOldComments,
+        this.commentTemplate,
+        this.shouldSetWip,
+        this.proxyUri,
+        this.proxyCredentialsId,
+        this.enableLogging);
   }
 
   @Override
   public String toString() {
     return "ViolationsToGitLabConfig{"
         + "commentOnlyChangedContent="
-        + commentOnlyChangedContent
+        + this.commentOnlyChangedContent
         + "commentOnlyChangedFiles="
-        + commentOnlyChangedFiles
+        + this.commentOnlyChangedFiles
         + ", createCommentWithAllSingleFileComments="
-        + createCommentWithAllSingleFileComments
+        + this.createCommentWithAllSingleFileComments
         + ", createSingleFileComments="
-        + createSingleFileComments
+        + this.createSingleFileComments
         + ", violationConfigs="
-        + violationConfigs
+        + this.violationConfigs
         + ", gitLabUrl='"
-        + gitLabUrl
+        + this.gitLabUrl
         + '\''
         + ", projectId='"
-        + projectId
+        + this.projectId
         + '\''
         + ", mergeRequestIid='"
-        + mergeRequestIid
-        + '\''
-        + ", mergeRequestId='"
-        + mergeRequestId
+        + this.mergeRequestIid
         + '\''
         + ", apiTokenCredentialsId='"
-        + apiTokenCredentialsId
+        + this.apiTokenCredentialsId
         + '\''
         + ", ignoreCertificateErrors="
-        + ignoreCertificateErrors
+        + this.ignoreCertificateErrors
         + ", apiTokenPrivate="
-        + apiTokenPrivate
+        + this.apiTokenPrivate
         + ", authMethodHeader="
-        + authMethodHeader
+        + this.authMethodHeader
         + ", minSeverity="
-        + minSeverity
+        + this.minSeverity
         + ", keepOldComments="
-        + keepOldComments
+        + this.keepOldComments
         + ", commentTemplate='"
-        + commentTemplate
+        + this.commentTemplate
         + '\''
         + ", shouldSetWip="
-        + shouldSetWip
+        + this.shouldSetWip
         + '}';
   }
 
   public Boolean getKeepOldComments() {
-    return keepOldComments;
+    return this.keepOldComments;
   }
 
   public Boolean getShouldSetWip() {
-    return shouldSetWip;
+    return this.shouldSetWip;
   }
 
   @DataBoundSetter
@@ -379,22 +360,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     this.proxyUri = proxyUri;
   }
 
-  @DataBoundSetter
-  @Deprecated
-  public void setProxyPassword(final String proxyPassword) {
-    throw new RuntimeException(
-        "Set proxyPassword is removed. Use proxyCredentialsId with a username/password credential");
-  }
-
-  @DataBoundSetter
-  @Deprecated
-  public void setProxyUser(final String proxyUser) {
-    throw new RuntimeException(
-        "Set proxyUser is removed. Use proxyCredentialsId with a username/password credential");
-  }
-
   public String getProxyUri() {
-    return proxyUri;
+    return this.proxyUri;
   }
 
   @DataBoundSetter
@@ -403,7 +370,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public String getProxyCredentialsId() {
-    return proxyCredentialsId;
+    return this.proxyCredentialsId;
   }
 
   @DataBoundSetter
@@ -412,11 +379,11 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
   }
 
   public Boolean getEnableLogging() {
-    return enableLogging;
+    return this.enableLogging;
   }
 
   public Integer getMaxNumberOfViolations() {
-    return maxNumberOfViolations;
+    return this.maxNumberOfViolations;
   }
 
   @DataBoundSetter
@@ -429,7 +396,7 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     @NonNull
     @Override
     public String getDisplayName() {
-      return "Violations To GitHub Server Config";
+      return "Violations To GitLab Server Config";
     }
 
     @Restricted(NoExternalUse.class)
