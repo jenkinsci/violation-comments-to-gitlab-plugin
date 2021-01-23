@@ -13,6 +13,60 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 
+[f932ce1de11fed5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/f932ce1de11fed537d40efab4760e2ec3e11c38d) Tomas Bjerre *2021-01-23 17:37:29*
+
+  
+
+ 
+
+## 2.46
+ 
+  
+   
+### GitHub [#29](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/29) Jenkins pipeline-syntax entry does not generate correctly
+   
+   
+  
+  
+
+  
+**Correcting pipeline syntax generator #29**
+
+
+
+[230c615eb0105ee](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/230c615eb0105eef2eea9fce627f4755851228e5) Tomas Bjerre *2021-01-23 17:36:19*
+
+  
+
+ 
+  
+   
+   
+### Jira gitlab-2 
+   
+  
+  
+
+  
+**[maven-release-plugin] prepare release violation-comments-to-gitlab-2.46**
+
+
+
+[3d0e3f6d250ab94](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/3d0e3f6d250ab94edf5a9f73fbb9a3dc3a011bac) Tomas Bjerre *2021-01-23 17:37:20*
+
+  
+
+ 
+  
+  
+### No issue
+  
+
+  
+**[maven-release-plugin] prepare for next development iteration**
+
+
+
 [accdc73030725ea](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/accdc73030725ea270fb66f1b1e9099963f1844e) Tomas Bjerre *2020-12-14 15:12:55*
 
   
