@@ -1,7 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.47
 ### No issue
+
+**feat: MSBuild parser**
+
+
+[2907ecc76e727a9](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/2907ecc76e727a9cd3b2b00154ec962afdeb65b1) Tomas Bjerre *2021-06-16 17:26:40*
 
 **doc**
 
