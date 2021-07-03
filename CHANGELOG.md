@@ -1,12 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.48
 ### No issue
 
 **build: spotbugs annotations**
 
 
-[a86bf97006c5f43](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/a86bf97006c5f43a5e062a9e6d53c158fa31b3ce) Tomas Bjerre *2021-07-03 16:04:13*
+[c6159cb2765849c](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/c6159cb2765849cf09e8b3be1a8b481754fc8978) Tomas Bjerre *2021-07-03 16:06:04*
 
 **fix: Added test cases and fix for large new files**
 
