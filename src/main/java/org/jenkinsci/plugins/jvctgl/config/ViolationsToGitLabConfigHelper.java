@@ -2,6 +2,7 @@ package org.jenkinsci.plugins.jvctgl.config;
 
 public class ViolationsToGitLabConfigHelper {
   public static final String FIELD_COMMENTONLYCHANGEDCONTENT = "commentOnlyChangedContent";
+  public static final String FIELD_COMMENTONLYCHANGEDCONTENTCONTEXT = "commentOnlyChangedContentContext";
   public static final String FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS =
       "createCommentWithAllSingleFileComments";
   public static final String FIELD_CREATESINGLEFILECOMMENTS = "createSingleFileComments";

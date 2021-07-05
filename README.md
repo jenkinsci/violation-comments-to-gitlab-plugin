@@ -287,6 +287,7 @@ job('GitLab_MR_Builder') {
     proxyCredentialsId('') // A username/password credential
  
     commentOnlyChangedContent(true)
+    commentOnlyChangedContentContext(0)
     commentOnlyChangedFiles(true)
     createSingleFileComments(true)
     createCommentWithAllSingleFileComments(true)
@@ -475,6 +476,7 @@ node {
   projectId: env.PROJECT_PATH,
   mergeRequestIid: env.MERGE_REQUST_IID,
   commentOnlyChangedContent: true,
+  commentOnlyChangedContentContext: 0,
   commentOnlyChangedFiles: true,
   createSingleFileComments: true,
   createCommentWithAllSingleFileComments: true,
