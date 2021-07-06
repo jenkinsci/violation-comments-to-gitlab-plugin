@@ -289,7 +289,10 @@ public class JvctglPerformer {
             + config.getCreateCommentWithAllSingleFileComments());
     logger.println("createSingleFileComments" + ": " + config.getCreateSingleFileComments());
     logger.println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
-    logger.println(FIELD_COMMENTONLYCHANGEDCONTENTCONTEXT + ": " + config.getCommentOnlyChangedContentContext());
+    logger.println(
+        FIELD_COMMENTONLYCHANGEDCONTENTCONTEXT
+            + ": "
+            + config.getCommentOnlyChangedContentContext());
     logger.println("commentOnlyChangedFiles: " + config.getCommentOnlyChangedFiles());
 
     logger.println("maxNumberOfViolations:" + config.getMaxNumberOfViolations());

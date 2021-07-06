@@ -260,7 +260,8 @@ public class ViolationsToGitLabConfig extends AbstractDescribableImpl<Violations
     }
     final ViolationsToGitLabConfig that = (ViolationsToGitLabConfig) o;
     return this.commentOnlyChangedContent == that.commentOnlyChangedContent
-        && Objects.equals(this.commentOnlyChangedContentContext, that.commentOnlyChangedContentContext)
+        && Objects.equals(
+            this.commentOnlyChangedContentContext, that.commentOnlyChangedContentContext)
         && this.commentOnlyChangedFiles == that.commentOnlyChangedFiles
         && this.createCommentWithAllSingleFileComments
             == that.createCommentWithAllSingleFileComments

@@ -1,5 +1,32 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### GitHub [#32](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/32) Giving access to the commentOnlyChangedContentContext parameter
+
+**Merge pull request #32 from ateglas/issue-15**
+
+ * Giving access to the commentOnlyChangedContentContext parameter 
+
+[7ce384128406607](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7ce38412840660764d5b048738d050a3ef5ae62b) Tomas Bjerre *2021-07-06 04:58:16*
+
+
+### Jira issue-15 
+
+**Merge pull request #32 from ateglas/issue-15**
+
+ * Giving access to the commentOnlyChangedContentContext parameter 
+
+[7ce384128406607](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7ce38412840660764d5b048738d050a3ef5ae62b) Tomas Bjerre *2021-07-06 04:58:16*
+
+
+### No issue
+
+**Giving access to the commentOnlyChangedContentContext parameter**
+
+
+[7cbdf2565be1ea0](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7cbdf2565be1ea05b1b2c1aba1b990efbee4aec1) Aurelian Teglas *2021-07-05 18:02:55*
+
+
 ## 2.48
 ### No issue
 
