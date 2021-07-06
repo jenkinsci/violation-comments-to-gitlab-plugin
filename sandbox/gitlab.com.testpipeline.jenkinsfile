@@ -23,6 +23,7 @@ node {
     projectId: "2732496",
     mergeRequestIid: "1",
     commentOnlyChangedContent: true,
+    commentOnlyChangedContentContext: 0,
     commentOnlyChangedFiles: true,
     createCommentWithAllSingleFileComments: true, 
     minSeverity: 'INFO',

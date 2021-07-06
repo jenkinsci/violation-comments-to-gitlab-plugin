@@ -94,6 +94,13 @@
     <f:checkbox />
   </f:entry>
 
+  <f:entry title="The number of context lines around changes" field="commentOnlyChangedContentContext">
+    <f:textbox />
+    <f:description>
+     This is the number of context lines around the changes that you want to comment on.
+    </f:description>
+  </f:entry>
+
   <f:entry title="Comment only changed files" field="commentOnlyChangedFiles">
     <f:checkbox />
   </f:entry>

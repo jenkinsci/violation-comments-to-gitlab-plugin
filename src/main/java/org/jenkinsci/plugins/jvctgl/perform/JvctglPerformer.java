@@ -3,18 +3,7 @@ package org.jenkinsci.plugins.jvctgl.perform;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static java.util.logging.Level.SEVERE;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_AUTHMETHODHEADER;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_COMMENTONLYCHANGEDCONTENT;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_KEEP_OLD_COMMENTS;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTIID;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.*;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 
@@ -148,6 +137,7 @@ public class JvctglPerformer {
           .setApiToken(apiToken)
           .setTokenType(tokenType)
           .setCommentOnlyChangedContent(config.getCommentOnlyChangedContent())
+          .setCommentOnlyChangedContentContext(config.getCommentOnlyChangedContentContext())
           .withShouldCommentOnlyChangedFiles(config.getCommentOnlyChangedFiles())
           .setCreateCommentWithAllSingleFileComments(
               config.getCreateCommentWithAllSingleFileComments())
@@ -184,6 +174,7 @@ public class JvctglPerformer {
     expanded.setIgnoreCertificateErrors(config.getIgnoreCertificateErrors());
 
     expanded.setCommentOnlyChangedContent(config.getCommentOnlyChangedContent());
+    expanded.setCommentOnlyChangedContentContext(config.getCommentOnlyChangedContentContext());
     expanded.setCommentOnlyChangedFiles(config.getCommentOnlyChangedFiles());
     expanded.setCreateCommentWithAllSingleFileComments(
         config.getCreateCommentWithAllSingleFileComments());
@@ -298,6 +289,7 @@ public class JvctglPerformer {
             + config.getCreateCommentWithAllSingleFileComments());
     logger.println("createSingleFileComments" + ": " + config.getCreateSingleFileComments());
     logger.println(FIELD_COMMENTONLYCHANGEDCONTENT + ": " + config.getCommentOnlyChangedContent());
+    logger.println(FIELD_COMMENTONLYCHANGEDCONTENTCONTEXT + ": " + config.getCommentOnlyChangedContentContext());
     logger.println("commentOnlyChangedFiles: " + config.getCommentOnlyChangedFiles());
 
     logger.println("maxNumberOfViolations:" + config.getMaxNumberOfViolations());
