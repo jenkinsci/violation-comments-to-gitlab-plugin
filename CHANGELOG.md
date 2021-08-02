@@ -1,7 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.51
 ### No issue
+
+**jacoco**
+
+
+[e422f0bf2403607](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e422f0bf2403607ddc311bff028bd4917789526d) Tomas Bjerre *2021-08-02 16:12:47*
 
 **stepping violations lib**
 
