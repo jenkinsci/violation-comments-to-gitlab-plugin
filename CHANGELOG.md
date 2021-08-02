@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**stepping violations lib**
+
+
+[f564aae4468f81d](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/f564aae4468f81dcc131a3b12225e35a14b6956d) Tomas Bjerre *2021-08-02 16:12:07*
+
+
 ## 2.49
 ### GitHub [#32](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/32) Giving access to the commentOnlyChangedContentContext parameter
 
