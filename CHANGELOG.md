@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.52
+### No issue
+
+**fix: mapping engine_name and check_name in CodeClimate**
+
+
+[7d25adea72a35d1](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7d25adea72a35d1865f3cf2a33852afc47b1ecbf) Tomas Bjerre *2021-09-11 07:32:08*
+
+
 ## 2.51
 ### No issue
 
