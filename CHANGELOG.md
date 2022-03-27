@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.53
+### No issue
+
+**feat: stepping lib versions**
+
+
+[6186bbf3d45d5c9](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/6186bbf3d45d5c92e30b12c528dbd79f54e56988) Tomas Bjerre *2022-03-27 07:11:07*
+
+
 ## 2.52
 ### No issue
 
