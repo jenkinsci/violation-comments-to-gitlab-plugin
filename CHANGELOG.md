@@ -24,30 +24,18 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.49
-### GitHub [#32](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/32) Giving access to the commentOnlyChangedContentContext parameter
-
-**Merge pull request #32 from ateglas/issue-15**
-
- * Giving access to the commentOnlyChangedContentContext parameter 
-
-[7ce384128406607](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7ce38412840660764d5b048738d050a3ef5ae62b) Tomas Bjerre *2021-07-06 04:58:16*
-
-
-### Jira issue-15 
-
-**Merge pull request #32 from ateglas/issue-15**
-
- * Giving access to the commentOnlyChangedContentContext parameter 
-
-[7ce384128406607](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7ce38412840660764d5b048738d050a3ef5ae62b) Tomas Bjerre *2021-07-06 04:58:16*
-
-
 ### No issue
 
 **chore: formatting**
 
 
 [b2018016aca2bba](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/b2018016aca2bba9c70973ec1736bf0106cb806f) Tomas Bjerre *2021-07-06 05:19:58*
+
+**Merge pull request #32 from ateglas/issue-15**
+
+ * Giving access to the commentOnlyChangedContentContext parameter 
+
+[7ce384128406607](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7ce38412840660764d5b048738d050a3ef5ae62b) Tomas Bjerre *2021-07-06 04:58:16*
 
 **Giving access to the commentOnlyChangedContentContext parameter**
 
@@ -84,7 +72,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.46
-### GitHub [#29](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/29) Jenkins pipeline-syntax entry does not generate correctly
+### No issue
 
 **Correcting pipeline syntax generator #29**
 
@@ -93,15 +81,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.45
-### GitHub #117 
+### No issue
 
 **Correctings in patchparsing tomasbjerre/violations-lib#117**
 
 
 [742b399c86631da](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/742b399c86631dabcffc647bf05052b7a9a869ad) Tomas Bjerre *2020-12-14 15:10:16*
-
-
-### No issue
 
 **Spotbugs report**
 
@@ -110,30 +95,18 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.44
-### GitHub [#27](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/27) Remove unneeded configuration in buildPlugin
-
-**Merge pull request #27 from timja/patch-1**
-
- * Remove unneeded configuration in buildPlugin 
-
-[683705f04a5b573](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/683705f04a5b573b73ff8f42570b3c3c94bca9c4) Tomas Bjerre *2020-07-26 06:27:57*
-
-
-### Jira patch-1 
-
-**Merge pull request #27 from timja/patch-1**
-
- * Remove unneeded configuration in buildPlugin 
-
-[683705f04a5b573](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/683705f04a5b573b73ff8f42570b3c3c94bca9c4) Tomas Bjerre *2020-07-26 06:27:57*
-
-
 ### No issue
 
 **Find Security Bugs messages**
 
 
 [5e28dd147a34c95](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/5e28dd147a34c95c20626cd8ecaf4dac0409f500) Tomas Bjerre *2020-09-27 17:28:20*
+
+**Merge pull request #27 from timja/patch-1**
+
+ * Remove unneeded configuration in buildPlugin 
+
+[683705f04a5b573](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/683705f04a5b573b73ff8f42570b3c3c94bca9c4) Tomas Bjerre *2020-07-26 06:27:57*
 
 **Remove unneeded configuration in buildPlugin**
 
@@ -152,7 +125,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.42
-### Jira SECURITY-1854 
+### No issue
 
 **Fixing SECURITY-1854**
 
@@ -161,7 +134,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.41
-### GitHub #85 
+### No issue
 
 **Fix: JUunit parser tomasbjerre/violations-lib#85**
 
@@ -170,7 +143,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.40
-### GitHub [#26](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/26) NPE (ServiceLocaterUtilities) when commenting MR
+### No issue
 
 **gitlab4j-api 4.12.3 -> 4.14.27 jenkinsci/violation-comments-to-gitlab-plugin#26**
 
@@ -179,7 +152,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.39
-### GitHub #82 
+### No issue
 
 **CPPCheckParser with auto closed <error/> tags tomasbjerre/violations-lib#82**
 
@@ -188,7 +161,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.38
-### GitHub #80 
+### No issue
 
 **Add support for sonar issue report formats >= v7.5 tomasbjerre/violations-lib#80**
 
@@ -206,7 +179,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.36
-### GitHub #79 
+### No issue
 
 **Protolint tomasbjerre/violations-lib#79**
 
@@ -215,16 +188,13 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.35
-### GitHub [#25](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/25) Correcting ReSharper och PyDocStyle
+### No issue
 
 **Merge pull request #25 from jenkinsci/feature/hadolint**
 
  * Correcting ReSharper och PyDocStyle 
 
 [17e2e8d8be75988](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/17e2e8d8be759884d2debbaf95752b56c0089d2f) Tomas Bjerre *2019-10-14 15:44:42*
-
-
-### No issue
 
 **Correcting ReSharper och PyDocStyle**
 
@@ -233,7 +203,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.33
-### GitHub [#23](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/23) Getting null pointer exception on comment
+### No issue
 
 **Avoiding NPE when getting diff_refs #23**
 
@@ -242,24 +212,18 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.32
-### GitHub [#23](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/23) Getting null pointer exception on comment
+### No issue
 
 **Clearer error message when diffRefs null #23**
 
 
 [3318b39fdac0c8b](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/3318b39fdac0c8bf380e5fcbb52a6fc3f254a98f) Tomas Bjerre *2019-10-08 13:51:45*
 
-
-### GitHub [#24](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/24) Use HTTPS URLs in pom.xml
-
 **Merge pull request #24 from daniel-beck-bot/https-urls-pom**
 
  * Use HTTPS URLs in pom.xml 
 
 [8bdfc581d09b037](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/8bdfc581d09b0377736425bb6c9339c05c90f78e) Tomas Bjerre *2019-10-08 11:47:18*
-
-
-### No issue
 
 **Use HTTPS URLs in pom.xml**
 
@@ -282,7 +246,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.30
-### Jira SECURITY-1577 
+### No issue
 
 **Removing raw proxy username/password forcing credentials**
 
@@ -292,7 +256,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.29
-### Jira SECURITY-1577 
+### No issue
 
 **Removing raw API Token and forcing credential**
 
@@ -380,7 +344,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.19
-### GitHub [#20](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/20) Enable/Disable request/response logging
+### No issue
 
 **Allowing logging to be disabled #20**
 
@@ -389,15 +353,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.18
-### GitHub [#17](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/17) Proxy support
+### No issue
 
 **Proxy support #17**
 
 
 [dab372c83a52501](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/dab372c83a52501404fda95a7f995959954219a8) Tomas Bjerre *2019-03-04 17:10:24*
-
-
-### No issue
 
 **Doc**
 
@@ -451,15 +412,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.12
-### GitHub [#1](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/1) Support commenting on the diff
+### No issue
 
 **Support commenting on diff #1**
 
 
 [cf469bb3d8b0e0e](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/cf469bb3d8b0e0e4fd1c661fc82b166eddf1ee9e) Tomas Bjerre *2018-10-07 14:08:52*
-
-
-### No issue
 
 **Automatically stepping dependencies**
 
@@ -487,15 +445,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.10
-### GitHub [#3](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/3) Include in Update Center
+### No issue
 
 **Avoid java-gitlab-api bug to spam logs with exception #3**
 
 
 [1f0bf0afcf93af7](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/1f0bf0afcf93af725a2ba7d630ab66564ee0c612) Tomas Bjerre *2018-09-22 17:03:11*
-
-
-### No issue
 
 **Documenting parsers as a table**
 
@@ -615,14 +570,6 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 2.0
-### GitHub #33 
-
-**NullAway #33**
-
-
-[79786fa2ccb5111](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/79786fa2ccb51113d0226eaec78df98a2dde639d) Tomas Bjerre *2018-04-14 05:16:48*
-
-
 ### No issue
 
 **Changing mergeRequestId to mergeRequestIid**
@@ -632,41 +579,25 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 [5a9db9a63559fc6](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/5a9db9a63559fc6ee134c94b76ebf077eba75198) Tomas Bjerre *2018-04-22 16:53:45*
 
+**NullAway #33**
+
+
+[79786fa2ccb5111](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/79786fa2ccb51113d0226eaec78df98a2dde639d) Tomas Bjerre *2018-04-14 05:16:48*
+
 
 ## 1.28
-### GitHub [#11](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/11) Update Jenkinsfile
-
-**Merge pull request #11 from casz/patch-1**
-
- * Update Jenkinsfile 
-
-[e5d925ef1066d50](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e5d925ef1066d50fcaf00cc0106bc1d4e0dd2db9) Tomas Bjerre *2018-02-24 18:20:26*
-
-
-### GitHub [#12](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/pull/12) Provide item context
-
-**Merge pull request #12 from casz/master**
-
- * Provide item context 
-
-[ebb9a4223c0b6f5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/ebb9a4223c0b6f5652bbe2e05abea2a657575100) Tomas Bjerre *2018-02-27 17:51:56*
-
-
-### Jira patch-1 
-
-**Merge pull request #11 from casz/patch-1**
-
- * Update Jenkinsfile 
-
-[e5d925ef1066d50](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e5d925ef1066d50fcaf00cc0106bc1d4e0dd2db9) Tomas Bjerre *2018-02-24 18:20:26*
-
-
 ### No issue
 
 **Looking for credentials with the id**
 
 
 [13e8e54325c3731](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/13e8e54325c373110e909e6d3e1153ac7eecff70) Tomas Bjerre *2018-02-27 18:09:50*
+
+**Merge pull request #12 from casz/master**
+
+ * Provide item context 
+
+[ebb9a4223c0b6f5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/ebb9a4223c0b6f5652bbe2e05abea2a657575100) Tomas Bjerre *2018-02-27 17:51:56*
 
 **Styles**
 
@@ -698,6 +629,12 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 [2e6d99125a783a0](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/2e6d99125a783a0567177819023ef9d9a38a0c42) Joseph Petersen *2018-02-24 20:03:54*
 
+**Merge pull request #11 from casz/patch-1**
+
+ * Update Jenkinsfile 
+
+[e5d925ef1066d50](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/e5d925ef1066d50fcaf00cc0106bc1d4e0dd2db9) Tomas Bjerre *2018-02-24 18:20:26*
+
 **Update Jenkinsfile**
 
 
@@ -705,7 +642,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 1.27
-### GitHub [#10](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/10) Global config needs to be saved first, or NPE will happen
+### No issue
 
 **Avoid need to save global config before use #10**
 
@@ -810,7 +747,7 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 ## 1.16
-### GitHub [#8](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/issues/8) Could not get GitLab project
+### No issue
 
 **Better error message if project cannot be found #8**
 
@@ -1021,5 +958,14 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 
 
 [5767ae9c726bf18](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/5767ae9c726bf18ad2390130ad21213462b14241) Tomas Bjerre *2017-03-04 09:25:07*
+
+
+## 1.0
+### No issue
+
+**Initial**
+
+
+[1d13e23e39656fb](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/1d13e23e39656fbce215d3cef6bac25cbc1b49ef) Tomas Bjerre *2017-03-03 13:08:31*
 
 
