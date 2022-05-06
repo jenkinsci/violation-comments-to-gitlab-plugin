@@ -5,20 +5,19 @@
 	<parent>
 		<groupId>org.jenkins-ci.plugins</groupId>
 		<artifactId>plugin</artifactId>
-		<version>3.50</version>
+		<version>4.31</version>
 	</parent>
 
 	<properties>
 		<java.level>8</java.level>
-		<jenkins.version>2.1</jenkins.version>
+		<jenkins.version>2.249.3</jenkins.version>
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<violations-maven>1.48</violations-maven>
 		<violation-comments-lib>1.86.4</violation-comments-lib>
-		<violations-lib>1.148.3</violations-lib>
+		<violations-lib>1.149.0</violations-lib>
 		<changelog>1.89</changelog>
 		<fmt>2.9</fmt>
-                <findbugs.failOnError>false</findbugs.failOnError>
 	</properties>
 
 	<artifactId>violation-comments-to-gitlab</artifactId>
@@ -189,28 +188,22 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.25</version>
+			<version>1.7.26</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jenkins-ci.plugins</groupId>
 			<artifactId>credentials</artifactId>
-			<version>2.1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>4.1.6.RELEASE</version>
-			<scope>test</scope>
+			<version>2.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jenkins-ci.plugins</groupId>
 			<artifactId>plain-credentials</artifactId>
-			<version>1.2</version>
+			<version>1.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.spotbugs</groupId>
 			<artifactId>spotbugs-annotations</artifactId>
-			<version>4.2.1</version>
+			<version>4.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>se.bjurr.violations</groupId>
@@ -239,19 +232,25 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 		<dependency>
 			<groupId>org.jenkins-ci.plugins</groupId>
 			<artifactId>structs</artifactId>
-			<version>1.10</version>
+			<version>1.24</version>
 		</dependency>
 
 		<dependency>
 			<groupId>uk.co.jemos.podam</groupId>
 			<artifactId>podam</artifactId>
-			<version>6.0.2.RELEASE</version>
+			<version>7.1.1.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		<groupId>javax.xml.ws</groupId>
+			<artifactId>jaxws-api</artifactId>
+			<version>2.3.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
