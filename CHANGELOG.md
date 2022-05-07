@@ -3,6 +3,16 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**chore: mvnw**
+
+
+[ec65a3e0670b48e](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/ec65a3e0670b48e53f59e8e5b5fd63c3f7f467dc) Tomas Bjerre *2022-05-07 14:21:42*
+
+**chore: stepping versions**
+
+
+[11947c093faa96d](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/11947c093faa96d2dd09566ba4fb5f2aa2d2c0b8) Tomas Bjerre *2022-05-07 14:14:51*
+
 **Merge pull request #34 from falkena/feature/BumpRevisions**
 
  * feat: stepping lib versions 
