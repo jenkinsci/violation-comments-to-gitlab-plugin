@@ -1,12 +1,12 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
-## Unreleased
+## 2.54
 ### No issue
 
 **chore: mvnw**
 
 
-[ec65a3e0670b48e](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/ec65a3e0670b48e53f59e8e5b5fd63c3f7f467dc) Tomas Bjerre *2022-05-07 14:21:42*
+[518cee6c4b580c0](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/518cee6c4b580c0be02ab787336564c195346f31) Tomas Bjerre *2022-05-07 14:23:40*
 
 **chore: stepping versions**
 
