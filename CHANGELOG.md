@@ -1,5 +1,25 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## Unreleased
+### No issue
+
+**Merge pull request #34 from falkena/feature/BumpRevisions**
+
+ * feat: stepping lib versions 
+
+[5df3715aee1cf75](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/5df3715aee1cf75899ef30fba18b5e0dd003ef99) Tomas Bjerre *2022-05-07 14:08:18*
+
+**feat: Introduce Java-11 builds.**
+
+
+[ddc56e838c169b2](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/ddc56e838c169b2358ff38fb1bd84059e830b953) Alexander Falkenstern *2022-05-06 05:12:33*
+
+**feat: stepping lib versions**
+
+
+[917e2a71a4649e8](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/917e2a71a4649e84fff4a2297335d48bf1fce540) Alexander Falkenstern *2022-05-06 04:47:59*
+
+
 ## 2.53
 ### No issue
 
