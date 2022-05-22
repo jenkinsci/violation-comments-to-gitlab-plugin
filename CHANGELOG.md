@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.55
+### No issue
+
+**feat: favoring mardown from sarif reports**
+
+
+[6c76ec93f72e47a](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/6c76ec93f72e47a97fcf004fb6bab009a36add7b) Tomas Bjerre *2022-05-22 09:35:41*
+
+
 ## 2.54
 ### No issue
 
