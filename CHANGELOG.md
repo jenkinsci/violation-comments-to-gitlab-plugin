@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.56
+### No issue
+
+**feat: ansible-later parser**
+
+
+[80017793bc5b6f2](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/80017793bc5b6f2de23b843590a7bb45b454b39e) Tomas Bjerre *2023-01-16 17:53:39*
+
+
 ## 2.55
 ### No issue
 
