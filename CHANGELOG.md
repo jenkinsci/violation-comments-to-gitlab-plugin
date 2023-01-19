@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.57
+### No issue
+
+**feat: semgrep parser**
+
+
+[36eb090ee8006ad](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/36eb090ee8006ad537757f75d88e0a073ecb1250) Tomas Bjerre *2023-01-19 16:41:25*
+
+
 ## 2.56
 ### No issue
 
