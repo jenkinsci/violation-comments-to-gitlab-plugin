@@ -1,5 +1,14 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.58
+### No issue
+
+**feat: replacing Mustache with Handlebars**
+
+
+[38dfaab0af02e11](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/38dfaab0af02e11907367625e5203afd5a848283) Tomas Bjerre *2023-03-11 09:10:22*
+
+
 ## 2.57
 ### No issue
 
