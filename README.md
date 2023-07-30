@@ -3,6 +3,8 @@
 
 This is a Jenkins plugin for [Violation Comments to GitLab Lib](https://github.com/tomasbjerre/violation-comments-to-gitlab-lib). This plugin will find report files from static code analysis and comment GitLab pull requests with the content.
 
+An alternative is also to have [violations-command-line](https://github.com/tomasbjerre/violations-command-line) convert the violations to `CodeClimate` format and upload that to GitLab. It is explained in readme of [violations-command-line](https://github.com/tomasbjerre/violations-command-line).
+
 Available in Jenkins [here](https://wiki.jenkins-ci.org/display/JENKINS/Violation+Comments+to+GitLab+Plugin).
 
 Example of supported reports are available [here](https://github.com/tomasbjerre/violations-lib/tree/master/src/test/resources).
