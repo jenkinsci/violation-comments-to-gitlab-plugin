@@ -1,5 +1,19 @@
 # Violation Comments to GitLab changelog
 Changelog of Violation Comments to GitLab plugin for Jenkins.
+## 2.60
+### No issue
+
+**fix: allow MSBuild in Program Files (x86) and support NU1701**
+
+
+[7a83889a9c76ff7](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/7a83889a9c76ff723b7616a7aa4bac09342804e0) Tomas Bjerre *2023-09-17 08:26:02*
+
+**Update README.md**
+
+
+[26a7ec15e1bba63](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/26a7ec15e1bba6395f68424338170d95c236c1fc) Tomas Bjerre *2023-07-30 19:51:26*
+
+
 ## 2.59
 ### No issue
 
