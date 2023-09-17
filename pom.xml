@@ -13,10 +13,10 @@
 		<jenkins.version>2.249.3</jenkins.version>
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
-		<violations-maven>1.50.7</violations-maven>
+		<violations-maven>1.50.8</violations-maven>
 		<violation-comments-lib>1.87.0</violation-comments-lib>
-		<violations-lib>1.156.3</violations-lib>
-		<changelog>1.96.1</changelog>
+		<violations-lib>1.156.6</violations-lib>
+		<changelog>1.99.0</changelog>
 		<fmt>2.9</fmt>
 	</properties>
 
