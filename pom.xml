@@ -20,7 +20,7 @@
 	</properties>
 
 	<artifactId>violation-comments-to-gitlab</artifactId>
-	<version>2.61</version>
+	<version>2.62-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 	<name>Violation Comments to GitLab Plugin</name>
 	<url>https://github.com/jenkinsci/violation-comments-to-gitlab-plugin</url>
