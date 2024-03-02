@@ -87,57 +87,10 @@
 				<groupId>se.bjurr.gitchangelog</groupId>
 				<artifactId>git-changelog-maven-plugin</artifactId>
 				<version>${changelog}</version>
-				<executions>
-					<execution>
-						<id>GenerateGitChangelog</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>git-changelog</goal>
-						</goals>
-						<configuration>
-						<ignoreCommitsIfMessageMatches>^\[maven-release-plugin\].*</ignoreCommitsIfMessageMatches>
-							<filePath>CHANGELOG.md</filePath>
-							<readableTagName>-([^-]+?)$</readableTagName>
-							<gitHubApi>https://api.github.com/repos/jenkinsci/violation-comments-to-gitlab-plugin</gitHubApi>
-							<gitHubToken>${GITHUB_OAUTH2TOKEN}</gitHubToken><!-- Optional // -->
-							<gitHubIssuePattern>#([0-9]*)</gitHubIssuePattern>
-							<templateContent>
-<![CDATA[
-# Violation Comments to GitLab changelog
-Changelog of Violation Comments to GitLab plugin for Jenkins.
-{{#tags}}
-## {{name}}
- {{#issues}}
-  {{#hasIssue}}
-   {{#hasLink}}
-### {{name}} [{{issue}}]({{link}}) {{title}}
-   {{/hasLink}}
-   {{^hasLink}}
-### {{name}} {{issue}} {{title}}
-   {{/hasLink}}
-  {{/hasIssue}}
-  {{^hasIssue}}
-### {{name}}
-  {{/hasIssue}}
-
-  {{#commits}}
-**{{{messageTitle}}}**
-
-{{#messageBodyItems}}
- * {{.}} 
-{{/messageBodyItems}}
-
-[{{hash}}](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/{{hashFull}}) {{authorName}} *{{commitTime}}*
-
-  {{/commits}}
-
- {{/issues}}
-{{/tags}}
-]]>
-							</templateContent>
-						</configuration>
-					</execution>
-				</executions>
+				<configuration>
+					<readableTagName>-([^-]+?)$</readableTagName>
+					<ignoreCommitsIfMessageMatches>^\[maven-release-plugin\].*</ignoreCommitsIfMessageMatches>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.coveo</groupId>
