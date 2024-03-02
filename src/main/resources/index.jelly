@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+Finds violations reported by code analyzers and comments GitLab merge requests with them.
+</div>

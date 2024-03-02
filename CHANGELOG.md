@@ -3,6 +3,11 @@ Changelog of Violation Comments to GitLab plugin for Jenkins.
 ## Unreleased
 ### No issue
 
+**docs**
+
+
+[cf110ddb313745f](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/cf110ddb313745f802b703fec988b675beb01161) Tomas Bjerre *2024-03-02 07:47:36*
+
 **fix: stepping client to gitlab4j-api:5.5.0**
 
 
