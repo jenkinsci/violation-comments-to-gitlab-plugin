@@ -5,18 +5,17 @@
 	<parent>
 		<groupId>org.jenkins-ci.plugins</groupId>
 		<artifactId>plugin</artifactId>
-		<version>4.31</version>
+		<version>4.74</version>
 	</parent>
 
 	<properties>
-		<java.level>8</java.level>
-		<jenkins.version>2.249.3</jenkins.version>
+		<jenkins.version>2.361.4</jenkins.version>
 		<findbugs.failOnError>false</findbugs.failOnError>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
-		<violations-maven>1.50.8</violations-maven>
-		<violation-comments-lib>1.87.0</violation-comments-lib>
-		<violations-lib>1.156.6</violations-lib>
-		<changelog>1.99.0</changelog>
+		<violations-maven>2.0.0</violations-maven>
+		<violation-comments-lib>1.88.0</violation-comments-lib>
+		<violations-lib>1.156.7</violations-lib>
+		<changelog>2.1.0</changelog>
 		<fmt>2.9</fmt>
 	</properties>
 

@@ -101,8 +101,8 @@ A number of **parsers** have been implemented. Some **parsers** can parse output
 Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations-lib/issues)!
 
 There is also:
- * A [Gradle plugin](https://github.com/tomasbjerre/violation-comments-to-gitlab-gradle-plugin).
- * A [Maven plugin](https://github.com/tomasbjerre/violation-comments-to-gitlab-maven-plugin).
+ * [violation-comments-to-gitlab-command-line](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line).
+ * [violations-command-line](https://github.com/tomasbjerre/violations-command-line), can transform reports to `CodeClimate`.
 
 ## Notify Jenkins from GitLab
 
@@ -531,6 +531,10 @@ node {
  }
 }
 ```
+
+# Encoding
+
+The `commentTemplate` parameter can be used to fix encoding problems, or just adjust what is being commented. [See README in violation-comments-lib](https://github.com/tomasbjerre/violation-comments-lib).
 
 # Plugin development
 More details on Jenkins plugin development is available [here](https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial).

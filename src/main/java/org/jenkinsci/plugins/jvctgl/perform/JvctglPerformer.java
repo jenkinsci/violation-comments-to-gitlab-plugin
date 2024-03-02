@@ -3,7 +3,19 @@ package org.jenkinsci.plugins.jvctgl.perform;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static java.util.logging.Level.SEVERE;
-import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.*;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENCREDENTIALSID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_APITOKENPRIVATE;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_AUTHMETHODHEADER;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_COMMENTONLYCHANGEDCONTENT;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_COMMENTONLYCHANGEDCONTENTCONTEXT;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_CREATECOMMENTWITHALLSINGLEFILECOMMENTS;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_GITLABURL;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_IGNORECERTIFICATEERRORS;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_KEEP_OLD_COMMENTS;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MERGEREQUESTIID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_MINSEVERITY;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_PROJECTID;
+import static org.jenkinsci.plugins.jvctgl.config.ViolationsToGitLabConfigHelper.FIELD_SHOULD_SET_WIP;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 
@@ -122,7 +134,7 @@ public class JvctglPerformer {
     try {
       final TokenType tokenType =
           config.getApiTokenPrivate() ? TokenType.PRIVATE : TokenType.ACCESS;
-      final Integer mergeRequestIidInteger = Integer.parseInt(mergeRequestIid);
+      final Long mergeRequestIidInteger = Long.parseLong(mergeRequestIid);
       final boolean shouldKeepOldComments = config.getKeepOldComments();
       final boolean shouldSetWIP = config.getShouldSetWip();
       final String commentTemplate = config.getCommentTemplate();
@@ -219,7 +231,7 @@ public class JvctglPerformer {
       listener.getLogger().println("---");
       listener.getLogger().println("--- Violation Comments to GitLab ---");
       listener.getLogger().println("---");
-      logConfiguration(configExpanded, build, listener);
+      logConfiguration(configExpanded, listener);
 
       final Optional<StringCredentials> apiTokenCredentials =
           CredentialsHelper.findApiTokenCredentials(
@@ -271,7 +283,7 @@ public class JvctglPerformer {
   }
 
   private static void logConfiguration(
-      final ViolationsToGitLabConfig config, final Run<?, ?> build, final TaskListener listener) {
+      final ViolationsToGitLabConfig config, final TaskListener listener) {
     final PrintStream logger = listener.getLogger();
     logger.println(FIELD_GITLABURL + ": " + config.getGitLabUrl());
     logger.println(FIELD_PROJECTID + ": " + config.getProjectId());
