@@ -2,6 +2,12 @@
 
 Changelog of violation-comments-to-gitlab-plugin.
 
+## 2.62.0 (2024-03-24)
+
+### Features
+
+-  coverity ([70ec5](https://github.com/jenkinsci/violation-comments-to-gitlab-plugin/commit/70ec557513b4057) Tomas Bjerre)  
+
 ## 2.61.1 (2024-03-02)
 
 ### Other changes
